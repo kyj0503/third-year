@@ -29,5 +29,5 @@ import AppComp09 from "./src/AppComp09";
 import AppComp10 from "./src/AppComp10";
 
 export default function App() {
-    return <AppComp07 />
+    return <AppComp09 />
 }
