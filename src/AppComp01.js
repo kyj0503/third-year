@@ -1,14 +1,14 @@
 import {View, Text, StyleSheet, StatusBar, Button} from 'react-native';
-import MyButton from './components/MyButton2';
+import MyButton from './components/MyButton1';
 
-//props 기본
-export default function AppComp02() {
+//Custom button - Pressable
+export default function AppComp01() {
 
     return(<View style={ styles.container}>
 
-      <Text style={styles.text}>MyButton - Props Basic</Text>
+      <Text style={styles.text}>MyButton - Pressable Button</Text>
       
-      <MyButton title='Button'/>
+      <MyButton />
       
       <StatusBar style='auto' />
 
