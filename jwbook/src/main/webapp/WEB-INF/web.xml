@@ -19,4 +19,24 @@
     <servlet-name>CalcServlet</servlet-name>
     <url-pattern>/CalcServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>QueryTestServlet</display-name>
+    <servlet-name>QueryTestServlet</servlet-name>
+    <servlet-class>ch06.QueryTestServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QueryTestServlet</servlet-name>
+    <url-pattern>/QueryTestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GBBServlet</display-name>
+    <servlet-name>GBBServlet</servlet-name>
+    <servlet-class>ch06.GBBServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GBBServlet</servlet-name>
+    <url-pattern>/GBBServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
