@@ -35,27 +35,27 @@ export default function AppStyle05() {
         padding: 10px;
     `;
 
-    //ErrorText컴포넌트는 StyledText컴포넌트의 스타일을 그대로 상속받은 채로 font-weight: 600; color: red인  Component
-    const ErrorTextComponent = 
+    // //ErrorText컴포넌트는 StyledText컴포넌트의 스타일을 그대로 상속받은 채로 font-weight: 600; color: red인  Component
+    // const ErrorTextComponent = 
 
 
 
     
 
-    return <View style={styles.container}>
-        <View>
-            <MyTextComponent>My Text Component!</MyTextComponent>
-        </View>
-        <View style={{ backgroundColor: 'black' }}>            
-            <MyBoldTextComponent>MyBoldTextComponent text!</MyBoldTextComponent>
-            <MyLightTextComponent>MyLightTextComponent text!</MyLightTextComponent>
-        </View>
-        <View>
-            <StyledTextComponent>StyledTextComponent text!</StyledTextComponent>
-            <ErrorTextComponent>Error</ErrorTextComponent>
-        </View>
-        <StatusBar style="auto" />
-    </View>
+    // return <View style={styles.container}>
+    //     <View>
+    //         <MyTextComponent>My Text Component!</MyTextComponent>
+    //     </View>
+    //     <View style={{ backgroundColor: 'black' }}>            
+    //         <MyBoldTextComponent>MyBoldTextComponent text!</MyBoldTextComponent>
+    //         <MyLightTextComponent>MyLightTextComponent text!</MyLightTextComponent>
+    //     </View>
+    //     <View>
+    //         <StyledTextComponent>StyledTextComponent text!</StyledTextComponent>
+    //         <ErrorTextComponent>Error</ErrorTextComponent>
+    //     </View>
+    //     <StatusBar style="auto" />
+    // </View>
 }
 
 const styles = StyleSheet.create({
