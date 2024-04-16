@@ -102,6 +102,7 @@ export default function App() {
 */
 
 // week6 App.js
+/*
 //Styled Component 사용법 - example1
 import AppStyle05 from "./week6/AppStyle05";
 
@@ -128,6 +129,40 @@ import AppStyle12 from "./week6/AppStyle12";
 
 //ThemaProvider 스타일2 - light, dark
 import AppStyle13 from "./week6/AppStyle13";
+
+export default function App() {
+  return (
+    <AppStyle13 />    
+  );
+}
+*/
+
+//Styled Component 사용법 - example1
+import AppStyle05 from "./week7/AppStyle05";
+
+//스타일 적용하기 - example2(Button, Container)
+import AppStyle06 from "./week7/AppStyle06";
+
+//Styled 적용 - react native style sheet 사용
+import AppStyle07 from "./week7/AppStyle07";
+
+//버튼 배경색 바꾸기(native stylesheet사용)
+import AppStyle08 from "./week7/AppStyle08";
+
+//버튼 배경색 바꾸기(styled component 사용, props)
+import AppStyle09 from "./week7/AppStyle09";
+
+//InputTextComponent without attribute
+import AppStyle10 from "./week7/AppStyle10";
+
+//InputTextComponent with attribute
+import AppStyle11 from "./week7/AppStyle11";
+
+//ThemeProvider 스타일 - purple, blue
+import AppStyle12 from "./week7/AppStyle12";
+
+//ThemaProvider 스타일2 - light, dark
+import AppStyle13 from "./week7/AppStyle13";
 
 export default function App() {
   return (
