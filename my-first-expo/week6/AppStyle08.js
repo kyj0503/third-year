@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
     }
 });
 
-const Button = props => {
-    return<TouchableOpacity 
+// const Button = props => {
+//     return<TouchableOpacity 
    
-        <Text style={styles.title}>{props.title}</Text>
-    </TouchableOpacity>
-}
+//         <Text style={styles.title}>{props.title}</Text>
+//     </TouchableOpacity>
+// }
 
 export default function AppStyle08() {
 
