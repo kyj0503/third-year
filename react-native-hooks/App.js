@@ -16,8 +16,12 @@ import AppHook05 from "./src/AppHook05";
 //useRef 
 import AppHook06 from "./src/AppHook06";
 
+//userMemo
+import AppHook08_1 from "./src/AppHook08_1";
+import AppHook08_2 from "./src/AppHook08_2";
+
 export default function App() {
   return(
-      <AppHook06 />
+      <AppHook08_1 />
   );
 }
