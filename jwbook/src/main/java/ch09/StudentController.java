@@ -2,9 +2,10 @@ package ch09;
 
 import java.io.IOException;
 
+import org.apache.commons.beanutils.Beanutils;
+
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +17,6 @@ public class StudentController {
 	StudentDAO dao;
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		
 		dao = new StudentDAO();
 	}
 	
@@ -36,11 +36,19 @@ public class StudentController {
 	}
 
 	public String list(HttpServletRequest request, HttpServletResponse response) {
-		return "";
+		request.setAttribute("students", dao.getAll());
+		return "studentInfo.jsp";
 	}
 	
 	public String insert(HttpServletRequest request, HttpServletResponse response) {
-		return "";
+		Student s = new Student();
+		try {
+			Beanutils.populate(s, request.getParameterMap());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		dao.insert(s);
+		return list(request, response);
 	}
 
 }
