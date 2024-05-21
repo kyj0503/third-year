@@ -23,26 +23,33 @@ public class StudentDAO {
 	}
 	
 	public void close() {
-		try {
-			pstmt.close();
-			conn.close();
-		} catch (SQLException e) { e.printStackTrace(); }
+	    try {
+	        if (pstmt != null) {
+	            pstmt.close();
+	        }
+	        if (conn != null) {
+	            conn.close();
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	public void insert(Student s) {
-		open();
-		String sql = "INSERT INTO student(username, univ, birth, email values(?,?,?,?)";
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, s.getUsername());
-			pstmt.setString(2, s.getUniv());
-			pstmt.setDate(3, s.getBirth());
-			pstmt.setString(4, s.getEmail());
-			
-			pstmt.executeUpdate();
-		} catch(Exception e) { e.printStackTrace(); }
-		  finally { close(); }
+	    open(); // 여기서 open() 메서드 호출
+	    String sql = "INSERT INTO student(username, univ, birth, email) values(?,?,?,?)";
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, s.getUsername());
+	        pstmt.setString(2, s.getUniv());
+	        pstmt.setDate(3, s.getBirth());
+	        pstmt.setString(4, s.getEmail());
+	        pstmt.executeUpdate();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        close();
+	    }
 	}
 	
 	public List<Student> getAll() {
@@ -66,6 +73,20 @@ public class StudentDAO {
 		} catch (Exception e) { e.printStackTrace(); }
 		  finally { close(); }
 		return students;
+	}
+	
+	// 학생 삭제
+	public void delete(int id) throws SQLException {
+		open();
+		String sql = "DELETE FROM student where id=?";
+		
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, id);
+		if(pstmt.executeUpdate() == 0) {
+			throw new SQLException("DB 에러");
+		};
+		
+		close();
 	}
 }
 	
