@@ -35,4 +35,3 @@ export function getFormattedDate(date = new Date()) {
       baseTime: closestBaseTime
     };
   }
-  
