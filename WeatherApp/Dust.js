@@ -26,7 +26,7 @@ export default function Dust() {
               returnType: 'json',
               numOfRows: 100,
               pageNo: 1,
-              stationName: '송파구',    // 지역 입력받기 구현해야 함
+              stationName: '송파구',    // station_list.xls 에서 측정소명 쭉 긁은다음 거기서 선택하는걸로 만들어야함.
               dataTerm: 'DAILY',
               ver: '1.0',
             },

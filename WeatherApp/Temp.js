@@ -6,7 +6,7 @@ import { getClosestBaseTime, getFormattedDate, getKoreanTime } from './Time';
 
 const baseTimes = ['0200', '0500', '0800', '1100', '1400', '1700', '2000', '2300'];
 
-export default function Temp() {
+export default function Temp({userNx, userNy}) {
   const [weather, setWeather] = useState({ minTemp: null, maxTemp: null });
 
   useEffect(() => {
@@ -23,8 +23,8 @@ export default function Temp() {
               dataType: 'XML',
               base_date: baseDate,
               base_time: baseTime,
-              nx: 55, // 사용자한테 입력받기
-              ny: 127, // 사용자한테 입력받기
+              nx: userNx,
+              ny: userNy,
             },
           }
         );
