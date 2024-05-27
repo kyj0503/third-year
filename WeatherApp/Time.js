@@ -1,11 +1,14 @@
 export function getFormattedDate(date = new Date()) {
-    return date.toISOString().slice(0, 10).replace(/-/g, '');
+    const formattedDate = date.toISOString().slice(0, 10).replace(/-/g, '');
+    console.log(`Formatted Date: ${formattedDate}`);
+    return formattedDate;
   }
   
   export function getKoreanTime() {
     const now = new Date();
     const koreanTimeOffset = 9 * 60; // 9 hours in minutes
     now.setMinutes(now.getMinutes() + koreanTimeOffset);
+    console.log(`Korean Time: ${now.toISOString()}`);
     return now;
   }
   
@@ -23,8 +26,12 @@ export function getFormattedDate(date = new Date()) {
       }
     }
   
+    console.log(`Closest Base Time: ${closestBaseTime}`);
+  
+    const baseDate = getFormattedDate(now);
+  
     return {
-      baseDate: getFormattedDate(now),
+      baseDate,
       baseTime: closestBaseTime
     };
   }
