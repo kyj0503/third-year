@@ -2,60 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import axios from 'axios';
 import { parseString } from 'react-native-xml2js';
+import { getClosestBaseTime, getFormattedDate, getKoreanTime } from './Time';
 
 const baseTimes = ['0200', '0500', '0800', '1100', '1400', '1700', '2000', '2300'];
-
-function getFormattedDate(date = new Date()) {
-  return date.toISOString().slice(0, 10).replace(/-/g, '');
-}
-
-function getKoreanTime() {
-  const now = new Date();
-  const koreanTimeOffset = 9 * 60; // 9 hours in minutes
-  now.setMinutes(now.getMinutes() + koreanTimeOffset);
-  return now;
-}
-
-function getClosestBaseTime() {
-  const now = getKoreanTime();
-  const currentHour = now.getUTCHours();
-  const currentMinute = now.getUTCMinutes();
-
-  console.log(`Current KST Time: ${now.toISOString()}`);
-  console.log(`Current Hour: ${currentHour}, Current Minute: ${currentMinute}`);
-
-  let closestBaseTime = '0200';
-  let closestBaseTimeDate = new Date();
-
-  for (let i = baseTimes.length - 1; i >= 0; i--) {
-    const baseHour = parseInt(baseTimes[i].substring(0, 2), 10);
-    if (currentHour > baseHour || (currentHour === baseHour && currentMinute >= 0)) {
-      closestBaseTime = baseTimes[i];
-      break;
-    }
-    closestBaseTimeDate.setUTCHours(baseHour);
-  }
-
-  if (closestBaseTimeDate.getUTCHours() > currentHour) {
-    closestBaseTimeDate.setUTCDate(now.getUTCDate() - 1);
-  }
-
-  console.log(`Closest Base Time: ${closestBaseTime}`);
-  console.log(`Closest Base Date: ${closestBaseTimeDate.toISOString()}`);
-
-  return {
-    baseDate: getFormattedDate(closestBaseTimeDate),
-    baseTime: closestBaseTime
-  };
-}
 
 export default function Temp() {
   const [weather, setWeather] = useState({ minTemp: null, maxTemp: null });
 
   useEffect(() => {
     const fetchWeather = async () => {
-      const { baseDate, baseTime } = getClosestBaseTime();
-      console.log(`Using Base Date: ${baseDate}, Base Time: ${baseTime}`);
+      const { baseDate, baseTime } = getClosestBaseTime(baseTimes);
 
       try {
         const { data } = await axios.get(

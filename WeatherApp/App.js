@@ -7,7 +7,6 @@ import Weather from './Weather';
 export default function App() {
   return (
     <View>
-      <Weather userNx={61} userNy={120} />
       <Temp />
       <Dust />
     </View>
