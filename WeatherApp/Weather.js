@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import axios from 'axios';
-import { parseString } from 'react-native-xml2js';
 
 export default function Weather({userNx, userNy}) {
-  const [weather, setWeather] = useState({ rainPerc: null, rainType: null, rainAmount: null, skyType: null });
+  // const [weather, setWeather] = useState({ fcstDate: null, fcstTime: null, rainPerc: null, rainType: null, rainAmount: null, skyType: null });
+  const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
     const today = new Date();
-    const dateString = `${today.getFullYear()}${today.getMonth()+1}${today.getDate()}`;
-    var timeString;
+    var dateString = null;
+    var timeString = null;
+    var dataList = [];
 
     for (let i = 23; i >= 2; i-=3) {
-        if(today.getHours >= i) {
-            timeString = i;
-        }
+      if(today.getHours() >= i) {
+          timeString = i;
+          break;
+      }
     }
 
-    if(timeString > 10) {
-        timeString = `${timeString}00`;
+    if(timeString == null) {
+      timeString = "2300";
+      dateString = `${today.getFullYear()}0${today.getMonth()+1}${today.getDate()-1}`;
     } else {
+
+      if(timeString > 10) {
+        timeString = `${timeString}00`;
+      } else {
         timeString = `0${timeString}00`;
+      }
+
+      dateString = `${today.getFullYear()}0${today.getMonth()+1}${today.getDate()}`;
     }
+
 
     console.log(dateString);
     console.log(timeString);
@@ -34,7 +45,7 @@ export default function Weather({userNx, userNy}) {
           'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst', {
             params: {
               serviceKey: 'V7RZpsZ3goxaM6p+ssykmuOrRrMqJhojqMa6GbYCOaXRdFV1vKburVUVbFUdARFRk+T9TfQpIyigFlRblBFwDA==',
-              numOfRows: 500,
+              numOfRows: 1000,
               pageNo: 1,
               dataType: 'JSON',
               base_date: dateString, // 당일날짜 불러오기
@@ -45,62 +56,49 @@ export default function Weather({userNx, userNy}) {
           }
         );
 
-        parseString(data, (err, result) => {
-          if (err) {
-            console.error(err);
-          } else {
-            const items = result.response.body.items.item[0];
-            let rainPerc = null;
-            let rainType = null;
-            let rainAmount = null;
-            let skyType = null;
-            
-            // items.forEach(item => {
-            //   const category = item.category;
-            //   const fcstValue = parseInt(item.fcstValue);
-            //   if (category === 'POP') {
-            //     rainPerc = fcstValue;
-            //   } else if (category === 'PTY') {
-            //     rainType = fcstValue;
-            //   } else if (category === 'PCP') {
-            //     rainAmount = fcstValue;
-            //   } else if (category === 'SKY') {
-            //     skyType = fcstValue;
-            //   }
-            // });
+        // data = data.replace('\ufeff', '');
 
-            const category = items.category;
-            const fcstValue = items.fcstValue;
-            if (category === 'POP') {
-                rainPerc = fcstValue;
-              } else if (category === 'PTY') {
-                rainType = fcstValue;
-              } else if (category === 'PCP') {
-                rainAmount = fcstValue;
-              } else if (category === 'SKY') {
-                skyType = fcstValue;
-              }
+        const items = data.response.body.items.item;
+        let rainPerc = null;
+        let rainType = null;
+        let rainAmount = null;
+        let skyType = null;
+        let fcstDate = null;
+        let fcstTime = null;
+        
+        items.forEach(item => {
+          const category = item.category;
+          const fcstValue = item.fcstValue;
 
+          if (category === 'POP') {
+            rainPerc = fcstValue;
+          } else if (category === 'PTY') {
+            rainType = fcstValue;
 
             switch (parseInt(rainType)) {
-                case 0:
-                    rainType = "없음";
-                    break;
-                case 1:
-                    rainType = "비";
-                    break;
-                case 2:
-                    rainType = "비/눈";
-                    break;
-                case 3:
-                    rainType = "눈";
-                    break;
-                case 4:
-                    rainType = "소나기";
-                    break;
+              case 0:
+                  rainType = "없음";
+                  break;
+              case 1:
+                  rainType = "비";
+                  break;
+              case 2:
+                  rainType = "비/눈";
+                  break;
+              case 3:
+                  rainType = "눈";
+                  break;
+              case 4:
+                  rainType = "소나기";
+                  break;
             }
+          } else if (category === 'PCP') {
+            rainAmount = fcstValue;
+          } else if (category === 'SKY') {
+            
+            skyType = fcstValue;
 
-            skyTypeCode = parseInt(skyType);
+            var skyTypeCode = parseInt(skyType);
 
             if(skyTypeCode >= 0 && skyTypeCode <= 5) {
                 skyType = "맑음";
@@ -109,10 +107,51 @@ export default function Weather({userNx, userNy}) {
             }else if(skyTypeCode >= 9 && skyTypeCode <= 10) {
                 skyType = "흐림";
             }
+          }
 
-            setWeather({ rainPerc, rainType, rainAmount, skyType });
+          if(items.indexOf(item) % 12 == 11) {
+
+            fcstDate = item.fcstDate;
+            fcstTime = item.fcstTime;
+
+            var sampleData = {
+              "id": `${fcstDate}${fcstTime}`,
+              "fcstDate" : fcstDate,
+              "fcstTime" : fcstTime,
+              "rainPerc" : rainPerc,
+              "rainType" : rainType,
+              "rainAmount" : rainAmount,
+              "skyType" : skyType
+            };
+  
+            dataList.push(sampleData);
           }
         });
+
+        // const category = items.category;
+        // const fcstValue = items.fcstValue;
+        // if (category === 'POP') {
+        //     rainPerc = fcstValue;
+        //   } else if (category === 'PTY') {
+        //     rainType = fcstValue;
+        //   } else if (category === 'PCP') {
+        //     rainAmount = fcstValue;
+        //   } else if (category === 'SKY') {
+        //     skyType = fcstValue;
+        //   }
+        
+
+        console.log(rainPerc);
+
+        // 디버깅용
+        dataList.forEach(data => {
+          console.log(`Date: ${data.fcstDate}, Time: ${data.fcstTime}, Rain Probability: ${data.rainPerc}%, Rain Type: ${data.rainType}, Rain Amount: ${data.rainAmount}mm, Sky: ${data.skyType}`);
+        });
+        
+        // setWeather({ fcstDate, fcstTime, rainPerc, rainType, rainAmount, skyType });
+        setDataList(dataList);
+      
+
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
@@ -121,12 +160,40 @@ export default function Weather({userNx, userNy}) {
     fetchWeather();
   }, []);
 
+  console.log(dataList);
+
+  renderItem  = ({item}) => {
+    return (<View style={{width: 200, borderColor: "#0000ff", borderWidth: 1, padding: 10, marginVertical: 10}}>
+      <Text>날짜: {item.fcstDate}</Text>
+      <Text>시간: {item.fcstTime}</Text>
+      <Text>강수확률: {item.rainPerc}%</Text>
+      <Text>강수형태: {item.rainType}</Text>
+      <Text>강수량: {item.rainAmount}mm</Text>
+      <Text>하늘: {item.skyType}</Text>
+    </View>)
+  }
+
   return (
-    <View>
-      <Text>강수확률: {weather.rainPerc}%</Text>
-      <Text>강수형태: {weather.rainType}</Text>
-      <Text>강수량: {weather.rainAmount}mm</Text>
-      <Text>하늘: {weather.rainType}</Text>
+    <View style={{width: 300, borderColor: "#ff0000", borderWidth: 1, alignItems: 'center'}}>
+      <FlatList 
+        data={dataList}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id} />
     </View>
+    // <SafeAreaView>
+    //   <Text>날짜: {weather.fcstDate}</Text>
+    //   <Text>시간: {weather.fcstTime}</Text>
+    //   <Text>강수확률: {weather.rainPerc}%</Text>
+    //   <Text>강수형태: {weather.rainType}</Text>
+    //   <Text>강수량: {weather.rainAmount}mm</Text>
+    //   <Text>하늘: {weather.skyType}</Text>
+    //   <View style={{height: 10}}></View>
+    //   <Text>날짜: {weather.fcstDate}</Text>
+    //   <Text>시간: {weather.fcstTime}</Text>
+    //   <Text>강수확률: {weather.rainPerc}%</Text>
+    //   <Text>강수형태: {weather.rainType}</Text>
+    //   <Text>강수량: {weather.rainAmount}mm</Text>
+    //   <Text>하늘: {weather.skyType}</Text>
+    // </SafeAreaView>
   );
 }

@@ -1,70 +1,91 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import axios from 'axios';
-import { parseString } from 'react-native-xml2js';
-import { getClosestBaseTime, getFormattedDate, getKoreanTime } from './Time';
 
-const baseTimes = ['0200', '0500', '0800', '1100', '1400', '1700', '2000', '2300'];
-
-export default function Temp({ userNx, userNy }) {
-  const [weather, setWeather] = useState([]);
+export default function Weather({ userNx, userNy }) {
+  const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    const fetchWeather = async () => {
-      const { baseDate, baseTime } = getClosestBaseTime(baseTimes);
+    const today = new Date();
+    let dateString = null;
+    let timeString = null;
+    let dataList = [];
 
+    for (let i = 23; i >= 2; i -= 3) {
+      if (today.getHours() >= i) {
+        timeString = i;
+        break;
+      }
+    }
+
+    if (timeString == null) {
+      timeString = "2300";
+      dateString = `${today.getFullYear()}0${today.getMonth() + 1}${today.getDate() - 1}`;
+    } else {
+      timeString = timeString > 10 ? `${timeString}00` : `0${timeString}00`;
+      dateString = `${today.getFullYear()}0${today.getMonth() + 1}${today.getDate()}`;
+    }
+
+    const fetchWeather = async () => {
       try {
         const { data } = await axios.get(
           'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst', {
             params: {
               serviceKey: 'V7RZpsZ3goxaM6p+ssykmuOrRrMqJhojqMa6GbYCOaXRdFV1vKburVUVbFUdARFRk+T9TfQpIyigFlRblBFwDA==',
-              numOfRows: 500,
+              numOfRows: 1000,
               pageNo: 1,
-              dataType: 'XML',
-              base_date: baseDate,
-              base_time: baseTime,
+              dataType: 'JSON',
+              base_date: dateString,
+              base_time: timeString,
               nx: userNx,
               ny: userNy,
             },
           }
         );
 
-        parseString(data, (err, result) => {
-          if (err) {
-            console.error(err);
-          } else {
-            const items = result.response.body[0].items[0].item;
-            const weatherData = {};
+        const items = data.response.body.items.item;
+        let tmp = null;
+        let tmn = null;
+        let tmx = null;
+        let fcstDate = null;
+        let fcstTime = null;
 
-            items.forEach(item => {
-              const category = item.category[0];
-              const fcstDate = item.fcstDate[0];
-              const fcstTime = item.fcstTime[0];
-              const fcstValue = parseFloat(item.fcstValue[0]);
+        items.forEach(item => {
+          const category = item.category;
+          const fcstValue = item.fcstValue;
 
-              if (!weatherData[fcstDate]) {
-                weatherData[fcstDate] = { minTemp: Infinity, maxTemp: -Infinity, times: {} };
-              }
+          if (category === 'TMP') {
+            tmp = fcstValue;
+          } else if (category === 'TMN') {
+            tmn = fcstValue;
+          } else if (category === 'TMX') {
+            tmx = fcstValue;
+          }
 
-              if (category === 'TMN') {
-                weatherData[fcstDate].minTemp = Math.min(weatherData[fcstDate].minTemp, fcstValue);
-              } else if (category === 'TMX') {
-                weatherData[fcstDate].maxTemp = Math.max(weatherData[fcstDate].maxTemp, fcstValue);
-              } else if (category === 'TMP') {
-                weatherData[fcstDate].times[fcstTime] = fcstValue;
-              }
-            });
+          if (items.indexOf(item) % 12 === 11) {
+            fcstDate = item.fcstDate;
+            fcstTime = item.fcstTime;
 
-            const formattedWeather = Object.keys(weatherData).map(date => ({
-              date,
-              minTemp: weatherData[date].minTemp,
-              maxTemp: weatherData[date].maxTemp,
-              times: weatherData[date].times,
-            }));
+            var sampleData = {
+              "id": `${fcstDate}${fcstTime}`,
+              "fcstDate": fcstDate,
+              "fcstTime": fcstTime,
+              "tmp": tmp,
+              "tmn": tmn,
+              "tmx": tmx
+            };
 
-            setWeather(formattedWeather);
+            dataList.push(sampleData);
           }
         });
+
+        // 디버깅용
+        dataList.forEach(data => {
+          console.log(`Date: ${data.fcstDate}, Time: ${data.fcstTime}, TMP: ${data.tmp}, TMN: ${data.tmn}, TMX: ${data.tmx}`);
+        });
+
+        setDataList(dataList);
+
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
@@ -73,17 +94,25 @@ export default function Temp({ userNx, userNy }) {
     fetchWeather();
   }, []);
 
+  const renderItem = ({ item }) => {
+    return (
+      <View style={{ width: 200, borderColor: "#0000ff", borderWidth: 1, padding: 10, marginVertical: 10 }}>
+        <Text>날짜: {item.fcstDate}</Text>
+        <Text>시간: {item.fcstTime}</Text>
+        <Text>온도: {item.tmp}℃</Text>
+        <Text>최저기온: {item.tmn}℃</Text>
+        <Text>최고기온: {item.tmx}℃</Text>
+      </View>
+    );
+  }
+
   return (
-    <View>
-      {weather.map(({ date, minTemp, maxTemp, times }) => (
-        <View key={date}>
-          <Text>{date} 최저 기온: {minTemp}°C</Text>
-          <Text>{date} 최고 기온: {maxTemp}°C</Text>
-          {Object.keys(times).map(time => (
-            <Text key={time}>{time} 온도: {times[time]}°C</Text>
-          ))}
-        </View>
-      ))}
+    <View style={{ width: 300, borderColor: "#ff0000", borderWidth: 1, alignItems: 'center' }}>
+      <FlatList
+        data={dataList}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 }
