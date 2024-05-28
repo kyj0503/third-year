@@ -6,8 +6,8 @@ import { getClosestBaseTime, getFormattedDate, getKoreanTime } from './Time';
 
 const baseTimes = ['0200', '0500', '0800', '1100', '1400', '1700', '2000', '2300'];
 
-export default function Temp({userNx, userNy}) {
-  const [weather, setWeather] = useState({ minTemp: null, maxTemp: null });
+export default function Temp({ userNx, userNy }) {
+  const [weather, setWeather] = useState([]);
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -34,20 +34,35 @@ export default function Temp({userNx, userNy}) {
             console.error(err);
           } else {
             const items = result.response.body[0].items[0].item;
-            let minTemp = null;
-            let maxTemp = null;
-            
+            const weatherData = {};
+
             items.forEach(item => {
               const category = item.category[0];
+              const fcstDate = item.fcstDate[0];
+              const fcstTime = item.fcstTime[0];
               const fcstValue = parseFloat(item.fcstValue[0]);
+
+              if (!weatherData[fcstDate]) {
+                weatherData[fcstDate] = { minTemp: Infinity, maxTemp: -Infinity, times: {} };
+              }
+
               if (category === 'TMN') {
-                minTemp = fcstValue;
+                weatherData[fcstDate].minTemp = Math.min(weatherData[fcstDate].minTemp, fcstValue);
               } else if (category === 'TMX') {
-                maxTemp = fcstValue;
+                weatherData[fcstDate].maxTemp = Math.max(weatherData[fcstDate].maxTemp, fcstValue);
+              } else if (category === 'TMP') {
+                weatherData[fcstDate].times[fcstTime] = fcstValue;
               }
             });
 
-            setWeather({ minTemp, maxTemp });
+            const formattedWeather = Object.keys(weatherData).map(date => ({
+              date,
+              minTemp: weatherData[date].minTemp,
+              maxTemp: weatherData[date].maxTemp,
+              times: weatherData[date].times,
+            }));
+
+            setWeather(formattedWeather);
           }
         });
       } catch (error) {
@@ -60,8 +75,15 @@ export default function Temp({userNx, userNy}) {
 
   return (
     <View>
-      <Text>일일 최저 기온: {weather.minTemp}°C</Text>
-      <Text>일일 최고 기온: {weather.maxTemp}°C</Text>
+      {weather.map(({ date, minTemp, maxTemp, times }) => (
+        <View key={date}>
+          <Text>{date} 최저 기온: {minTemp}°C</Text>
+          <Text>{date} 최고 기온: {maxTemp}°C</Text>
+          {Object.keys(times).map(time => (
+            <Text key={time}>{time} 온도: {times[time]}°C</Text>
+          ))}
+        </View>
+      ))}
     </View>
   );
 }

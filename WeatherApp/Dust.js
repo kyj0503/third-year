@@ -48,6 +48,7 @@ export default function Dust() {
             no2: item.no2Value,
             khai: item.khaiValue,
           });
+          console.log(`미세먼지: ${item.pm10Value}, 초미세먼지: ${item.pm25Value}`);
         } else {
           console.error('Error fetching air quality data:', responseHeader?.resultMsg || 'No data available');
         }
