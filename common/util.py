@@ -27,7 +27,7 @@ def shuffle_dataset(x, t):
     x, t : 뒤섞은 훈련 데이터와 정답 레이블
     """
     permutation = np.random.permutation(x.shape[0])
-    x = x[permutation,:] if x.ndim == 2 else x[permutation,:,:,:]
+    x = x[permutation, :] if x.ndim == 2 else x[permutation, :, :, :]
     t = t[permutation]
 
     return x, t
@@ -97,3 +97,4 @@ def col2im(col, input_shape, filter_h, filter_w, stride=1, pad=0):
             img[:, :, y:y_max:stride, x:x_max:stride] += col[:, :, y, x, :, :]
 
     return img[:, :, pad:H + pad, pad:W + pad]
+
