@@ -1,3 +1,4 @@
+//UserController.java
 package miniProject;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<User> users = dao.getAll();
         request.setAttribute("users", users);
-        request.getRequestDispatcher("miniProject/userList.jsp").forward(request, response);
+        request.getRequestDispatcher("userList.jsp").forward(request, response);
     }
     
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -61,28 +62,37 @@ public class UserController extends HttpServlet {
                 String view = join(request, response);
                 getServletContext().getRequestDispatcher("/" + view).forward(request, response);
                 break;
+            case "play":
+                playGame(request, response);
+                break;
         }
     }
+    
+    // Add this method to get the logged-in user
+    private User getLoggedInUser(HttpServletRequest request) {
+        return (User) request.getSession().getAttribute("loggedInUser");
+    }
 
-
-
+    // Modify the login method to store the user in the session
     public String login(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
 
         if (dao.validateUser(id, password)) {
+            User user = dao.getUserById(id); // Assume this method is implemented to fetch user details
+            request.getSession().setAttribute("loggedInUser", user);
             request.setAttribute("message", "로그인 성공!");
-            return "miniProject/index.jsp"; // 올바른 경로로 수정
+            return "index.jsp";
         } else {
             request.setAttribute("message", "로그인 실패. 아이디 또는 비밀번호를 확인하세요.");
-            return "miniProject/startPage.jsp"; // 경로 수정
+            return "startPage.jsp";
         }
     }
 
 
     public String list(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("users", dao.getAll());
-        return "miniProject/userList.jsp"; // User 목록을 표시할 JSP 페이지
+        return "userList.jsp"; // User 목록을 표시할 JSP 페이지
     }
 
     public String join(HttpServletRequest request, HttpServletResponse response) {
@@ -97,5 +107,37 @@ public class UserController extends HttpServlet {
         return "userControl?action=list"; 
     }
 
+    // Modify the playGame method to update the game1hp
+    private void playGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String moveParam = request.getParameter("move");
+        if (moveParam == null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
 
+        GameModel gameModel = new GameModel();
+        GameModel.Move playerMove = GameModel.Move.valueOf(moveParam);
+        GameModel.Move computerMove = gameModel.getComputerMove();
+
+        gameModel.setPlayerMove(playerMove);
+        GameModel.Result result = gameModel.getResult();
+
+        User loggedInUser = getLoggedInUser(request);
+        if (loggedInUser != null) {
+            int currentHp = loggedInUser.getGame1hp();
+            if (result == GameModel.Result.WIN) {
+                loggedInUser.setGame1hp(currentHp + 100);
+            } else if (result == GameModel.Result.LOSE) {
+                loggedInUser.setGame1hp(currentHp - 100);
+            }
+            dao.updateUser(loggedInUser); // Assume this method updates the user in the database
+        }
+
+        request.setAttribute("playerMove", playerMove);
+        request.setAttribute("computerMove", computerMove);
+        request.setAttribute("result", result);
+        request.setAttribute("game1hp", loggedInUser != null ? loggedInUser.getGame1hp() : "N/A");
+
+        request.getRequestDispatcher("ResultView.jsp").forward(request, response);
+    }
 }

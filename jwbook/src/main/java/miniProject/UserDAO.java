@@ -116,6 +116,48 @@ public class UserDAO {
         }
         return users;
     }
+    
+ // Add this method to fetch user by ID
+    public User getUserById(String id) {
+        open();
+        User user = null;
+        String query = "SELECT * FROM users WHERE id = ?";
+        try {
+            pstmt = conn.prepareStatement(query);
+            pstmt.setString(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                user = new User();
+                user.setId(rs.getString("id"));
+                user.setPassword(rs.getString("password"));
+                user.setName(rs.getString("name"));
+                user.setGame1hp(rs.getInt("game1hp"));
+                user.setGame2hp(rs.getInt("game2hp"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return user;
+    }
+
+    // Add this method to update user details
+    public void updateUser(User user) {
+        open();
+        String query = "UPDATE users SET game1hp = ?, game2hp = ? WHERE id = ?";
+        try {
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, user.getGame1hp());
+            pstmt.setInt(2, user.getGame2hp());
+            pstmt.setString(3, user.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+    }
 
 
 }

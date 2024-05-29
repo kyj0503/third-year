@@ -1,3 +1,4 @@
+//ResultView.jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -71,7 +72,10 @@
         <p class="result-value">${computerMove}</p>
         <p class="result-label">결과:</p>
         <p class="result-value">${result}</p>
+        <p class="result-label">현재 HP:</p>
+        <p class="result-value">${game1hp}</p>
     </div>
-    <a href="miniProject/index.jsp">다시 하기</a>
+    <a href="GameView.jsp">다시 하기</a>
+    <a href="index.jsp">메인으로 돌아가기</a>
 </body>
 </html>
