@@ -39,13 +39,13 @@
     		</c:forEach>
     	</c:forEach>
     </div>
-    <form id="resultForm" action="/jwbook/gomock" method="post">
-        <input type="hidden" id="player1Win" name="player1Win" value="0">
-        <input type="hidden" id="player1Lose" name="player1Lose" value="0">
-        <input type="hidden" id="player2Win" name="player2Win" value="0">
-        <input type="hidden" id="player2Lose" name="player2Lose" value="0">
-        <button type="submit">결과 전송</button>
-    </form>
+	<form id="resultForm" action="/jwbook/gomokuControl?action=playGomoku" method="post">
+	    <input type="hidden" id="player1Win" name="player1Win" value="0">
+	    <input type="hidden" id="player1Lose" name="player1Lose" value="0">
+	    <input type="hidden" id="player2Win" name="player2Win" value="0">
+	    <input type="hidden" id="player2Lose" name="player2Lose" value="0">
+	    <button type="submit">결과 전송</button>
+	</form>
      <div>
     	<button id='btnAgain' class='btnResult' onclick="resetBoard()">초기화</button>
     </div>
@@ -146,16 +146,15 @@
     function resetBoard() {
     	initializeBoard();
         currentPlayer = "black"; // 흑돌부터 시작
-        var cells = document.getElementsByClassName("omocpan");
-        for (var i = 0; i < cells.length; i++) {
-            cells[i].classList.remove("black", "white");
-        }
+        const cells = document.querySelectorAll('.omocpan');
+        cells.forEach(cell => {
+            cell.classList.remove('black', 'white');
+        });
     }
   
-    window.onload = function() {
+    window.onload = () => {
         initializeBoard();
     };
-    </script>
-   
+</script>
 </body>
 </html>

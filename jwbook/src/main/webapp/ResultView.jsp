@@ -1,4 +1,3 @@
-//ResultView.jsp
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -76,6 +75,7 @@
         <p class="result-value">${game1hp}</p>
     </div>
     <a href="GameView.jsp">다시 하기</a>
-    <a href="index.jsp">메인으로 돌아가기</a>
+    <a href="index.jsp">게임 선택으로 돌아가기</a>
+    <a href="startPage.jsp">로그아웃</a>
 </body>
 </html>

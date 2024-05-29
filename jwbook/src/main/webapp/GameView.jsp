@@ -125,9 +125,9 @@
         // 이미지와 텍스트를 매핑
         const moves = ['ROCK', 'PAPER', 'SCISSORS'];
         const moveImages = {
-            'ROCK': '${pageContext.request.contextPath}/images/rock.png',
-            'PAPER': '${pageContext.request.contextPath}/images/paper.png',
-            'SCISSORS': '${pageContext.request.contextPath}/images/scissors.png'
+            'ROCK': '${pageContext.request.contextPath}/img/바위.png',
+            'PAPER': '${pageContext.request.contextPath}/img/보.png',
+            'SCISSORS': '${pageContext.request.contextPath}/img/가위.png'
         };
         const moveTexts = {
             'ROCK': 'Rock',

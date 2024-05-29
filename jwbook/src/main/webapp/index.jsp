@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>미니게임</title>
+    <title>Select Game</title>
     <style>
         body {
             background-image: linear-gradient(to bottom right, #4b6cb7, #182848);
@@ -69,7 +69,7 @@
     </style>
 </head>
 <body>
-    <a class="home-button" href="startPage.jsp">홈</a>
+    <a class="home-button" href="startPage.jsp">로그아웃</a>
     <div class="container">
         <h1>게임을 시작하세요!</h1>
         <a href="GameView.jsp">가위바위보 게임</a>
