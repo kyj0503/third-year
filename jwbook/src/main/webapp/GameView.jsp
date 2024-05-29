@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="miniProject.User" %>
+<%
+    User loggedInUser = (User) session.getAttribute("loggedInUser");
+    int game1hp = loggedInUser != null ? loggedInUser.getGame1hp() : 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,35 +88,36 @@
         <div class="choices">
             <div class="choice">
                 <h2>YOU</h2>
-                <img id="yourChoice" src="${pageContext.request.contextPath}/images/rock.png" alt="Your choice">
+                <img id="yourChoice" src="${pageContext.request.contextPath}/img/바위.png" alt="Your choice">
                 <p id="yourChoiceText">Rock</p>
+                <p>HP: <%= game1hp %></p>
             </div>
             <div class="vs">VS</div>
             <div class="choice">
                 <h2>COMPUTER</h2>
-                <img id="computerChoice" src="${pageContext.request.contextPath}/images/rock.png" alt="Computer's choice">
+                <img id="computerChoice" src="${pageContext.request.contextPath}/img/바위.png" alt="Computer's choice">
                 <p id="computerChoiceText">Rock</p>
             </div>
         </div>
         <div class="footer">
-            <form action="/jwbook/userControl" method="post" style="margin: 0;">
-                <input type="hidden" name="move" value="ROCK">
-                <button type="submit" style="border: none; background: none; padding: 0;">
-                    <img src="${pageContext.request.contextPath}/images/rock.png" alt="Rock">
-                </button>
-            </form>
-            <form action="/jwbook/userControl" method="post" style="margin: 0;">
-                <input type="hidden" name="move" value="PAPER">
-                <button type="submit" style="border: none; background: none; padding: 0;">
-                    <img src="${pageContext.request.contextPath}/images/paper.png" alt="Paper">
-                </button>
-            </form>
-            <form action="/jwbook/userControl" method="post" style="margin: 0;">
-                <input type="hidden" name="move" value="SCISSORS">
-                <button type="submit" style="border: none; background: none; padding: 0;">
-                    <img src="${pageContext.request.contextPath}/images/scissors.png" alt="Scissors">
-                </button>
-            </form>
+			<form action="/jwbook/userControl?action=play" method="post" style="margin: 0;">
+			    <input type="hidden" name="move" value="ROCK">
+			    <button type="submit" style="border: none; background: none; padding: 0;">
+			        <img src="${pageContext.request.contextPath}/img/바위.png" alt="Rock">
+			    </button>
+			</form>
+			<form action="/jwbook/userControl?action=play" method="post" style="margin: 0;">
+			    <input type="hidden" name="move" value="PAPER">
+			    <button type="submit" style="border: none; background: none; padding: 0;">
+			        <img src="${pageContext.request.contextPath}/img/보.png" alt="Paper">
+			    </button>
+			</form>
+			<form action="/jwbook/userControl?action=play" method="post" style="margin: 0;">
+			    <input type="hidden" name="move" value="SCISSORS">
+			    <button type="submit" style="border: none; background: none; padding: 0;">
+			        <img src="${pageContext.request.contextPath}/img/가위.png" alt="Scissors">
+			    </button>
+			</form>
         </div>
     </div>
 

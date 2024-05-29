@@ -2,7 +2,7 @@ package miniProject;
 
 public class User {
     private String id;
-    private String password; // 새로 추가한 필드
+    private String password;
     private String name;
     private int game1hp;
     private int game2hp;

@@ -25,6 +25,23 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
+        .home-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 1.2em;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+
         a {
             display: inline-block;
             text-decoration: none;
@@ -35,6 +52,7 @@
             border-radius: 8px;
             transition: background-color 0.3s ease;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px; /* 추가: 버튼 사이 간격을 위해 여백 추가 */
         }
 
         a:hover {
@@ -51,9 +69,11 @@
     </style>
 </head>
 <body>
+    <a class="home-button" href="startPage.jsp">홈</a>
     <div class="container">
         <h1>게임을 시작하세요!</h1>
-        <a href="miniProject/GameView.jsp">게임 시작하기</a>
+        <a href="GameView.jsp">가위바위보 게임</a>
+        <a href="Gomoku.jsp">오목 게임</a>
     </div>
 </body>
 </html>
