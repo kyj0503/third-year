@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>학생정보</title>
+<title>JSP Game</title>
 <link rel="stylesheet" type="text/css" href="styles.css">
 <style>
     body {
@@ -122,13 +122,13 @@
 <header>
     <div class="container">
         <div id="branding">
-            <h1>학생정보 시스템</h1>
+            <h1>JSP Game</h1>
         </div>
         <nav>
             <ul>
                 <li><a href="startPage.jsp">홈</a></li>
                 <li><a href="join.jsp">회원가입</a></li>
-                <li><a href="userList.jsp">회원목록</a></li>
+                <li><a href="userList.jsp">회원 목록</a></li>
             </ul>
         </nav>
     </div>
@@ -136,7 +136,7 @@
 
 <section id="showcase">
     <div class="container">
-        <h1>학생정보</h1>
+        <h1>회원 정보</h1>
     </div>
 </section>
 
