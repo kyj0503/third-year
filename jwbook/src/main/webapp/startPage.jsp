@@ -134,12 +134,6 @@
     </div>
 </header>
 
-<section id="showcase">
-    <div class="container">
-        <h1>회원 정보</h1>
-    </div>
-</section>
-
 <div class="container">
     <form action="/jwbook/userControl?action=login" method="post">
         <label>아이디</label>
