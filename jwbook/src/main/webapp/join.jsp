@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="miniProject.UserDAO, miniProject.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,8 +65,8 @@
         width: 100%;
         padding: 10px;
         margin-bottom: 10px;
-        border: 1px solid #ccc; /* 추가 */
-        border-radius: 5px; /* 추가 */
+        border: 1px solid #ccc;
+        border-radius: 5px;
     }
     form button {
         width: 100%;
@@ -72,8 +74,12 @@
         background: #50b3a2;
         border: 0;
         color: #fff;
-        border-radius: 5px; /* 추가 */
-        cursor: pointer; /* 추가 */
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .error {
+        color: red;
+        margin-top: 5px;
     }
 </style>
 <script>
@@ -90,7 +96,7 @@
 <header>
     <div class="container">
         <div id="branding">
-            <h1>학생정보 시스템</h1>
+            <h1>JSP Game</h1>
         </div>
         <nav>
             <ul>
@@ -110,9 +116,12 @@
         <input type="password" name="password"><br>
         <label>이름</label>
         <input type="text" name="name"><br>
-        
         <button type="submit">가입</button> 
     </form>
+	<c:if test="${not empty error}">
+    	<p class="error">${error}</p>
+	</c:if>
+
 </div>
 
 </body>

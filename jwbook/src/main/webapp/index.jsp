@@ -74,6 +74,7 @@
         <h1>게임을 시작하세요!</h1>
         <a href="GameView.jsp">가위바위보 게임</a>
         <a href="Gomoku.jsp">오목 게임</a>
+        <a href="numberGuess.jsp">숫자 맞추기 게임</a>
     </div>
 </body>
 </html>
