@@ -122,7 +122,7 @@
     <div class="container">
         <h1>숫자 맞추기 게임</h1>
         <form method="post" action="/jwbook/numberGuess">
-            <input type="number" name="guess" placeholder="1에서 100까지" required>
+            <input type="number" name="guess" placeholder="1에서 500까지" required>
             <input type="submit" value="추측">
         </form>
         <div class="message <%= request.getAttribute("messageClass") %>">
