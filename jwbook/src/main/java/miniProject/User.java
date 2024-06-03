@@ -6,6 +6,7 @@ public class User {
     private String name;
     private int game1hp;
     private int game2hp;
+    private int game3hp;
 
     public String getId() {
         return id;
@@ -47,8 +48,15 @@ public class User {
         this.game2hp = game2hp;
     }
 
+    public int getGame3hp() {
+        return game3hp;
+    }
+
+    public void setGame3hp(int game3hp) {
+        this.game3hp = game3hp;
+    }
     @Override
     public String toString() {
-        return "User [id=" + id + ", password=" + password + ", name=" + name + ", game1hp=" + game1hp + ", game2hp=" + game2hp + "]";
+        return "User [id=" + id + ", password=" + password + ", name=" + name + ", game1hp=" + game1hp + ", game2hp=" + game2hp + ", game3hp=" + game3hp + "]";
     }
 }

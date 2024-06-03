@@ -73,7 +73,7 @@
 <header>
     <div class="container">
         <div id="branding">
-            <h1>학생정보 시스템</h1>
+            <h1>JSP Game</h1>
         </div>
         <nav>
             <ul>
@@ -93,6 +93,7 @@
             <th>이름</th>
             <th>게임1 기록</th>
             <th>게임2 기록</th>
+            <th>게임3 기록</th>
         </tr>
         <%
             UserDAO userDao = new UserDAO();
@@ -104,6 +105,7 @@
             <td><%= user.getName() %></td>
             <td><%= user.getGame1hp() %></td>
             <td><%= user.getGame2hp() %></td>
+            <td><%= user.getGame3hp() %></td>
         </tr>
         <%
             }

@@ -1,4 +1,3 @@
-//UserController.java
 package miniProject;
 
 import java.io.IOException;
@@ -102,10 +101,23 @@ public class UserController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        // Check if the ID already exists
+        User existingUser = dao.getUserById(s.getId());
+        if(existingUser != null) {
+            request.setAttribute("error", "중복된 아이디입니다.");
+            return "join.jsp";
+        }
+        
         dao.join(s);
+        
+        // Set success message
+        request.setAttribute("message", "회원가입이 성공적으로 완료되었습니다.");
+        
         // Redirect to userList.jsp after successful registration
         return "userControl?action=list"; 
     }
+
 
     // Modify the playGame method to update the game1hp
     private void playGame(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
