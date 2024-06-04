@@ -2,6 +2,18 @@
 
 https://youtu.be/SQ8pxBhiGEQ?si=RrEqiLD_eDVDvP1d
 
+- 가위바위보 게임
+
+![가위바위보](https://github.com/kyj0503/web-programming/assets/152960761/b381644a-2a59-4d4d-836d-6eaa754bc213)
+
+- 숫자 맞추기 게임
+
+![숫자맞추기](https://github.com/kyj0503/web-programming/assets/152960761/16cc324d-a568-48ef-8421-d9c3c650b88a)
+
+- 오목 게임
+
+![오목](https://github.com/kyj0503/web-programming/assets/152960761/bb6c4fec-c00b-4ee5-ba59-5e16366054b1)
+
 -----------------------------------------------------------------------
 
 강남대학교 2024 1학기 웹프로그래밍 미니프로젝트 3조
