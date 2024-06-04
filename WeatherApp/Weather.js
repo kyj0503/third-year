@@ -1,43 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { Text, View, StyleSheet, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 
-export default function Weather({userNx, userNy}) {
-  // const [weather, setWeather] = useState({ fcstDate: null, fcstTime: null, rainPerc: null, rainType: null, rainAmount: null, skyType: null });
-  const [dataList, setDataList] = useState([]);
+export default function Weather({ userNx, userNy }) {
+  const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     const today = new Date();
-    var dateString = null;
-    var timeString = null;
-    var dataList = [];
+    let dateString = null;
+    let timeString = null;
 
-    for (let i = 23; i >= 2; i-=3) {
-      if(today.getHours() >= i) {
-          timeString = i;
-          break;
+    for (let i = 23; i >= 2; i -= 3) {
+      if (today.getHours() >= i) {
+        timeString = i;
+        break;
       }
     }
 
-    if(timeString == null) {
+    if (timeString === null) {
       timeString = "2300";
-      dateString = `${today.getFullYear()}0${today.getMonth()+1}${today.getDate()-1}`;
+      dateString = `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${(today.getDate() - 1).toString().padStart(2, '0')}`;
     } else {
-
-      if(timeString > 10) {
-        timeString = `${timeString}00`;
-      } else {
-        timeString = `0${timeString}00`;
-      }
-
-      dateString = `${today.getFullYear()}0${today.getMonth()+1}${today.getDate()}`;
+      timeString = timeString.toString().padStart(2, '0') + "00";
+      dateString = `${today.getFullYear()}${(today.getMonth() + 1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`;
     }
-
-
-    console.log(dateString);
-    console.log(timeString);
-    console.log(userNx);
-    console.log(userNy);
 
     const fetchWeather = async () => {
       try {
@@ -48,15 +34,13 @@ export default function Weather({userNx, userNy}) {
               numOfRows: 1000,
               pageNo: 1,
               dataType: 'JSON',
-              base_date: dateString, // 당일날짜 불러오기
-              base_time: timeString, // 사용자 시간 불러오기
-              nx: userNx, // 사용자
-              ny: userNy, // 사용자
+              base_date: dateString,
+              base_time: timeString,
+              nx: userNx,
+              ny: userNy,
             },
           }
         );
-
-        // data = data.replace('\ufeff', '');
 
         const items = data.response.body.items.item;
         let rainPerc = null;
@@ -65,7 +49,7 @@ export default function Weather({userNx, userNy}) {
         let skyType = null;
         let fcstDate = null;
         let fcstTime = null;
-        
+
         items.forEach(item => {
           const category = item.category;
           const fcstValue = item.fcstValue;
@@ -74,126 +58,143 @@ export default function Weather({userNx, userNy}) {
             rainPerc = fcstValue;
           } else if (category === 'PTY') {
             rainType = fcstValue;
-
             switch (parseInt(rainType)) {
               case 0:
-                  rainType = "없음";
-                  break;
+                rainType = "없음";
+                break;
               case 1:
-                  rainType = "비";
-                  break;
+                rainType = "비";
+                break;
               case 2:
-                  rainType = "비/눈";
-                  break;
+                rainType = "비/눈";
+                break;
               case 3:
-                  rainType = "눈";
-                  break;
+                rainType = "눈";
+                break;
               case 4:
-                  rainType = "소나기";
-                  break;
+                rainType = "소나기";
+                break;
             }
           } else if (category === 'PCP') {
-            rainAmount = fcstValue;
+            rainAmount = fcstValue === "강수없음" ? "강수없음" : `${fcstValue}mm`;
           } else if (category === 'SKY') {
-            
             skyType = fcstValue;
+            const skyTypeCode = parseInt(skyType);
 
-            var skyTypeCode = parseInt(skyType);
-
-            if(skyTypeCode >= 0 && skyTypeCode <= 5) {
-                skyType = "맑음";
-            }else if(skyTypeCode >= 6 && skyTypeCode <= 8) {
-                skyType = "구름많음";
-            }else if(skyTypeCode >= 9 && skyTypeCode <= 10) {
-                skyType = "흐림";
+            if (skyTypeCode >= 0 && skyTypeCode <= 5) {
+              skyType = "맑음";
+            } else if (skyTypeCode >= 6 && skyTypeCode <= 8) {
+              skyType = "구름많음";
+            } else if (skyTypeCode >= 9 && skyTypeCode <= 10) {
+              skyType = "흐림";
             }
           }
 
-          if(items.indexOf(item) % 12 == 11) {
-
+          if (fcstDate === null || fcstTime === null) {
             fcstDate = item.fcstDate;
             fcstTime = item.fcstTime;
-
-            var sampleData = {
-              "id": `${fcstDate}${fcstTime}`,
-              "fcstDate" : fcstDate,
-              "fcstTime" : fcstTime,
-              "rainPerc" : rainPerc,
-              "rainType" : rainType,
-              "rainAmount" : rainAmount,
-              "skyType" : skyType
-            };
-  
-            dataList.push(sampleData);
           }
         });
 
-        // const category = items.category;
-        // const fcstValue = items.fcstValue;
-        // if (category === 'POP') {
-        //     rainPerc = fcstValue;
-        //   } else if (category === 'PTY') {
-        //     rainType = fcstValue;
-        //   } else if (category === 'PCP') {
-        //     rainAmount = fcstValue;
-        //   } else if (category === 'SKY') {
-        //     skyType = fcstValue;
-        //   }
-        
+        const formattedDate = `${fcstDate.substring(0, 4)}년 ${fcstDate.substring(4, 6)}월 ${fcstDate.substring(6, 8)}일`;
+        const formattedTime = `${fcstTime.substring(0, 2)}:${fcstTime.substring(2, 4)}`;
 
-        console.log(rainPerc);
-
-        // 디버깅용
-        dataList.forEach(data => {
-          console.log(`Date: ${data.fcstDate}, Time: ${data.fcstTime}, Rain Probability: ${data.rainPerc}%, Rain Type: ${data.rainType}, Rain Amount: ${data.rainAmount}mm, Sky: ${data.skyType}`);
+        setWeather({
+          fcstDate: formattedDate,
+          fcstTime: formattedTime,
+          rainPerc,
+          rainType,
+          rainAmount,
+          skyType,
         });
-        
-        // setWeather({ fcstDate, fcstTime, rainPerc, rainType, rainAmount, skyType });
-        setDataList(dataList);
-      
-
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
     };
 
     fetchWeather();
-  }, []);
+  }, [userNx, userNy]);
 
-  console.log(dataList);
-
-  renderItem  = ({item}) => {
-    return (<View style={{width: 200, borderColor: "#0000ff", borderWidth: 1, padding: 10, marginVertical: 10}}>
-      <Text>날짜: {item.fcstDate}</Text>
-      <Text>시간: {item.fcstTime}</Text>
-      <Text>강수확률: {item.rainPerc}%</Text>
-      <Text>강수형태: {item.rainType}</Text>
-      <Text>강수량: {item.rainAmount}mm</Text>
-      <Text>하늘: {item.skyType}</Text>
-    </View>)
+  if (!weather) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Loading...</Text>
+      </View>
+    );
   }
 
+  const getWeatherColor = () => {
+    if (weather.skyType === "맑음") {
+      return '#87CEEB';
+    } else if (weather.skyType === "구름많음") {
+      return '#B0C4DE';
+    } else {
+      return '#778899';
+    }
+  };
+
   return (
-    <View style={{width: 300, borderColor: "#ff0000", borderWidth: 1, alignItems: 'center'}}>
-      <FlatList 
-        data={dataList}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id} />
+    <View style={[styles.container, { backgroundColor: getWeatherColor() }]}>
+      <Text style={styles.title}>날씨 정보</Text>
+      <View style={styles.weatherInfo}>
+        <Text style={styles.label}>날짜:</Text>
+        <Text style={styles.value}>{weather.fcstDate}</Text>
+      </View>
+      <View style={styles.weatherInfo}>
+        <Text style={styles.label}>시간:</Text>
+        <Text style={styles.value}>{weather.fcstTime}</Text>
+      </View>
+      <View style={styles.weatherInfo}>
+        <Text style={styles.label}>강수확률:</Text>
+        <Text style={styles.value}>{weather.rainPerc}%</Text>
+      </View>
+      <View style={styles.weatherInfo}>
+        <Text style={styles.label}>강수형태:</Text>
+        <Text style={styles.value}>{weather.rainType}</Text>
+      </View>
+      <View style={styles.weatherInfo}>
+        <Text style={styles.label}>강수량:</Text>
+        <Text style={styles.value}>{weather.rainAmount}</Text>
+      </View>
+      <View style={styles.weatherInfo}>
+        <Text style={styles.label}>하늘:</Text>
+        <Text style={styles.value}>{weather.skyType}</Text>
+      </View>
     </View>
-    // <SafeAreaView>
-    //   <Text>날짜: {weather.fcstDate}</Text>
-    //   <Text>시간: {weather.fcstTime}</Text>
-    //   <Text>강수확률: {weather.rainPerc}%</Text>
-    //   <Text>강수형태: {weather.rainType}</Text>
-    //   <Text>강수량: {weather.rainAmount}mm</Text>
-    //   <Text>하늘: {weather.skyType}</Text>
-    //   <View style={{height: 10}}></View>
-    //   <Text>날짜: {weather.fcstDate}</Text>
-    //   <Text>시간: {weather.fcstTime}</Text>
-    //   <Text>강수확률: {weather.rainPerc}%</Text>
-    //   <Text>강수형태: {weather.rainType}</Text>
-    //   <Text>강수량: {weather.rainAmount}mm</Text>
-    //   <Text>하늘: {weather.skyType}</Text>
-    // </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginVertical: 10,
+    borderRadius: 10,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  weatherInfo: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  label: {
+    fontWeight: 'bold',
+    marginRight: 10,
+  },
+  value: {
+    fontSize: 16,
+  },
+});
