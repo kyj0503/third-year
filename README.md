@@ -2,6 +2,18 @@
 
 https://youtube.com/shorts/SZtRwxr--bM?si=80pxlUOms1NX3qsV
 
+- 온도
+  
+![녹음-2024-06-04-142521](https://github.com/kyj0503/WeatherApp/assets/152960761/525a517c-70ba-41d3-b6e3-56a4fe36e3d3)
+
+- 날씨
+  
+![녹음-2024-06-04-142631](https://github.com/kyj0503/WeatherApp/assets/152960761/1f24f382-9ed1-4a91-bb76-cb5d84b25ba4)
+
+- 미세먼지
+  
+![스크린샷 2024-06-04 142656](https://github.com/kyj0503/WeatherApp/assets/152960761/539c357e-25e9-411e-b860-249012595195)
+
 -----------------------------------------------------------------------
 
 강남대학교 2024 1학기 크로스플랫폼 미니프로젝트 11조
