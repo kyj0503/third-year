@@ -23,7 +23,7 @@ src
     
   - index.jsp  :  게임 선택 화면
   - GameView.jsp  :  가위바위보 게임 화면
-  - ResultView.jsp  :  가위바위보 결과 하면
+  - ResultView.jsp  :  가위바위보 결과 화면
   - Gomoku.jsp  :  오목 게임 화면
   - numberGuess.jsp  :  숫자 맞추기 게임 화면
     
