@@ -18,7 +18,7 @@ https://youtu.be/SQ8pxBhiGEQ?si=RrEqiLD_eDVDvP1d
 
 강남대학교 2024 1학기 웹프로그래밍 미니프로젝트 3조
 
-ICT융합공학부 소프트웨어학과
+ICT융합공학부 소프트웨어전공
 
 - 202284007 김선우  :  DB, Servlet, Controller 설계, 숫자 맞추기 게임 구현
 
