@@ -7,6 +7,6 @@ def index(request):
     return render(request, 'mysite/content_list.html', context)
 
 def detail(request, content_id):
-    content_list = MainContent.objects.get(id=content_id)
-    context = {'content_list': content_list}
+    content = get_object_or_404(MainContent, id=content_id)  # get_object_or_404로 변경
+    context = {'content': content}
     return render(request, 'mysite/content_detail.html', context)
