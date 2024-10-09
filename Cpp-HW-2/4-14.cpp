@@ -9,16 +9,16 @@ class Player {
 	string name;    
 public:
 	Player() :Player("플레이어") { }            
-	Player(string name) { this->name = name; } 
+	Player(string name) { this->name = name; }  
 	string getName() { return name; }           
 	bool playGambling();                        
 };
 bool Player::playGambling() {
-	default_random_engine generator;
+	random_device rd;
 	uniform_int_distribution<int> distribution(0, 100);
 
 	for (int i = 0; i < 3; i++) {
-		card[i] = distribution(generator) % 3;
+		card[i] = distribution(rd) % 3;
 		cout << "\t" << card[i];
 	}
 	for (int i = 0; i < 2; i++) {
@@ -31,31 +31,57 @@ bool Player::playGambling() {
 
 class GamblingGame {               
 	Player player[2];              
-	bool isGameCompleted = false;  
+	bool isGameCompleted = true;  
 public:
 	GamblingGame();                
 	void play();                   
 };
 
-GamblingGame::GamblingGame() {     
+GamblingGame::GamblingGame() {
 	cout << "***** 갬블링 게임을 시작합니다. *****" << endl;
 	string name;
 
-	cout << "첫번째 선수 이름>>";
-	cin >> name;
-	player[0] = Player(name);
-	cout << "두번째 선수 이름>>";
-	cin >> name;
-	player[1] = Player(name);                   
+	while (true) {
+		cout << "첫번째 선수 이름>>";
+		getline(cin, name);
+
+		if (name.empty()) {
+			cout << "이름은 빈 문자열일 수 없습니다. 다시 입력하세요." << endl;
+		}
+		else {
+			player[0] = Player(name);
+			break;
+		}
+	}
+
+	while (true) {
+		cout << "두번째 선수 이름>>";
+		getline(cin, name);
+
+		if (name.empty()) {
+			cout << "이름은 빈 문자열일 수 없습니다. 다시 입력하세요." << endl;
+		}
+		else {
+			player[1] = Player(name);
+			break;
+		}
+	}
 }
 
-void GamblingGame::play() {        
+void GamblingGame::play() {
 	int i = 0;
-	while (!isGameCompleted) {
-		cout << player[i % 2].getName() << ":<Enter>";
-		getchar();
+	while (isGameCompleted) {
+		cout << player[i % 2].getName() << ":<ENTER>";
+
+		char input = cin.get();
+
+		if (input != '\n') {
+			cout << "게임이 강제 종료되었습니다!" << endl;
+			return;
+		}
+
 		if (player[i % 2].playGambling()) {
-			isGameCompleted = true;
+			isGameCompleted = false;
 			cout << "\t" << player[i % 2].getName() << "님 승리!!" << endl;
 		}
 		else {
@@ -64,6 +90,7 @@ void GamblingGame::play() {
 		i++;
 	}
 }
+
 
 int main() {
 	GamblingGame game;    
