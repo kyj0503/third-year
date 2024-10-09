@@ -31,10 +31,31 @@ bool Player::playGambling() {
 
 class GamblingGame {               
 	Player player[2];              
-	bool isGameCompleted = true;  
+	bool isGameRun = true;  
 public:
 	GamblingGame();                
-	void play();                   
+	void play() {
+		int i = 0;
+		while (isGameRun) {
+			cout << player[i % 2].getName() << ":<ENTER>";
+
+			char input = cin.get();
+
+			if (input != '\n') {
+				cout << "게임이 강제 종료되었습니다!" << endl;
+				return;
+			}
+
+			if (player[i % 2].playGambling()) {
+				isGameRun = false;
+				cout << "\t" << player[i % 2].getName() << "님 승리!!" << endl;
+			}
+			else {
+				cout << "\t아쉽군요!" << endl;
+			}
+			i++;
+		}
+	}
 };
 
 GamblingGame::GamblingGame() {
@@ -65,29 +86,6 @@ GamblingGame::GamblingGame() {
 			player[1] = Player(name);
 			break;
 		}
-	}
-}
-
-void GamblingGame::play() {
-	int i = 0;
-	while (isGameCompleted) {
-		cout << player[i % 2].getName() << ":<ENTER>";
-
-		char input = cin.get();
-
-		if (input != '\n') {
-			cout << "게임이 강제 종료되었습니다!" << endl;
-			return;
-		}
-
-		if (player[i % 2].playGambling()) {
-			isGameCompleted = false;
-			cout << "\t" << player[i % 2].getName() << "님 승리!!" << endl;
-		}
-		else {
-			cout << "\t아쉽군요!" << endl;
-		}
-		i++;
 	}
 }
 
