@@ -91,7 +91,6 @@ void GamblingGame::play() {
 	}
 }
 
-
 int main() {
 	GamblingGame game;    
 	game.play();          
