@@ -37,6 +37,9 @@
     <Filter Include="헤더 파일\HW1">
       <UniqueIdentifier>{ab1b1c3c-cf64-49c4-948f-7851d18f0b02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\chap2">
+      <UniqueIdentifier>{db7b48aa-d373-413b-adbf-8f986580b76a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3-1.cpp">
@@ -77,6 +80,15 @@
     </ClCompile>
     <ClCompile Include="HW2-main.cpp">
       <Filter>소스 파일\HW2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-1.cpp">
+      <Filter>소스 파일\chap2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-2.cpp">
+      <Filter>소스 파일\chap2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-3.cpp">
+      <Filter>소스 파일\chap2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
