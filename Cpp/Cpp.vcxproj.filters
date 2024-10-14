@@ -40,6 +40,9 @@
     <Filter Include="소스 파일\chap2">
       <UniqueIdentifier>{db7b48aa-d373-413b-adbf-8f986580b76a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\chap6">
+      <UniqueIdentifier>{7a9bfa14-f3ac-41dd-8c3e-8be138a98531}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3-1.cpp">
@@ -89,6 +92,30 @@
     </ClCompile>
     <ClCompile Include="2-3.cpp">
       <Filter>소스 파일\chap2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-4.cpp">
+      <Filter>소스 파일\chap2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-5.cpp">
+      <Filter>소스 파일\chap2</Filter>
+    </ClCompile>
+    <ClCompile Include="2-6.cpp">
+      <Filter>소스 파일\chap2</Filter>
+    </ClCompile>
+    <ClCompile Include="5-10.cpp">
+      <Filter>소스 파일\chap5</Filter>
+    </ClCompile>
+    <ClCompile Include="6-1.cpp">
+      <Filter>소스 파일\chap6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-4.cpp">
+      <Filter>소스 파일\chap6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-5.cpp">
+      <Filter>소스 파일\chap6</Filter>
+    </ClCompile>
+    <ClCompile Include="6-6.cpp">
+      <Filter>소스 파일\chap6</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
