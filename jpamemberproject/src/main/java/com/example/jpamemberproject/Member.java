@@ -20,13 +20,27 @@ public class Member {
     private String email;
     private int age;
 
+    @Column(name = "userid")
+    private String userId;
+    @Column(name = "password")
+    private String userPwd;
+
+
     public Member(String name, String email, int age) {
         this.name = name;
         this.email = email;
         this.age = age;
     }
 
-    public void logMemberInfo() {
+    public Member(String name, String email, int age, String userId, String userPwd) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.userId = userId;
+        this.userPwd = userPwd;
+    }
+
+    public void logInfo() {
         log.info("Member info - ID: {},Name : {},Email : {},Age : {}", id, name, email, age);
     }
 }
