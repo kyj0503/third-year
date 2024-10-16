@@ -117,6 +117,39 @@
     <ClCompile Include="6-6.cpp">
       <Filter>소스 파일\chap6</Filter>
     </ClCompile>
+    <ClCompile Include="2-7.cpp">
+      <Filter>소스 파일\chap2</Filter>
+    </ClCompile>
+    <ClCompile Include="3-3.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-4.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-5.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-6.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-7.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-8.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-10.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-Adder.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-Calculator.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="3-main.cpp">
+      <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3-Adder.h">
@@ -124,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="HW1-Ram.h">
       <Filter>헤더 파일\HW1</Filter>
+    </ClInclude>
+    <ClInclude Include="3-Calculator.h">
+      <Filter>헤더 파일\chap3</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
