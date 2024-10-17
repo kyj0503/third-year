@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\USER\\source\\Cpp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\USER\\source\\Cpp\\Cpp\\HW3-1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\HW3-1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\USER\\source\\Cpp\\Cpp\\HW3-3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\HW3-3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +31,38 @@
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HW3-1.cpp",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\Cpp\\Cpp\\HW3-1.cpp",
+              "RelativeDocumentMoniker": "Cpp\\HW3-1.cpp",
+              "ToolTip": "C:\\Users\\USER\\source\\Cpp\\Cpp\\HW3-1.cpp",
+              "RelativeToolTip": "Cpp\\HW3-1.cpp",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-17T08:27:16.37Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HW3-3.cpp",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\Cpp\\Cpp\\HW3-3.cpp",
+              "RelativeDocumentMoniker": "Cpp\\HW3-3.cpp",
+              "ToolTip": "C:\\Users\\USER\\source\\Cpp\\Cpp\\HW3-3.cpp",
+              "RelativeToolTip": "Cpp\\HW3-3.cpp",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-17T14:56:37.271Z",
+              "EditorCaption": ""
             }
           ]
         }

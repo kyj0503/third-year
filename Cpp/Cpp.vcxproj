@@ -232,6 +232,10 @@
     <ClCompile Include="HW2-main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="HW3-1.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="HW3-3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3-Adder.h">

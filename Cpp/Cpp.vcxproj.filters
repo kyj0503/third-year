@@ -43,6 +43,12 @@
     <Filter Include="소스 파일\chap6">
       <UniqueIdentifier>{7a9bfa14-f3ac-41dd-8c3e-8be138a98531}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\HW3">
+      <UniqueIdentifier>{24ef2470-14b1-493e-8043-dc4540ffc4aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\HW3">
+      <UniqueIdentifier>{9bc687c6-812c-4937-b133-e424a81a0d9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3-1.cpp">
@@ -149,6 +155,12 @@
     </ClCompile>
     <ClCompile Include="3-main.cpp">
       <Filter>소스 파일\chap3</Filter>
+    </ClCompile>
+    <ClCompile Include="HW3-1.cpp">
+      <Filter>소스 파일\HW3</Filter>
+    </ClCompile>
+    <ClCompile Include="HW3-3.cpp">
+      <Filter>소스 파일\HW3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
