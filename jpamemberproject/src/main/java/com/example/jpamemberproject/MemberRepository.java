@@ -28,7 +28,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("SELECT m from Member m where m.age between 20 and 29")
     List<Member> twentyGenerateMembers();
 
-    // X세대인 Member 리스트 가져오기
+    // XX대인 Member 리스트 가져오기
     @Query("SELECT m from Member m where m.age between :startAge and :endAge")
     List<Member> getGenerationMembers(@Param("startAge") int startAge, @Param("endAge")int endAge);
 
