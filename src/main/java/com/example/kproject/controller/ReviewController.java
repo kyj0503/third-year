@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-@Controller  // @RestController 대신 @Controller 사용
+@Controller
 @RequestMapping("/reviews")
 public class ReviewController {
 
@@ -19,21 +19,20 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @PostMapping
-    @ResponseBody  // JSON 응답이 필요한 메서드에는 @ResponseBody 추가
-    public Review saveReview(@RequestBody ReviewRequest reviewRequest, Principal principal) {
-        String username = (principal != null) ? principal.getName() : "admin";
-        return reviewService.saveReview(reviewRequest.getPlaceId(), username, reviewRequest.getRating(), reviewRequest.getComment());
+    @ResponseBody
+    public ResponseEntity<Review> saveReview(@RequestBody ReviewRequest reviewRequest, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String username = principal.getName();
+        Review savedReview = reviewService.saveReview(reviewRequest.getLatitude(), reviewRequest.getLongitude(), username, reviewRequest.getRating(), reviewRequest.getComment());
+        return ResponseEntity.ok(savedReview);
     }
 
-    @GetMapping("/sorted/{placeId}")
-    @ResponseBody  // JSON 응답이 필요한 메서드에는 @ResponseBody 추가
-    public List<Review> getSortedReviews(@PathVariable Long placeId) {
-        return reviewService.getReviewsByPlaceId(placeId);
-    }
-
-    @GetMapping("/form")
-    public String showReviewForm(Model model) {
-        model.addAttribute("review", new Review());
-        return "reviewForm";  // 템플릿 이름
+    @GetMapping("/sorted")
+    @ResponseBody
+    public List<Review> getSortedReviews(@RequestParam double latitude, @RequestParam double longitude) {
+        return reviewService.getReviewsByLocation(latitude, longitude);
     }
 }
