@@ -1,9 +1,10 @@
 package com.example.kproject.repository;
 
-import com.example.kproject.entity.Marker;
+import com.example.kproject.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MarkerRepository extends JpaRepository<Marker, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
+    User findByUsername(String username);
 }
