@@ -1,12 +1,17 @@
 package com.example.kproject.request;
 
 public class ReviewRequest {
-    private Long placeId;  // 리뷰를 남길 장소의 ID
-    private int rating;     // 별점 (1~10)
-    private String comment; // 리뷰 내용
+    private Double latitude;
+    private Double longitude;
+    private int rating;
+    private String comment;
 
-    public Long getPlaceId() {
-        return placeId;
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
     }
 
     public int getRating() {
