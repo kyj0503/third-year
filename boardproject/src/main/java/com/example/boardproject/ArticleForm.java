@@ -1,5 +1,6 @@
 package com.example.boardproject;
 
+import com.example.boardproject.entity.Article;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
