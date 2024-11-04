@@ -2,13 +2,21 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Kakao Map</title>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{kakaoApiKey}}"></script>
+    <title>코딩하기 좋은 장소 찾기</title>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{kakaoApiKey}}&libraries=services"></script>
 </head>
 <body>
-<div id="map" style="width:500px;height:400px;"></div>
-<!-- 마커 데이터를 JSON 문자열로 변환해서 히든 input 태그로 전달 -->
-<input type="hidden" id="markers-data" value='{{{markers}}}'>
-<script type="text/javascript" src="/js/map.js"></script>
+<div id="map-container">
+    <div id="map" style="width:900px;height:600px;"></div>
+    <div id="review-form-container">
+        <div id="review-list"></div>
+    </div>
+</div>
+
+<input type="hidden" id="keyword-data" value="{{keyword}}">
+<button onclick="refreshMarkers()">지도 중심으로 새로고침</button>
+
+<script src="/js/map.js"></script>
+<script src="/js/review.js"></script>
 </body>
 </html>

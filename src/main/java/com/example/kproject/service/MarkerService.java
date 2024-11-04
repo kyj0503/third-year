@@ -1,6 +1,6 @@
 package com.example.kproject.service;
 
-import com.example.kproject.entity.MarkerEntity;
+import com.example.kproject.entity.Marker;
 import com.example.kproject.repository.MarkerRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class MarkerService {
         this.markerRepository = markerRepository;
     }
 
-    public List<MarkerEntity> getAllMarkers() {
+    public List<Marker> getAllMarkers() {
         return markerRepository.findAll();
     }
 }
