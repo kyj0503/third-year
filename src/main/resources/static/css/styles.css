@@ -15,8 +15,8 @@ body {
     gap: 20px;
 }
 .map, .home {
-    width: 300px;
-    height: 300px;
+    width: 800px;
+    height: 800px;
     border: 1px solid #000;
     display: flex;
     justify-content: center;
