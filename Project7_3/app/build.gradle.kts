@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId = "com.cookandroid.project7_3"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 29
         versionCode = 1
         versionName = "1.0"
 
