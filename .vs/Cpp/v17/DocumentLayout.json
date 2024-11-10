@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\Cpp\\HW4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\HW4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +14,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -22,6 +27,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HW4.cpp",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\Cpp\\HW4.cpp",
+              "RelativeDocumentMoniker": "Cpp\\HW4.cpp",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\Cpp\\HW4.cpp",
+              "RelativeToolTip": "Cpp\\HW4.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-08T17:03:08.273Z",
+              "EditorCaption": ""
             }
           ]
         }
