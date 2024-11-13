@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 try {
-                    FileOutputStream outfs = openFileOutput(filename, Context.MODE_PRIVATE);
-                    String str = edtDiary.getText().toString();
+                    FileOutputStream outfs = openFileOutput(filename, Context.MODE_PRIVATE);\
                     outfs.write(str.getBytes());
                     outfs.close();
                     Toast.makeText(getApplicationContext(), filename + "이 저장됨", Toast.LENGTH_SHORT).show();
