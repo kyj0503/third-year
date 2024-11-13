@@ -1,38 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\heror\\source\\Cpp\\",
+  "WorkspaceRootPath": "C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-14.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-14.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-11.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-11.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-6.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-6.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-3.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-2.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\heror\\source\\Cpp\\Cpp\\7-1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\7-1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\Cpp\\HW4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{87FD0713-E71C-4143-8AF5-F7ABFF17EB35}|Cpp\\Cpp.vcxproj|solutionrelative:Cpp\\HW4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,8 +14,16 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
@@ -51,99 +31,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "7-14.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-14.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-14.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-14.cpp",
-              "RelativeToolTip": "Cpp\\7-14.cpp",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Title": "HW4.cpp",
+              "DocumentMoniker": "C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\Cpp\\HW4.cpp",
+              "RelativeDocumentMoniker": "Cpp\\HW4.cpp",
+              "ToolTip": "C:\\Users\\USER\\source\\repos\\kyj0503\\Cpp\\Cpp\\HW4.cpp",
+              "RelativeToolTip": "Cpp\\HW4.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T07:52:19.287Z",
+              "WhenOpened": "2024-11-08T17:03:08.273Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "7-11.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-11.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-11.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-11.cpp",
-              "RelativeToolTip": "Cpp\\7-11.cpp",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAqwCAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T07:24:54.049Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "7-6.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-6.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-6.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-6.cpp",
-              "RelativeToolTip": "Cpp\\7-6.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T06:44:18.606Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "7-5.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-5.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-5.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-5.cpp",
-              "RelativeToolTip": "Cpp\\7-5.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T06:44:11.924Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "7-4.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-4.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-4.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-4.cpp",
-              "RelativeToolTip": "Cpp\\7-4.cpp",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAswB8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T06:30:51.239Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "7-3.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-3.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-3.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-3.cpp",
-              "RelativeToolTip": "Cpp\\7-3.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T06:11:20.317Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "7-2.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-2.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-2.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-2.cpp",
-              "RelativeToolTip": "Cpp\\7-2.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T06:11:15.025Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "7-1.cpp",
-              "DocumentMoniker": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-1.cpp",
-              "RelativeDocumentMoniker": "Cpp\\7-1.cpp",
-              "ToolTip": "C:\\Users\\heror\\source\\Cpp\\Cpp\\7-1.cpp",
-              "RelativeToolTip": "Cpp\\7-1.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-28T05:57:35.253Z"
             }
           ]
         }
