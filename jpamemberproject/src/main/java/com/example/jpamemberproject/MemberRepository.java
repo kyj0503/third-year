@@ -1,4 +1,4 @@
-package com.example.jpamemberproject;
+package com.example.JPAmemberProject;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,27 +8,32 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Repository //DB 연동을 처리하는 Interface
+//지금 이게 Custom Repository네
 public interface MemberRepository extends JpaRepository<Member, Long> {
+    //Member를 상속받아서 관련 Member를 사용한다.
+    //Hibernate가 기본적인 CRUD( findAll() )같은 메소드를 가져온다.
+    //userId를 기반으로 Member 가져오기
+    //jpaRepository를 통해서 Member를 상속받았기 때문에 여기에는 Custom Repository를 작성한다.
+
+    Optional<Member> findByUserId(String userId);
+        //select * from member where userId = userId; //JPA에서 Query 생성
+
+    //email을 기반으로 Member 가져오기
+    Optional<Member> findByEmail(String email);
+        //select * from member where email = email
 
     /*
-    Optional은 null 또는 값을 감싸서 NPE(NullPointerException)로부터 부담을 줄이기 위해 등장한 Wrapper 클래스이다.
-    Optional은 값을 Wrapping하고 다시 풀고, null 일 경우에는 대체하는 함수를 호출하는 등의 오버헤드가 있으므로 잘못 사용하면 시스템 성능이 저하된다.
-    그렇기 때문에 메소드의 반환 값이 절대 null이 아니라면 Optional을 사용하지 않는 것이 좋다.
-    즉, Optional은 메소드의 결과가 null이 될 수 있으며, null에 의해 오류가 발생할 가능성이 매우 높을 때 반환값으로만 사용되어야 한다.
+    @Query("select * from member where email = email")
+    Optional<List<Member>> findAllByEmail2(@Param("email") String email);
+    */
 
-     */
-    Optional<Member> findByUserId(String userId);
-    // select * from member where userId = userId;
-
-    // email 기반으로 Member 가져오기
-    Optional<Member> findByEmail(String email);
-
-    // 20대인 Member 리스트 가져오기
+    //20대인 Member 리스트 가져오기
     @Query("SELECT m from Member m where m.age between 20 and 29")
-    List<Member> twentyGenerateMembers();
+    List<Member> twnetyGenerateMembers();
 
-    // XX대인 Member 리스트 가져오기
+    //XX대인 Member 리스트 가져오기
+    //변수를 사용하고 싶으면 :변수명 이런식으로 작성 해야한다. (이 문장에선 between 뒤에 오는 값들)
     @Query("SELECT m from Member m where m.age between :startAge and :endAge")
     List<Member> getGenerationMembers(@Param("startAge") int startAge, @Param("endAge")int endAge);
 

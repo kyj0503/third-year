@@ -16,12 +16,14 @@ public class BannerController {
     @GetMapping("/banner")
     public String banner(Model model) {
         List<Banner> banners = new ArrayList<>() {{
-            add(new Banner("다음", "/img/Daum.png", "http://www.daum.net"));
-            add(new Banner("google", "/img/Google.png", "http://google.co.kr"));
+            add(new Banner("다음", "daum","http://www.daum.com"));
+            add(new Banner("google", "google.jpg","http://google.co.kr"));
         }};
         bannerRepository.saveAll(banners);
-        List<Banner> savedBanner = bannerRepository.findAll();
-        model.addAttribute("banners", savedBanner);
+
+        List<Banner> saveBanners = bannerRepository.findAll();
+
+        model.addAttribute("banners", saveBanners);
         return "banner";
     }
 }

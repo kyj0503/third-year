@@ -1,13 +1,13 @@
-package com.example.jpamemberproject;
+package com.example.JPAmemberProject;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JpamemberprojectApplicationTests {
+class JpAmemberProjectApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }

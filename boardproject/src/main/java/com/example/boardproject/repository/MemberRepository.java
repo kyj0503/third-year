@@ -1,13 +1,11 @@
-package com.example.boardproject.repository;
+package com.example.boardproject.Repository;
 
-import com.example.boardproject.entity.Article;
+import com.example.boardproject.Entity.Member;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface MemberRepository extends CrudRepository<Article, Long> {
+public interface MemberRepository extends CrudRepository<Member, Long> {
     @Override
-    List<Member> findAll();
+    public List<Member> findAll();
 }

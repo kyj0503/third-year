@@ -1,14 +1,18 @@
 {{>layouts/header}}
 <table class="table">
     <thead>
-    <th scope="col">Id</th><th scope="col">Title</th><th scope="col">Content</th>
+    <th scope="col">Id</th>
+    <th scope="col">Title</th>
+    <th scope="col">Content</th>
     </thead>
     <tbody>
     {{#articleList}}
         <tr>
-            <th>{{id}}</th><td>{{title}}</td><td>{{content}}</td>
+            <th>{{id}}</th>
+            <td><a href="/articles/{{id}}">{{title}}</a></td>
+            <td>{{content}}</td>
         </tr>
-    {{/articleList}}
-    </tbody>
+    {{/articleList}} </tbody>
 </table>
+<button type="button" class="btn btn-primary"><a href="/articles/new">새 글 작성</a></button>
 {{>layouts/footer}}
