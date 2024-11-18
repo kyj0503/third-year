@@ -10,11 +10,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
+@Getter @Setter @ToString @NoArgsConstructor
 public class Banner {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,13 +1,13 @@
-package com.example.jpamemberproject;
+package com.example.JPAmemberProject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JpamemberprojectApplication {
+public class JpAmemberProjectApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(JpamemberprojectApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(JpAmemberProjectApplication.class, args);
+	}
 
 }
