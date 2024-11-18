@@ -44,19 +44,19 @@ class UI {
 public:
 	static int getMenu() {
 		int key;
-		cout << "»ğÀÔ:1, »èÁ¦:2, ¸ğµÎº¸±â:3, Á¾·á:4 >>";
+		cout << "ì‚½ì…:1, ì‚­ì œ:2, ëª¨ë‘ë³´ê¸°:3, ì¢…ë£Œ:4 >>";
 		cin >> key;
 		return key;
 	}
 	static int getShapeTypeToInsert() {
 		int key;
-		cout << "¼±:1, ¿ø:2, »ç°¢Çü:3 >>";
+		cout << "ì„ :1, ì›:2, ì‚¬ê°í˜•:3 >>";
 		cin >> key;
 		return key;
 	}
 	static int getShapeIndexToDelete() {
 		int key;
-		cout << "»èÁ¦ÇÏ°íÀÚ ÇÏ´Â µµÇüÀÇ ÀÎµ¦½º >>";
+		cout << "ì‚­ì œí•˜ê³ ì í•˜ëŠ” ë„í˜•ì˜ ì¸ë±ìŠ¤ >>";
 		cin >> key;
 		return key;
 	}
@@ -94,7 +94,7 @@ public:
 		Shape* pre = pStart;
 		Shape* tmp = pStart;
 		if (pStart == NULL) {
-			cout << "µµÇüÀÌ ¾ø½À´Ï´Ù!" << endl;
+			cout << "ë„í˜•ì´ ì—†ìŠµë‹ˆë‹¤!" << endl;
 			return;
 		}
 		for (int i = 1; i < index; i++) {
@@ -120,7 +120,7 @@ public:
 		}
 	}
 	void run() {
-		cout << "±×·¡ÇÈ ¿¡µğÅÍÀÔ´Ï´Ù." << endl;
+		cout << "ê·¸ë˜í”½ ì—ë””í„°ì…ë‹ˆë‹¤." << endl;
 		int menu, index, type;
 		while(true) {
 			menu = UI::getMenu();
