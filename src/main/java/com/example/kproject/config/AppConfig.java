@@ -4,20 +4,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-/**
- * API 키를 Spring Bean으로 등록하기 위해 설정 파일 작성
- *
- * @author 김연재
- */
-
-@Configuration //이 파일이 스프링의 환경 설정 파일임을 의미하는 어노테이션
+@Configuration
 public class AppConfig {
 
-    @Value("${kakao.api.key}")
-    private String kakaoApiKey;
+    @Value("${kakao.js.key}")
+    private String kakaoJsKey;
+
+    @Value("${kakao.rest.key}")
+    private String kakaoRestKey;
 
     @Bean
-    public String kakaoApiKey() {
-        return kakaoApiKey;
+    public String kakaoJsKey() {
+        return kakaoJsKey;
+    }
+
+    @Bean
+    public String kakaoRestKey() {
+        return kakaoRestKey;
     }
 }

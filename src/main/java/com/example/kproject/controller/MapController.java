@@ -14,8 +14,11 @@ public class MapController {
 
     private static final Logger logger = LoggerFactory.getLogger(MapController.class);
 
-    @Value("${kakao.api.key}")
-    private String kakaoApiKey;
+    @Value("${kakao.js.key}")
+    private String kakaoJsKey;
+
+    @Value("${kakao.rest.key}")
+    private String kakaoRestKey;
 
     private static final String DEFAULT_KEYWORD = "카페";
 
@@ -25,7 +28,8 @@ public class MapController {
         logger.info("MapController 호출됨");
 
         // Kakao API 키와 검색 키워드를 모델에 추가하여 템플릿에 전달
-        model.addAttribute("kakaoApiKey", kakaoApiKey);
+        model.addAttribute("kakaoJsKey", kakaoJsKey);
+        model.addAttribute("kakaoRestKey", kakaoRestKey);
         model.addAttribute("keyword", DEFAULT_KEYWORD);
 
         return "map";  // 기본적으로 맵 화면을 반환
