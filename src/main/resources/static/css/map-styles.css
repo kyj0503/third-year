@@ -1,0 +1,41 @@
+/* HTML, body에 높이를 100%로 설정 */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 지도 컨테이너 */
+.map-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    height: 70vh; /* 전체 화면 높이의 70% */
+}
+
+/* 지도 스타일 */
+.map {
+    width: 100%;
+    height: 100%; /* 부모 컨테이너의 높이에 맞춤 */
+    border: 1px solid #000;
+}
+
+/* 버튼 컨테이너 */
+.buttons-container {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* 버튼 스타일 */
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.buttons button {
+    min-width: 150px;
+    height: 40px;
+}
