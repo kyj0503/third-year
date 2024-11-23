@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>카카오 지도</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/map-styles.css">
     <script>
         const kakaoJsKey = "{{kakaoJsKey}}";
         const kakaoRestKey = "{{kakaoRestKey}}";
@@ -12,24 +13,30 @@
     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{kakaoJsKey}}&libraries=services,drawing"></script>
 </head>
 <body>
-<div class="container">
-    <input type="hidden" id="keyword-data" value="{{keyword}}">
-    <div id="map" class="map">지도</div>
-    <script src="/js/map.js"></script>
-    <div class="buttons">
-        <button onclick="displayMapCenter()">현재 위치</button>
-        {{#isLoggedIn}}
-            <button onclick="location.href='/logout'">로그아웃</button>
-        {{/isLoggedIn}}
-        {{^isLoggedIn}}
-            <button onclick="location.href='/login'">로그인</button>
-            <button onclick="location.href='/users/create'">회원가입</button>
-        {{/isLoggedIn}}
-        <button>리뷰 작성</button>
-        <button>평점 작성</button>
-        <button>평점 순 나열</button>
-        <button>경로 탐색</button>
+<div class="container my-4">
+    <!-- 지도 -->
+    <div class="map-container">
+        <div id="map" class="map">지도</div>
     </div>
+
+    <!-- 버튼들 -->
+    <div class="buttons-container">
+        <div class="buttons">
+            <button class="btn btn-primary">평점순</button>
+            <button class="btn btn-primary">경로탐색</button>
+            <button class="btn btn-primary">마이페이지</button>
+            {{#isLoggedIn}}
+                <button class="btn btn-primary" onclick="location.href='/logout'">로그아웃</button>
+            {{/isLoggedIn}}
+            {{^isLoggedIn}}
+                <button class="btn btn-primary" onclick="location.href='/login'">로그인</button>
+            {{/isLoggedIn}}
+        </div>
+    </div>
+
+    <input type="hidden" id="keyword-data" value="{{keyword}}">
+    <script src="/js/map.js"></script>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
