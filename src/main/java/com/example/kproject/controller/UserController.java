@@ -2,6 +2,7 @@ package com.example.kproject.controller;
 
 import com.example.kproject.entity.Review;
 import com.example.kproject.entity.User;
+import com.example.kproject.service.FavoriteService;
 import com.example.kproject.service.ReviewService;
 import com.example.kproject.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -25,6 +26,10 @@ public class UserController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private FavoriteService favoriteService;
+
 
     /**
      * 회원가입 폼 페이지를 반환한다.
@@ -75,6 +80,7 @@ public class UserController {
 
         model.addAttribute("user", user);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("favorites", favoriteService.getFavoritesByUserId(userId));
         return "users/mypage";
     }
 
@@ -96,4 +102,5 @@ public class UserController {
         }
         return "redirect:/users/mypage";
     }
+
 }

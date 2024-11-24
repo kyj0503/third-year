@@ -91,18 +91,46 @@ document.addEventListener("DOMContentLoaded", function () {
                         : result[0].address.address_name;
 
                     const content = `
-                        <div style="padding:5px;font-size:12px;">
-                            <p>${place.place_name}</p>
-                            <p>${address}</p>
-                            <button onclick="savePlaceToDatabase('${place.place_name}', '${address}', ${place.x}, ${place.y})">리뷰 남기기</button>
-                            <button onclick="getCarDirection(${place.y}, ${place.x})">경로 탐색</button>
-                        </div>`;
+                    <div style="padding:5px;font-size:12px;">
+                        <p>${place.place_name}</p>
+                        <p>${address}</p>
+                        <button onclick="savePlaceToDatabase('${place.place_name}', '${address}', ${place.x}, ${place.y})">리뷰 남기기</button>
+                        <button onclick="getCarDirection(${place.y}, ${place.x})">경로 탐색</button>
+                        <button onclick="addFavorite('${place.place_name}', '${address}', ${place.x}, ${place.y})">즐겨찾기 추가</button>
+                    </div>`;
                     infowindow.setContent(content);
                     infowindow.open(map, marker);
                 }
             });
         });
     }
+
+// 즐겨찾기 추가 함수
+    window.addFavorite = function (name, address, longitude, latitude) {
+        if (!isLoggedIn) {
+            alert("로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+            window.location.href = '/login';
+            return;
+        }
+
+        const favoriteData = { name, address, longitude, latitude };
+
+        fetch('/favorites/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(favoriteData),
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to add favorite');
+                return response.json();
+            })
+            .then(data => {
+                alert('즐겨찾기에 추가되었습니다.');
+            })
+            .catch(error => console.error('Error:', error));
+    };
 
     /**
      * 좌표를 상세 주소로 변환한다.
@@ -142,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(data => {
                 const redirectUrl = data.redirectUrl;
-                alert('장소가 저장되었습니다. 리뷰 작성 페이지로 이동합니다.');
                 window.location.href = redirectUrl;
             })
             .catch(error => console.error('Error:', error));
