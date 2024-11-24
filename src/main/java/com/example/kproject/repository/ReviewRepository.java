@@ -2,6 +2,7 @@ package com.example.kproject.repository;
 
 import com.example.kproject.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -20,4 +21,16 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
      *         결과가 없는 경우 빈 리스트를 반환.
      */
     List<Review> findByPlacePlaceId(Integer placeId);
+
+
+    /**
+     * 장소별 평균 평점을 계산하여 반환
+     */
+    @Query("SELECT r.place.placeId, r.place.name, AVG(r.rating) AS averageRating " +
+            "FROM Review r " +
+            "GROUP BY r.place.placeId, r.place.name " +
+            "ORDER BY averageRating DESC")
+    List<Object[]> findAverageRatingPerPlace();
+
+    List<Review> findByUserUserId(Integer userId);
 }

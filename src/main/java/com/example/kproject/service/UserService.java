@@ -68,4 +68,9 @@ public class UserService {
     public Optional<User> getUserById(Integer id) {
         return userRepository.findById(id);
     }
+
+    // 사용자 정보 저장/업데이트 (추가된 메서드)
+    public User saveUser(User user) {
+        return userRepository.save(user);
+    }
 }

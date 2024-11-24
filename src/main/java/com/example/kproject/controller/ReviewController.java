@@ -138,4 +138,15 @@ public class ReviewController {
 
         return "redirect:/"; // 저장 후 메인 페이지로 리다이렉트
     }
+
+    /**
+     * 평균 평점순으로 장소 리스트를 정렬하고 표시
+     */
+    @GetMapping("/list")
+    public String listReviewsByAverageRating(Model model) {
+        // 평균 평점이 높은 순으로 정렬된 장소와 리뷰 데이터를 가져옴
+        var placesWithRatings = reviewService.getPlacesByAverageRating();
+        model.addAttribute("placesWithRatings", placesWithRatings);
+        return "reviews/list";
+    }
 }

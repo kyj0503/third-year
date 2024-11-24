@@ -31,12 +31,10 @@
     <div class="buttons-container">
         <div class="buttons">
             <!-- 기능 버튼들 -->
-            <button class="btn btn-primary">평점순</button>
+            <button class="btn btn-primary" onclick="location.href='/reviews/list'">평점순</button>
             <button class="btn btn-primary">경로탐색</button>
-            <button class="btn btn-primary">마이페이지</button>
-
-            <!-- 로그인/로그아웃 버튼 -->
             {{#isLoggedIn}}
+                <button class="btn btn-primary" onclick="location.href='/users/mypage'">마이페이지</button>
                 <button class="btn btn-primary" onclick="location.href='/logout'">로그아웃</button>
             {{/isLoggedIn}}
             {{^isLoggedIn}}
