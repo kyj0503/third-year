@@ -1,11 +1,16 @@
 package com.example.kproject.controller;
 
+import com.example.kproject.entity.Review;
 import com.example.kproject.entity.User;
+import com.example.kproject.service.ReviewService;
 import com.example.kproject.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * UserController는 사용자 관리와 관련된 요청을 처리한다.
@@ -17,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     /**
      * 회원가입 폼 페이지를 반환한다.
@@ -51,5 +59,41 @@ public class UserController {
             model.addAttribute("error", "회원가입 중 오류가 발생했습니다: " + e.getMessage());
             return "users/create";
         }
+    }
+
+    // 마이페이지 표시
+    @GetMapping("/mypage")
+    public String showMyPage(Model model, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        // 현재 사용자 정보와 리뷰 가져오기
+        User user = userService.getUserById(userId).orElse(null);
+        List<Review> reviews = reviewService.getReviewsByUserId(userId);
+
+        model.addAttribute("user", user);
+        model.addAttribute("reviews", reviews);
+        return "users/mypage";
+    }
+
+    // 회원 정보 수정 처리
+    @PostMapping("/update")
+    public String updateUser(User user, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
+        if (userId == null) {
+            return "redirect:/login";
+        }
+
+        // 기존 사용자 데이터 업데이트
+        User existingUser = userService.getUserById(userId).orElse(null);
+        if (existingUser != null) {
+            existingUser.setUsername(user.getUsername());
+            existingUser.setPassword(user.getPassword());
+            existingUser.setEmail(user.getEmail());
+            userService.saveUser(existingUser);
+        }
+        return "redirect:/users/mypage";
     }
 }
