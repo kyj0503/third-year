@@ -115,6 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
      * 카카오 API로 검색된 장소들을 지도에 표시하는 함수
      */
     function displayPlaces(places) {
+        // 기존 카페 마커들 지우기
+        cafeMarkers.forEach(marker => marker.setMap(null));
+        cafeMarkers = []; // 배열 초기화
+
         places.forEach((place) => {
             const position = new kakao.maps.LatLng(place.y, place.x);
 
@@ -244,6 +248,12 @@ document.addEventListener("DOMContentLoaded", function () {
         path.forEach(point => bounds.extend(point)); // 경로가 포함된 영역 설정
         map.setBounds(bounds); // 지도의 경계 설정
     }
+
+    // 지도 이동 시 새로운 위치에서 장소를 검색
+    kakao.maps.event.addListener(map, 'center_changed', function () {
+        const center = map.getCenter();
+        searchPlaces(center);
+    });
 
     /**
      * 지도 초기화 함수
