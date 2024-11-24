@@ -1,31 +1,54 @@
 plugins {
+    // Java 플러그인 적용
     id 'java'
+
+    // Spring Boot 플러그인 (버전: 3.3.4)
     id 'org.springframework.boot' version '3.3.4'
+
+    // Spring 의존성 관리 플러그인
     id 'io.spring.dependency-management' version '1.1.6'
 }
 
+// 프로젝트의 그룹 및 버전 설정
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
+// Java 관련 설정
 java {
     toolchain {
+        // Java 17 사용
         languageVersion = JavaLanguageVersion.of(17)
     }
 }
 
+// 의존성을 다운로드할 저장소 설정
 repositories {
-    mavenCentral()
+    mavenCentral() // Maven Central 저장소
 }
 
+// 프로젝트 의존성 설정
 dependencies {
+    // Lombok (컴파일 시점에만 사용)
     compileOnly 'org.projectlombok:lombok:1.18.24'
+
+    // Lombok의 애노테이션 프로세서
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    // Spring Data JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Mustache 템플릿 엔진
     implementation 'org.springframework.boot:spring-boot-starter-mustache'
+
+    // Spring Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // MySQL 데이터베이스 커넥터
     runtimeOnly 'com.mysql:mysql-connector-j'
 }
 
+// 테스트 태스크 설정
 tasks.named('test') {
+    // JUnit 플랫폼 사용
     useJUnitPlatform()
 }
