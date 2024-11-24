@@ -16,7 +16,11 @@ public class PlaceController {
     @Autowired
     private PlaceService placeService;
 
-    // 모든 Place 데이터를 반환
+    /**
+     * 모든 Place 데이터를 반환하는 메서드.
+     *
+     * @return Place 엔티티의 리스트
+     */
     @GetMapping
     public List<Place> getAllPlaces() {
         return placeService.getAllPlaces();
