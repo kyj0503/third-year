@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User 엔티티는 사용자 정보를 저장하는 데이터베이스 테이블과 매핑된다.
@@ -63,4 +65,9 @@ public class User {
     protected void onCreate() {
         this.createdAt = Timestamp.valueOf(LocalDateTime.now());
     }
+
+    @Getter
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+
 }

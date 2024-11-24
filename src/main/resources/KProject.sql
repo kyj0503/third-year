@@ -27,3 +27,11 @@ CREATE TABLE Review (
                         FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
                         FOREIGN KEY (place_id) REFERENCES Place(place_id) ON DELETE CASCADE
 );
+
+CREATE TABLE Favorite (
+                          favorite_id INT AUTO_INCREMENT PRIMARY KEY,
+                          user_id INT NOT NULL,
+                          place_id INT NOT NULL,
+                          FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+                          FOREIGN KEY (place_id) REFERENCES Place(place_id) ON DELETE CASCADE
+);
