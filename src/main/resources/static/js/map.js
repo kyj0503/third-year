@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 }); // 정보 창 객체
     var markers = []; // 마커를 저장할 배열
     var openInfoWindowMarker = null; // 열린 인포윈도우의 마커 저장 변수
+    var routePolyline = null; // 경로를 그리기 위한 폴리라인 객체
 
     /**
      * 사용자 위치를 기반으로 지도 중심 설정
@@ -232,6 +233,12 @@ document.addEventListener("DOMContentLoaded", function () {
         path.forEach(point => bounds.extend(point)); // 경로가 포함된 bounds 설정
         map.setBounds(bounds); // 지도 범위 설정
     }
+
+    // 지도 이동 시 새로운 위치에서 장소를 검색
+    kakao.maps.event.addListener(map, 'center_changed', function () {
+        const center = map.getCenter();
+        searchPlaces(center);
+    });
 
     setMapCenterByUserLocation(); // 사용자 위치를 기준으로 지도 초기화
 });
