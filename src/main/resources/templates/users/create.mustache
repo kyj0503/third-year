@@ -2,22 +2,25 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>로그인</title>
+    <title>회원가입</title>
 </head>
 <body>
-<h2>로그인</h2>
+<h2>회원가입</h2>
 {{#error}}
     <p style="color: red;">{{error}}</p>
 {{/error}}
-<form action="/login" method="post">
+<form action="/users/create" method="post">
     <label for="username">아이디:</label>
     <input type="text" id="username" name="username" required><br>
 
     <label for="password">비밀번호:</label>
     <input type="password" id="password" name="password" required><br>
 
-    <button type="submit">로그인</button>
+    <label for="email">이메일:</label>
+    <input type="email" id="email" name="email" required><br>
+
+    <button type="submit">회원가입</button>
 </form>
-<a href="/users/create">회원가입</a>
+<a href="/login">로그인</a>
 </body>
 </html>

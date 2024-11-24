@@ -4,10 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
 public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer reviewId;
@@ -24,5 +28,11 @@ public class Review {
     private String comment;
 
     @Column(nullable = false, updatable = false)
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
+
+    // 엔티티가 persist되기 전에 createdAt 설정
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
+    }
 }

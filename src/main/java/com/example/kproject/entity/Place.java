@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Setter
@@ -19,10 +22,18 @@ public class Place {
     private String address;
 
     private String description;
-    private String openingHours;
+
+    @Column(nullable = false)
     private Double latitude;
+
+    @Column(nullable = false)
     private Double longitude;
 
     @Column(nullable = false, updatable = false)
-    private java.sql.Timestamp createdAt;
+    private Timestamp createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = Timestamp.valueOf(LocalDateTime.now());
+    }
 }

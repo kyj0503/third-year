@@ -5,6 +5,7 @@ import com.example.kproject.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlaceService {
@@ -25,5 +26,18 @@ public class PlaceService {
 
     public void deletePlace(Integer id) {
         placeRepository.deleteById(id);
+    }
+
+
+    public Place findOrCreatePlace(String name, String address, Double latitude, Double longitude) {
+        return placeRepository.findByAddressAndLatitudeAndLongitude(address, latitude, longitude)
+                .orElseGet(() -> {
+                    Place place = new Place();
+                    place.setName(name);
+                    place.setAddress(address);
+                    place.setLatitude(latitude);
+                    place.setLongitude(longitude);
+                    return placeRepository.save(place); // createdAt은 @PrePersist로 설정됨
+                });
     }
 }

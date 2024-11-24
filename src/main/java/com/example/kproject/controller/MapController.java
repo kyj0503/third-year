@@ -24,14 +24,15 @@ public class MapController {
 
     @GetMapping("/")
     public String showMap(Model model, HttpSession session) {
-        // 로그 추가
         logger.info("MapController 호출됨");
 
-        // Kakao API 키와 검색 키워드를 모델에 추가하여 템플릿에 전달
+        boolean isLoggedIn = session.getAttribute("userId") != null;
+        model.addAttribute("isLoggedIn", isLoggedIn);
         model.addAttribute("kakaoJsKey", kakaoJsKey);
         model.addAttribute("kakaoRestKey", kakaoRestKey);
         model.addAttribute("keyword", DEFAULT_KEYWORD);
 
-        return "map";  // 기본적으로 맵 화면을 반환
+        return "map";
     }
+
 }

@@ -10,14 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/users")
 public class UserController {
+
     @Autowired
     private UserService userService;
-
-    @GetMapping
-    public String listUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        return "users/list";
-    }
 
     // 회원가입 페이지 표시
     @GetMapping("/create")
@@ -28,42 +23,13 @@ public class UserController {
 
     // 회원가입 처리
     @PostMapping("/create")
-    public String registerUser(@RequestParam("username") String username,
-                               @RequestParam("password") String password,
-                               @RequestParam("email") String email,
-                               Model model) {
-        // 새로운 User 객체 생성 후 필드 설정
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-
-        // 현재 시간을 생성일로 설정
-        user.setCreatedAt(new java.sql.Timestamp(System.currentTimeMillis()));
-
-        // User 저장
-        userService.saveUser(user);
-
-        // 회원가입 성공 후 로그인 페이지로 리다이렉트
-        return "redirect:/login";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String editUserForm(@PathVariable Integer id, Model model) {
-        model.addAttribute("user", userService.getUserById(id));
-        return "users/edit";
-    }
-
-    @PostMapping("/edit/{id}")
-    public String editUser(@PathVariable Integer id, @ModelAttribute User user) {
-        user.setUserId(id);
-        userService.saveUser(user);
-        return "redirect:/users";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable Integer id) {
-        userService.deleteUser(id);
-        return "redirect:/users";
+    public String registerUser(@ModelAttribute User user, Model model) {
+        try {
+            userService.registerUser(user);
+            return "redirect:/login"; // 회원가입 후 로그인 페이지로 리다이렉트
+        } catch (Exception e) {
+            model.addAttribute("error", "회원가입 중 오류가 발생했습니다: " + e.getMessage());
+            return "users/create";
+        }
     }
 }
