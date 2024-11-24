@@ -9,10 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * ReviewService는 Review 엔티티와 관련된 비즈니스 로직을 처리한다.
- * ReviewRepository를 사용하여 데이터베이스와 상호작용한다.
- */
 @Service
 public class ReviewService {
 
@@ -20,28 +16,29 @@ public class ReviewService {
     private ReviewRepository reviewRepository;
 
     /**
-     * 새로운 리뷰(Review)를 저장하거나 기존 리뷰 정보를 갱신한다.
+     * 새로운 리뷰를 저장하거나 기존 리뷰 정보를 갱신하는 메서드.
      *
-     * @param review 저장 또는 갱신할 Review 객체.
-     * @return 저장된 Review 객체.
+     * @param review 저장 또는 갱신할 Review 객체
+     * @return 저장된 Review 객체
      */
     public Review saveReview(Review review) {
         return reviewRepository.save(review);
     }
 
     /**
-     * 특정 장소(Place)에 해당하는 모든 리뷰 목록을 조회한다.
-     * 장소 ID를 기반으로 관련된 리뷰를 필터링한다.
+     * 특정 장소에 해당하는 모든 리뷰를 조회하는 메서드.
      *
-     * @param placeId 조회할 장소의 고유 식별자.
-     * @return 주어진 장소에 대한 리뷰 리스트.
+     * @param placeId 리뷰를 조회할 장소의 ID
+     * @return 해당 장소에 대한 리뷰 리스트
      */
     public List<Review> getReviewsByPlaceId(Integer placeId) {
         return reviewRepository.findByPlacePlaceId(placeId);
     }
 
     /**
-     * 평균 평점이 높은 순으로 장소 리스트를 반환
+     * 평균 평점이 높은 순으로 장소 리스트를 반환하는 메서드.
+     *
+     * @return 장소 ID, 이름, 평균 평점을 포함한 리스트
      */
     public List<Map<String, Object>> getPlacesByAverageRating() {
         return reviewRepository.findAverageRatingPerPlace()
@@ -54,6 +51,12 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 특정 사용자 ID에 해당하는 모든 리뷰를 조회하는 메서드.
+     *
+     * @param userId 리뷰를 조회할 사용자의 ID
+     * @return 해당 사용자가 작성한 리뷰 리스트
+     */
     public List<Review> getReviewsByUserId(Integer userId) {
         return reviewRepository.findByUserUserId(userId);
     }

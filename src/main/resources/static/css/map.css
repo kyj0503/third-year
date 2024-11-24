@@ -1,0 +1,39 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.map-container {
+    width: 100%;
+    height: 75vh; /* 지도 높이 */
+    border: 1px solid #ccc;
+}
+
+.form-container {
+    margin-top: 20px;
+}
+
+.map {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #000;
+}
+
+.buttons-container {
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.buttons button {
+    min-width: 150px;
+    height: 40px;
+}

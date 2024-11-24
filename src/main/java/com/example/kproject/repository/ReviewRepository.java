@@ -6,25 +6,21 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-/**
- * ReviewRepository는 Review 엔티티에 대한 데이터베이스 액세스를 처리한다.
- * JpaRepository를 확장하여 기본 CRUD 기능과 추가적인 사용자 정의 쿼리를 제공한다.
- */
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     /**
-     * 특정 장소 ID에 대한 모든 리뷰를 조회한다.
-     * Place의 placeId를 기준으로 Review 엔티티를 검색하여 해당 장소와 연관된 리뷰 목록을 반환한다.
+     * 특정 장소 ID에 대한 모든 리뷰를 조회하는 메서드.
      *
-     * @param placeId 검색할 리뷰가 속한 Place 엔티티의 ID.
-     * @return 해당 장소 ID와 연관된 Review 엔티티의 리스트.
-     *         결과가 없는 경우 빈 리스트를 반환.
+     * @param placeId 리뷰가 속한 장소의 ID
+     * @return 해당 장소와 연관된 리뷰 리스트
      */
     List<Review> findByPlacePlaceId(Integer placeId);
 
-
     /**
-     * 장소별 평균 평점을 계산하여 반환
+     * 장소별 평균 평점을 계산하여 반환하는 메서드.
+     * 장소 ID와 이름별로 그룹화하여 평균 평점을 계산하고 내림차순으로 정렬한다.
+     *
+     * @return 각 장소의 ID, 이름, 평균 평점을 담은 Object 배열 리스트
      */
     @Query("SELECT r.place.placeId, r.place.name, AVG(r.rating) AS averageRating " +
             "FROM Review r " +
@@ -32,5 +28,11 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
             "ORDER BY averageRating DESC")
     List<Object[]> findAverageRatingPerPlace();
 
+    /**
+     * 특정 사용자 ID에 대한 모든 리뷰를 조회하는 메서드.
+     *
+     * @param userId 리뷰를 작성한 사용자의 ID
+     * @return 해당 사용자와 연관된 리뷰 리스트
+     */
     List<Review> findByUserUserId(Integer userId);
 }

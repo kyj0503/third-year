@@ -16,16 +16,22 @@ public class NavigationController {
     @Value("${kakao.rest.key}")
     private String kakaoRestKey;
 
+    /**
+     * 네비게이션 페이지를 표시하는 메서드.
+     * 로그인 여부와 Kakao API 키를 템플릿에 전달한다.
+     *
+     * @param model 템플릿에 데이터를 전달하기 위한 Model 객체
+     * @param session 현재 사용자 세션 객체
+     * @return 네비게이션 페이지 뷰 이름 ("navigation")
+     */
     @GetMapping("/navigation")
     public String showNavigationPage(Model model, HttpSession session) {
-        // 로그인 여부 확인
         boolean isLoggedIn = session.getAttribute("userId") != null;
 
-        // 모델에 필요한 변수 추가
         model.addAttribute("isLoggedIn", isLoggedIn);
         model.addAttribute("kakaoJsKey", kakaoJsKey);
         model.addAttribute("kakaoRestKey", kakaoRestKey);
 
-        return "navigation"; // navigation.mustache로 이동
+        return "navigation";
     }
 }
