@@ -70,7 +70,7 @@ public class ReviewController {
      * @return 리뷰 작성 페이지 뷰 이름 ("reviews/create")
      */
     @GetMapping("/create/{placeId}")
-    public String showReviewForm(@PathVariable Integer placeId, Model model, HttpSession session) {
+    public String showReviewForm(@PathVariable("placeId") Integer placeId, Model model, HttpSession session) {
         Integer userId = (Integer) session.getAttribute("userId");
         boolean isLoggedIn = userId != null;
         model.addAttribute("isLoggedIn", isLoggedIn);
