@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const keyword = "카페"; // 초기 검색 키워드 (카페)
 
-    // 사용자의 현재 위치를 기반으로 지도 위치 설정
+    /**
+     * 사용자의 현재 위치를 기반으로 지도 위치 설정
+     */
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             const userLatLng = new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -167,6 +169,46 @@ document.addEventListener("DOMContentLoaded", function () {
         infoWindows = []; // 배열 초기화
     }
 
+    // 출발지 및 도착지 텍스트 입력 필드 이벤트 리스너 추가
+    document.getElementById('start-location').addEventListener('change', () => handleAddressInput('start-location', true));
+    document.getElementById('end-location').addEventListener('change', () => handleAddressInput('end-location', false));
+
+    /**
+     * 주소 입력값을 처리하여 좌표로 변환하는 함수
+     * @param {string} inputId - 입력 필드 ID ('start-location' 또는 'end-location')
+     * @param {boolean} isStart - 출발지 여부 (true: 출발지, false: 도착지)
+     */
+    function handleAddressInput(inputId, isStart) {
+        const address = document.getElementById(inputId).value.trim();
+        if (!address) {
+            alert("주소를 입력해주세요.");
+            return;
+        }
+
+        geocoder.addressSearch(address, function (result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                if (isStart) {
+                    startCoords = coords;
+                    alert("출발지가 설정되었습니다.");
+                } else {
+                    endCoords = coords;
+                    alert("도착지가 설정되었습니다.");
+                }
+
+                // 지도 중심 이동 및 마커 표시
+                map.setCenter(coords);
+                new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+            } else {
+                alert("주소 검색 결과가 없습니다. 올바른 주소를 입력해주세요.");
+            }
+        });
+    }
+
     /**
      * 출발지로 설정하는 함수
      */
@@ -249,7 +291,9 @@ document.addEventListener("DOMContentLoaded", function () {
         map.setBounds(bounds); // 지도의 경계 설정
     }
 
-    // 지도 이동 시 새로운 위치에서 장소를 검색
+    /**
+     * 지도 이동 시 새로운 위치에서 장소를 검색
+     */
     kakao.maps.event.addListener(map, 'center_changed', function () {
         const center = map.getCenter();
         searchPlaces(center);
