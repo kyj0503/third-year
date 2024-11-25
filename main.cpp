@@ -46,11 +46,11 @@ public:
     GraphicEditor() {}
     void insert() {
         int n = UI::insert();
-        if (n == 1) // 라인
+        if (n == 1)
             v.push_back(new Line());
-        else if (n == 2)  // 원
+        else if (n == 2)
             v.push_back(new Circle());
-        else if (n == 3) // 사각형
+        else if (n == 3)
             v.push_back(new Rectangle());
         else cout << "입력 에러" << endl;
     }
@@ -74,11 +74,11 @@ public:
         UI::start();
         for (;;) {
             int m = UI::menu();
-            if (m == 1) // 삽입
+            if (m == 1)
                 insert();
-            else if (m == 2) // 삭제
+            else if (m == 2)
                 deleteShape();
-            else if (m == 3)  // 전체 보기
+            else if (m == 3)
                 showAll();
             else if (m == 4) break;
             else cout << "입력 에러 " << endl;
