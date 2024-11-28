@@ -10,7 +10,7 @@
     <!-- 1번 화면: 로그인 -->
     <div id="login" th:if="${user == null}">
         <div class="image">
-            <img src="/images/default.png" alt="Profile"> <!-- 이미지 랜덤으로 돌리게 만들기 -->
+            <img src="/images/default.png" alt="Profile">
         </div>
         <h2>로그인</h2>
         <form action="/login" method="post">
@@ -37,8 +37,32 @@
     <div id="posts">
         <h3>게시물 목록</h3>
         <div th:each="post : ${posts}" class="post">
+            <!-- 게시글 내용 표시 부분 -->
             <p><strong th:text="${post.user.username}"></strong>:
                 <span th:text="${post.content}"></span></p>
+
+            <!-- 좋아요 기능 추가 위치 -->
+            <p>좋아요: <span th:text="${post.likes}"></span></p>
+            <form th:action="@{/posts/{id}/like(id=${post.id})}" method="post" style="display:inline;">
+                <button type="submit">좋아요</button>
+            </form>
+
+            <!-- 댓글 리스트 표시 부분 -->
+            <div class="comments">
+                <h4>댓글</h4>
+                <div th:each="comment : ${post.comments}">
+                    <p>
+                        <strong th:text="${comment.user.username}"></strong>:
+                        <span th:text="${comment.content}"></span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- 댓글 작성 폼 추가 위치 -->
+            <form th:action="@{/posts/{id}/comment(id=${post.id})}" method="post">
+                <textarea name="content" placeholder="댓글을 입력하세요" required></textarea>
+                <button type="submit">댓글 작성</button>
+            </form>
         </div>
     </div>
 
