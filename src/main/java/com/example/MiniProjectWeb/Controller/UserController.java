@@ -43,7 +43,6 @@ public class UserController {
 
         // 모든 게시물 목록 추가 (로그아웃 후에도 게시물 표시)
         model.addAttribute("posts", postRepository.findAll());
-
         return "index"; // 메인 화면
     }
 
@@ -120,7 +119,6 @@ public class UserController {
         post.setContent(content);
         post.setUser(user); // 현재 로그인된 사용자 설정
         postRepository.save(post); // 데이터베이스에 게시물 저장
-
         return "redirect:/"; // 메인 화면으로 리다이렉트
     }
 }

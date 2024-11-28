@@ -157,14 +157,19 @@ body {
     background-color: #45a049;
 }
 
-/* 반응형 디자인 (모바일 화면) */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
+/* 게시글 스타일 추가 */
+.post {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9; /* 게시글 배경색 */
+    border-radius: 8px; /* 게시글 경계선 둥글게 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 게시글 그림자 */
+}
 
-    #login, #posts, #postForm {
-        width: 90%;
-        margin-bottom: 20px;
-    }
+/* 댓글 스타일 추가 */
+.comments {
+    margin-top: 10px;
+    padding-left: 10px;
+    border-left: 2px solid #ddd;
 }
