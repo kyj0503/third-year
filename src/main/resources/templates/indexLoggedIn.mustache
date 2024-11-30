@@ -1,0 +1,200 @@
+{{>layouts/header}}
+<div class="container mt-4">
+    <div class="row">
+        <!-- 사용자 정보 -->
+        <div class="col-md-3">
+            <h3>사용자 정보</h3>
+            {{#user}}
+                <div class="mb-3">
+                    <p>환영합니다, <strong>{{username}}</strong>님!</p>
+                    <form action="/logout" method="post" style="display:inline;">
+                        <button class="btn btn-danger btn-sm">로그아웃</button>
+                    </form>
+                </div>
+            {{/user}}
+
+            {{^user}}
+                <div class="text-right">
+                    <a href="/login" class="btn btn-primary btn-sm mr-2" style="width: 80px;">로그인</a>
+                    <a href="/register" class="btn btn-secondary btn-sm" style="width: 80px;">회원가입</a>
+                </div>
+            {{/user}}
+        </div>
+        <!-- 사용자 정보 -->
+
+        <!-- 게시물 목록 -->
+        <div class="col-md-6">
+            <h3>게시물 목록</h3>
+            {{#posts}}
+                <div class="card mb-3">
+                    <div class="card-body" id="post-{{id}}">
+                        <h5 class="card-title">{{user.username}}</h5>
+
+                        <!-- 수정 폼 -->
+                        <div class="edit-form" style="display: none;">
+                            <form action="/posts/{{id}}/edit" method="post" class="edit-post-form mt-2">
+                                <textarea name="content" class="form-control mb-2">{{content}}</textarea>
+                                <div class="d-flex justify-content-end mb-2">
+                                    <button type="submit" class="btn btn-sm btn-primary mr-2">수정 완료</button>
+                                    <button type="button" class="btn btn-sm btn-secondary" onclick="cancelEdit({{id}})">취소</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- 게시물 내용 -->
+                        <p class="card-text">{{content}}</p>
+
+                        <!-- 에러 메시지 -->
+                        {{#error}}
+                            <div class="alert alert-danger w-100 mb-2" role="alert">
+                                {{error}}
+                            </div>
+                        {{/error}}
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <!-- 좋아요 버튼 및 좋아요 개수 -->
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-sm {{#isLiked}}btn-primary{{/isLiked}}{{^isLiked}}btn-outline-primary{{/isLiked}}"
+                                        onclick="toggleLike({{id}}, this)">
+                                    좋아요
+                                </button>
+                                <span class="ml-2 text-muted like-count">좋아요 {{likeCount}}개</span>
+                            </div>
+
+                            <!-- 게시물 수정 및 삭제 버튼 -->
+                            {{#isOwner}}
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-sm btn-outline-warning mr-2" onclick="toggleEditMode({{id}})">수정</button>
+                                    <form action="/posts/{{id}}/delete" method="post" style="display:inline;">
+                                        <button class="btn btn-sm btn-outline-danger">삭제</button>
+                                    </form>
+                                </div>
+                            {{/isOwner}}
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer">
+                        <h6>댓글 {{commentCount}}개</h6> <!-- 댓글 개수 표시 -->
+
+                        <!-- 댓글 작성 -->
+                        <form action="/posts/{{id}}/comment" method="post">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <textarea name="content" class="form-control mr-2" placeholder="댓글을 입력하세요" required></textarea>
+                                <button class="btn btn-sm btn-primary text-nowrap" style="white-space: nowrap;">작성</button>
+                            </div>
+                        </form>
+
+                        <!-- 댓글 목록 -->
+                        <div class="mt-3">
+                            {{#comments}}
+                                <div class="d-flex justify-content-between align-items-center my-1">
+                                    <p class="mb-0">
+                                        <strong>{{user.username}}</strong>:
+                                        <span class="comment-content">{{content}}</span>
+                                    </p>
+                                    <div>
+                                        {{#isOwner}}
+                                            <button class="btn btn-sm btn-warning text-nowrap mr-1" onclick="toggleEditComment({{id}})">수정</button>
+                                            <form action="/comments/{{id}}/delete" method="post" style="display:inline;">
+                                                <button class="btn btn-sm btn-danger">삭제</button>
+                                            </form>
+                                        {{/isOwner}}
+                                    </div>
+                                </div>
+
+                                <!-- 수정 폼 -->
+                                <form action="/comments/{{id}}/edit" method="post" class="edit-comment-form mt-2 d-none">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <textarea name="content" class="form-control mr-2">{{content}}</textarea>
+                                        <button class="btn btn-sm btn-success text-nowrap" style="white-space: nowrap;">수정 완료</button>
+                                    </div>
+                                </form>
+                            {{/comments}}
+                        </div>
+                    </div>
+
+                </div>
+            {{/posts}}
+        </div>
+        <!-- 게시물 목록 -->
+
+        <!-- 게시물 추가 -->
+        <div class="col-md-3">
+            <h3>게시물 추가</h3>
+            {{#user}}
+                <form action="/addpost" method="post">
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" placeholder="게시물을 입력하세요" required></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-block mt-2">게시물 추가</button>
+                </form>
+            {{/user}}
+            {{^user}}
+                <p>게시물을 작성하려면 로그인이 필요합니다.</p>
+            {{/user}}
+        </div>
+        <!-- 게시물 추가 -->
+    </div>
+</div>
+
+<script>
+    function toggleEditMode(postId) {
+        const postElement = document.getElementById(`post-${postId}`);
+        const contentElement = postElement.querySelector(".card-text");
+        const editForm = postElement.querySelector(".edit-form");
+
+        // 토글 로직
+        if (editForm.style.display === "none") {
+            editForm.style.display = "block";
+            contentElement.style.display = "none";
+        } else {
+            editForm.style.display = "none";
+            contentElement.style.display = "block";
+        }
+    }
+
+    function toggleEditComment(commentId) {
+        const editForm = document.querySelector(`form[action="/comments/${commentId}/edit"]`);
+        const commentContent = editForm.previousElementSibling.querySelector('.comment-content');
+
+        // 토글 수정 폼
+        if (editForm.classList.contains('d-none')) {
+            editForm.querySelector('textarea').value = commentContent.textContent.trim();
+            editForm.classList.remove('d-none');
+        } else {
+            editForm.classList.add('d-none');
+        }
+    }
+
+    function toggleLike(postId, button) {
+        fetch(`/posts/${postId}/like`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        if (data.isLiked) {
+                            button.classList.remove('btn-outline-primary');
+                            button.classList.add('btn-primary');
+                        } else {
+                            button.classList.remove('btn-primary');
+                            button.classList.add('btn-outline-primary');
+                        }
+                        const likeCountElement = button.nextElementSibling;
+                        likeCountElement.textContent = `좋아요 ${data.likeCount}개`;
+                    } else {
+                        alert(data.message || "오류가 발생했습니다.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("좋아요 요청 중 오류 발생:", error);
+                    alert("좋아요 요청 중 오류가 발생했습니다.");
+                });
+    }
+</script>
+
+{{>layouts/footer}}

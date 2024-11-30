@@ -1,0 +1,45 @@
+{{>layouts/header}}
+<div class="container mt-4">
+    <div class="row">
+        <!-- 사용자 정보 섹션 -->
+        <div class="col-md-3">
+            <h4>사용자 정보</h4>
+            {{#user}}
+                <p>환영합니다, {{username}}님!</p>
+                <form action="/logout" method="post">
+                    <button class="btn btn-danger btn-sm">로그아웃</button>
+                </form>
+            {{/user}}
+            {{^user}}
+                <a href="/login" class="btn btn-primary btn-sm">로그인</a>
+                <a href="/register" class="btn btn-secondary btn-sm">회원가입</a>
+            {{/user}}
+        </div>
+        <!-- 사용자 정보 섹션 -->
+
+        <!-- 게시물 목록 -->
+        <div class="col-md-6">
+            <h3>게시물 목록</h3>
+            {{#posts}}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.username}}</h5>
+                        <p class="card-text">{{content}}</p>
+                        <small class="text-muted">좋아요 {{likeCount}}개</small>
+                    </div>
+                    <div class="card-footer">
+                        <h6>댓글 {{commentCount}}개</h6> <!-- 댓글 개수 표시 -->
+                        {{#comments}}
+                            <p><strong>{{user.username}}</strong>: {{content}}</p>
+                        {{/comments}}
+                    </div>
+                </div>
+            {{/posts}}
+        </div>
+        <!-- 게시물 목록 -->
+
+        <div class="col-md-3">
+        </div>
+    </div>
+</div>
+{{>layouts/footer}}
