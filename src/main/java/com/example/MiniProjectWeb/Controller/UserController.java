@@ -30,33 +30,6 @@ public class UserController {
     private PostRepository postRepository;
 
     /**
-     * 메인 화면 표시.
-     * 게시물 목록과 사용자 정보를 모델에 추가하여 뷰에 전달.
-     * @param session 현재 사용자 세션.
-     * @param model 뷰로 데이터를 전달하는 객체.
-     * @return 메인 화면 템플릿 이름.
-     */
-    @GetMapping("/")
-    public String home(HttpSession session, Model model) {
-        // 세션에서 로그인된 사용자 정보 가져오기
-        User user = (User) session.getAttribute("user");
-        if (user != null) {
-            model.addAttribute("user", user); // 사용자 정보를 모델에 추가
-        }
-
-        // 세션에 저장된 에러 메시지를 모델에 추가
-        String error = (String) session.getAttribute("error");
-        if (error != null) {
-            model.addAttribute("error", error); // 에러 메시지 전달
-            session.removeAttribute("error"); // 메시지를 세션에서 제거
-        }
-
-        // 게시물 목록을 모델에 추가
-        model.addAttribute("posts", postRepository.findAll());
-        return "index"; // 메인 화면 템플릿 반환
-    }
-
-    /**
      * 로그인 페이지를 반환.
      * @return 로그인 페이지 템플릿 이름.
      */
@@ -80,7 +53,7 @@ public class UserController {
         if (user != null && userService.validatePassword(password, user.getPassword())) {
             // 비밀번호 검증 성공 시 세션에 사용자 정보 저장
             session.setAttribute("user", user);
-            return "redirect:/posts"; // 게시물 페이지로 리다이렉트
+            return "redirect:/"; // 게시물 페이지로 리다이렉트
         }
 
         // 로그인 실패 시 에러 메시지 설정

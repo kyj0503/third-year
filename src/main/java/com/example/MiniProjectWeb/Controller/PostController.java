@@ -40,7 +40,7 @@ public class PostController {
      * @param session 현재 사용자 정보를 담고 있는 세션.
      * @return 로그인 여부에 따라 적절한 뷰를 반환.
      */
-    @GetMapping("/posts")
+    @GetMapping("/")
     public String home(Model model, HttpSession session) {
         // 현재 로그인된 사용자 정보 가져오기
         User user = (User) session.getAttribute("user");
@@ -93,7 +93,7 @@ public class PostController {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             session.setAttribute("error", "게시물을 작성하려면 로그인이 필요합니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 게시물 생성 및 저장
@@ -101,7 +101,7 @@ public class PostController {
         post.setContent(content);
         post.setUser(user);
         postRepository.save(post);
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
     /**
@@ -147,7 +147,6 @@ public class PostController {
         return response;
     }
 
-
     /**
      * 특정 게시물에 댓글을 추가.
      * @param id 게시물 ID.
@@ -177,7 +176,7 @@ public class PostController {
         comment.setUser(user);
         comment.setPost(post);
         commentRepository.save(comment);
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
     /**
@@ -194,20 +193,20 @@ public class PostController {
 
         if (user == null) {
             session.setAttribute("error", "로그인이 필요합니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 게시물 찾기
         Post post = postRepository.findById(id).orElse(null);
         if (post == null) {
             session.setAttribute("error", "게시물이 존재하지 않습니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 작성자 확인
         if (!post.getUser().getId().equals(user.getId())) {
             session.setAttribute("error", "게시물을 삭제할 권한이 없습니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 좋아요 및 댓글 삭제
@@ -216,7 +215,7 @@ public class PostController {
 
         // 게시물 삭제
         postRepository.delete(post);
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
     /**
@@ -232,7 +231,7 @@ public class PostController {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             session.setAttribute("error", "로그인이 필요합니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 댓글 찾기
@@ -243,7 +242,7 @@ public class PostController {
             session.setAttribute("error", "삭제 권한이 없습니다.");
         }
 
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
     /**
@@ -258,18 +257,18 @@ public class PostController {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             session.setAttribute("error_" + id, "로그인이 필요합니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         Post post = postRepository.findById(id).orElse(null);
         if (post == null || !post.getUser().getId().equals(user.getId())) {
             session.setAttribute("error_" + id, "게시물을 수정할 권한이 없습니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         post.setContent(content);
         postRepository.save(post); // 수정된 내용 저장
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
 }

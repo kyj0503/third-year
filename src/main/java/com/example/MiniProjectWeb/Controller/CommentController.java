@@ -23,26 +23,26 @@ public class CommentController {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             session.setAttribute("error", "로그인이 필요합니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 댓글 조회
         Comment comment = commentRepository.findById(id).orElse(null);
         if (comment == null) {
             session.setAttribute("error", "댓글을 찾을 수 없습니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 수정 권한 확인
         if (!comment.getUser().getId().equals(user.getId())) {
             session.setAttribute("error", "댓글을 수정할 권한이 없습니다.");
-            return "redirect:/posts";
+            return "redirect:/";
         }
 
         // 댓글 내용 수정
         comment.setContent(content);
         commentRepository.save(comment);
 
-        return "redirect:/posts";
+        return "redirect:/";
     }
 }

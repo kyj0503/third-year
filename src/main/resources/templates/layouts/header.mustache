@@ -5,9 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Twitter Lite</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        /* 기본 배경색 */
+        body {
+            background-color: #e3f2fd; /* 연한 하늘색 배경 */
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 다크 모드 배경색 및 텍스트 색상 */
+        body.dark-mode {
+            background-color: #000000; /* 검은 배경 */
+            color: #e0e0e0;
+        }
+
+        /* 다크 모드에서 카드 및 폼 배경색 */
+        .dark-mode .card,
+        .dark-mode form {
+            background-color: #101648; /* 진한 남색 */
+            border: 1px solid #424242;
+            color: #ffffff;
+        }
+
+        /* 다크 모드 버튼 스타일 */
+        .dark-mode .btn {
+            color: #e0e0e0;
+        }
+
+        .dark-mode .btn-outline-primary {
+            border-color: #42a5f5;
+            color: #42a5f5;
+        }
+
+        .dark-mode .btn-outline-primary:hover {
+            background-color: #42a5f5;
+            color: #ffffff;
+        }
+
+        .dark-mode textarea,
+        .dark-mode input[type="text"] {
+            background-color: #101648; /* 폼 내부 진한 색상 */
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
 <!-- 로고에 메인 화면으로 연결되는 링크 추가 -->
 <h1 class="text-center">
-    <a href="/posts" class="text-decoration-none text-dark">Twitter Lite</a>
+    <a href="/" class="text-decoration-none text-dark">Twitter Lite</a>
 </h1>
+
+<!-- 다크 모드 전환 버튼 -->
+<div class="position-fixed" style="top: 10px; right: 10px; z-index: 1000;">
+    <button id="toggleDarkMode" class="btn btn-secondary btn-sm">다크 모드</button>
+</div>
