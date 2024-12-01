@@ -8,6 +8,10 @@
 
 ![](https://github.com/kyj0503/MiniProjectWeb/blob/master/img/PostController.png)
 
+사용 예)
+
+![](https://github.com/kyj0503/MiniProjectWeb/blob/master/img/view.png)
+
 # Entity
 
 - [Comment](https://github.com/kyj0503/MiniProjectWeb/blob/master/src/main/java/com/example/MiniProjectWeb/Entity/Comment.java)
