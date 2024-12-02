@@ -20,8 +20,6 @@ public class MapController {
     @Value("${kakao.rest.key}")
     private String kakaoRestKey;
 
-    private static final String DEFAULT_KEYWORD = "카페";
-
     /**
      * 메인 페이지(지도)를 표시하는 메서드.
      * 로그인 여부와 Kakao API 키, 기본 검색 키워드를 템플릿에 전달한다.
@@ -39,7 +37,6 @@ public class MapController {
         model.addAttribute("isLoggedIn", isLoggedIn);
         model.addAttribute("kakaoJsKey", kakaoJsKey);
         model.addAttribute("kakaoRestKey", kakaoRestKey);
-        model.addAttribute("keyword", DEFAULT_KEYWORD);
 
         return "map";
     }
