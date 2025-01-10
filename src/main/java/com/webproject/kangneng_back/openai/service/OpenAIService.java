@@ -17,31 +17,33 @@ public class OpenAIService {
     @Value("${openai.api.url}")
     private String apiUrl;
 
-    private final ObjectMapper objectMapper = new ObjectMapper(); // Jackson ObjectMapper 사용
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public String getOpenAIResponse(ChatGPTRequest request) throws IOException {
-        // 요청 본문을 JSON 문자열로 변환
+    public String getOpenAIResponse(String naturalLanguage) throws IOException {
+        // 프롬프트 생성
+        ChatGPTRequest request = new ChatGPTRequest(naturalLanguage);
+
+        // 요청 본문을 JSON으로 변환
         String requestBodyJson = objectMapper.writeValueAsString(request);
 
+        // OpenAI API 호출
         OkHttpClient client = new OkHttpClient();
-
         RequestBody requestBody = RequestBody.create(
                 requestBodyJson, MediaType.get("application/json")
         );
 
         Request httpRequest = new Request.Builder()
-                .url(apiUrl) // OpenAI API URL
-                .header("Authorization", "Bearer " + apiKey) // API 키 설정
-                .header("Content-Type", "application/json") // 요청 데이터 형식 지정
+                .url(apiUrl)
+                .header("Authorization", "Bearer " + apiKey)
+                .header("Content-Type", "application/json")
                 .post(requestBody)
                 .build();
 
-        // 요청 실행
         try (Response response = client.newCall(httpRequest).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response + ": " + response.body().string());
+                throw new IOException("Unexpected response: " + response.body().string());
             }
-            return response.body().string(); // 응답 데이터 반환
+            return response.body().string();
         }
     }
 }
