@@ -1,8 +1,8 @@
 package com.webproject.kangneng_back.config;
 
-import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTFilter;
-import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTUtil;
-import com.webproject.kangneng_back.oauth.oauth2.CustomSuccessHandler;
+import com.webproject.kangneng_back.oauth.jwt.JWTFilter;
+import com.webproject.kangneng_back.oauth.jwt.JWTUtil;
+import com.webproject.kangneng_back.oauth.service.CustomSuccessHandler;
 import com.webproject.kangneng_back.oauth.service.CustomOAuth2UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;

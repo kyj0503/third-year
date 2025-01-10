@@ -1,7 +1,7 @@
-package com.webproject.kangneng_back.oauth.oauth2;
+package com.webproject.kangneng_back.oauth.service;
 
 import com.webproject.kangneng_back.oauth.dto.CustomOAuth2User;
-import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTUtil;
+import com.webproject.kangneng_back.oauth.jwt.JWTUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;

@@ -1,6 +1,6 @@
 package com.webproject.kangneng_back.oauth.controller;
 
-import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTUtil;
+import com.webproject.kangneng_back.oauth.jwt.JWTUtil;
 import com.webproject.kangneng_back.oauth.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

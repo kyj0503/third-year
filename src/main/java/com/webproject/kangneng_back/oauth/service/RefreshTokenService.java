@@ -1,7 +1,7 @@
 package com.webproject.kangneng_back.oauth.service;
 
 import com.webproject.kangneng_back.oauth.entity.RefreshToken;
-import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTUtil;
+import com.webproject.kangneng_back.oauth.jwt.JWTUtil;
 import com.webproject.kangneng_back.oauth.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
