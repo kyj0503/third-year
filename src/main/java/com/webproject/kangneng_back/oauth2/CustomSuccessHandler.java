@@ -35,7 +35,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-        String accessToken = jwtUtil.createJwt(username, role, 60 * 60 * 1000L);
+        String accessToken = jwtUtil.createAccessToken(username, role);
         String refreshToken = jwtUtil.createRefreshToken(username);
 
 
