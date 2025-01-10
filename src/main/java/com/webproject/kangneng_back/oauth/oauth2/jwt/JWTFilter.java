@@ -1,7 +1,7 @@
-package com.webproject.kangneng_back.jwt;
+package com.webproject.kangneng_back.oauth.oauth2.jwt;
 
-import com.webproject.kangneng_back.dto.CustomOAuth2User;
-import com.webproject.kangneng_back.dto.UserDTO;
+import com.webproject.kangneng_back.oauth.dto.CustomOAuth2User;
+import com.webproject.kangneng_back.oauth.dto.UserDTO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class JWTFilter extends OncePerRequestFilter {
 
@@ -20,53 +21,59 @@ public class JWTFilter extends OncePerRequestFilter {
     public JWTFilter(JWTUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        System.out.println("\n=== JWT Filter Debug Logs ===");
         System.out.println("Request URI: " + request.getRequestURI());
 
-        // 헤더에서 Authorization 확인
-        String authHeader = request.getHeader("Authorization");
-        System.out.println("Authorization Header: " + authHeader);
+        // CORS 프리플라이트 요청은 필터를 통과시킴
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
 
+        String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("Invalid or missing Authorization header");
             filterChain.doFilter(request, response);
             return;
         }
 
         String token = authHeader.substring(7);
-        System.out.println("Token extracted from header: " + token);
 
-        // 토큰 만료 체크
         if (jwtUtil.isExpired(token)) {
-            System.out.println("Token expired");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("Token expired");
             return;
         }
 
-        // 토큰에서 username과 role 획득
         String username = jwtUtil.getUsername(token);
         String role = jwtUtil.getRole(token);
 
-        // userDTO 생성 및 인증 설정
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(username);
         userDTO.setRole(role);
 
         CustomOAuth2User customOAuth2User = new CustomOAuth2User(userDTO);
         Authentication authToken = new UsernamePasswordAuthenticationToken(customOAuth2User, null, customOAuth2User.getAuthorities());
-
         SecurityContextHolder.getContext().setAuthentication(authToken);
+
 
         filterChain.doFilter(request, response);
     }
 
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        // Refresh Token 요청은 필터링하지 않음
-        return request.getRequestURI().equals("/api/auth/refresh-token");
+        // 인증이 필요없는 경로들 추가
+        String[] skipPaths = {
+                "/api/auth/refresh-token",
+                "/api/message",
+                "/",
+                "/auth",
+                "/api/oauth2"
+        };
+
+        String path = request.getRequestURI();
+        return Arrays.stream(skipPaths)
+                .anyMatch(path::startsWith);
     }
 }

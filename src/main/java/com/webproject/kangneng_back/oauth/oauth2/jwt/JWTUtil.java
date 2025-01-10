@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.jwt;
+package com.webproject.kangneng_back.oauth.oauth2.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import java.util.Date;
 public class JWTUtil {
     private static final Logger log = LoggerFactory.getLogger(JWTUtil.class);
     private final SecretKey secretKey;
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60; // 1시간
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24; // 하루
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7L; // 7일
 
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {

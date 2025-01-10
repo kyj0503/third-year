@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.dto;
+package com.webproject.kangneng_back.oauth.dto;
 
 public interface OAuth2Response {
 

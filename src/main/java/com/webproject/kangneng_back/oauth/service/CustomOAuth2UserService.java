@@ -1,8 +1,8 @@
-package com.webproject.kangneng_back.service;
+package com.webproject.kangneng_back.oauth.service;
 
-import com.webproject.kangneng_back.dto.*;
-import com.webproject.kangneng_back.entity.UserEntity;
-import com.webproject.kangneng_back.repository.UserRepository;
+import com.webproject.kangneng_back.oauth.dto.*;
+import com.webproject.kangneng_back.oauth.entity.UserEntity;
+import com.webproject.kangneng_back.oauth.repository.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

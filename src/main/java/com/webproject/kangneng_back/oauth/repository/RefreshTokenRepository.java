@@ -1,6 +1,6 @@
-package com.webproject.kangneng_back.repository;
+package com.webproject.kangneng_back.oauth.repository;
 
-import com.webproject.kangneng_back.entity.RefreshToken;
+import com.webproject.kangneng_back.oauth.entity.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,10 +1,10 @@
 package com.webproject.kangneng_back.config;
 
-import com.webproject.kangneng_back.jwt.JWTFilter;
-import com.webproject.kangneng_back.jwt.JWTUtil;
-import com.webproject.kangneng_back.oauth2.CustomSuccessHandler;
-import com.webproject.kangneng_back.service.CustomOAuth2UserService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTFilter;
+import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTUtil;
+import com.webproject.kangneng_back.oauth.oauth2.CustomSuccessHandler;
+import com.webproject.kangneng_back.oauth.service.CustomOAuth2UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,8 +27,10 @@ public class SecurityConfig {
     private final CustomSuccessHandler customSuccessHandler;
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService, CustomSuccessHandler customSuccessHandler, JWTUtil jwtUtil) {
-
+    // 생성자 주입을 통해 의존성 해결
+    public SecurityConfig(CustomOAuth2UserService customOAuth2UserService,
+                          CustomSuccessHandler customSuccessHandler,
+                          JWTUtil jwtUtil) {
         this.customOAuth2UserService = customOAuth2UserService;
         this.customSuccessHandler = customSuccessHandler;
         this.jwtUtil = jwtUtil;
@@ -35,53 +38,50 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // CORS 설정
-        http.cors(corsCustomizer -> corsCustomizer.configurationSource(request -> {
-            CorsConfiguration config = new CorsConfiguration();
-            config.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
-            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-            config.setExposedHeaders(Arrays.asList("Authorization", "RefreshToken"));
-            config.setAllowCredentials(true);
-            config.setMaxAge(3600L);
-            return config;
-        }));
-
-        //csrf disable
         http
-                .csrf((auth) -> auth.disable());
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/auth/**", "/api/oauth2/**", "/api/message").permitAll()
+                        .anyRequest().authenticated())
+                .oauth2Login(oauth2 -> oauth2
+                        .userInfoEndpoint(userInfo ->
+                                userInfo.userService(customOAuth2UserService))
+                        .successHandler(customSuccessHandler))
+                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling(e -> e
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.getWriter().write("Unauthorized");
+                        }));
 
-        //From 로그인 방식 disable
-        http
-                .formLogin((auth) -> auth.disable());
-
-        //HTTP Basic 인증 방식 disable
-        http
-                .httpBasic((auth) -> auth.disable());
-
-        //JWTFilter 추가
-        http
-                .addFilterBefore(new JWTFilter(jwtUtil), UsernamePasswordAuthenticationFilter.class);
-
-        //oauth2
-        http
-                .oauth2Login((oauth2) -> oauth2
-                        .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
-                                .userService(customOAuth2UserService))
-                        .successHandler(customSuccessHandler)
-                );
-
-        //경로별 인가 작업
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("my").hasRole("USER")
-                        .anyRequest().authenticated());
-
-        //세션 설정 : STATELESS
-        http
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOriginPatterns(Collections.singletonList("http://localhost:5173"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Content-Type",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials"
+        ));
+        configuration.setExposedHeaders(Arrays.asList(
+                "Authorization",
+                "RefreshToken",
+                "Access-Control-Allow-Origin",
+                "Access-Control-Allow-Credentials"
+        ));
+        configuration.setAllowCredentials(true);
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

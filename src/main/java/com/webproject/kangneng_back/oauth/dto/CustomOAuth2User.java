@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.dto;
+package com.webproject.kangneng_back.oauth.dto;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;

@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.entity;
+package com.webproject.kangneng_back.oauth.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
