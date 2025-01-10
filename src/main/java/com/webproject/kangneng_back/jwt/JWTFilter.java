@@ -4,7 +4,6 @@ import com.webproject.kangneng_back.dto.CustomOAuth2User;
 import com.webproject.kangneng_back.dto.UserDTO;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,7 +18,6 @@ public class JWTFilter extends OncePerRequestFilter {
     private final JWTUtil jwtUtil;
 
     public JWTFilter(JWTUtil jwtUtil) {
-
         this.jwtUtil = jwtUtil;
     }
 
@@ -66,4 +64,9 @@ public class JWTFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        // Refresh Token 요청은 필터링하지 않음
+        return request.getRequestURI().equals("/api/auth/refresh-token");
+    }
 }

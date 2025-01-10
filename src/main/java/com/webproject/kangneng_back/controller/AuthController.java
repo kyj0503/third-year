@@ -41,14 +41,15 @@ public class AuthController {
     }
 
     @PostMapping("/refresh-token")
+    @ResponseBody
     public ResponseEntity<?> refreshToken(@RequestBody Map<String, String> request) {
         String refreshToken = request.get("refreshToken");
         try {
             String newAccessToken = refreshTokenService.refreshAccessToken(refreshToken);
             return ResponseEntity.ok(Map.of("accessToken", newAccessToken));
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", e.getMessage()));
         }
-
     }
+
 }
