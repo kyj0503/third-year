@@ -9,13 +9,14 @@ import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+
 import java.util.Date;
 
 @Component
 public class JWTUtil {
     private static final Logger log = LoggerFactory.getLogger(JWTUtil.class);
     private final SecretKey secretKey;
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60L; // 1시간
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 60; // 1시간
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7L; // 7일
 
     public JWTUtil(@Value("${spring.jwt.secret}") String secret) {
