@@ -1,44 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 function AskQuestion() {
-    const [question, setQuestion] = useState('');
-    const [answer, setAnswer] = useState('');
+    const [naturalLanguage, setNaturalLanguage] = useState('');
+    const [jsonResponse, setJsonResponse] = useState('');
+    const [error, setError] = useState(null); // 에러 상태 추가
 
-    const askOpenAI = async () => {
+    const convertToJSON = async () => {
         try {
-            const res = await fetch('http://43.201.217.228:8080/api/openai/ask', {
+            const res = await fetch('http://43.201.217.228:8080/api/openai/convert', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: question }), // JSON 형식으로 데이터 전송
+                body: JSON.stringify({ prompt: naturalLanguage }), // JSON 형식으로 데이터 전송
             });
 
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
 
-            // 응답을 JSON 형식으로 파싱
-            const data = await res.json();
+            const data = await res.json(); // OpenAI 응답 데이터를 JSON으로 파싱
+            const content = data?.choices?.[0]?.message?.content;
 
-            // OpenAI 응답에서 content 추출
-            const content = data?.choices?.[0]?.message?.content || "No response content available.";
-            setAnswer(content); // content 저장
-        } catch (error) {
-            console.error("Error asking question:", error);
-            setAnswer("Failed to get a response.");
+            // content가 JSON 문자열일 경우 추가 파싱
+            const parsedContent = JSON.parse(content); // JSON 문자열 파싱
+            setJsonResponse(parsedContent);
+            setError(null); // 에러 초기화
+        } catch (err) {
+            console.error("Error converting to JSON:", err);
+            setError(err.message); // 에러 상태 설정
+            setJsonResponse(''); // 응답 초기화
         }
     };
 
     return (
         <div>
-            <h2>Ask OpenAI</h2>
-            <input
-                type="text"
-                value={question}
-                onChange={(e) => setQuestion(e.target.value)}
-                placeholder="Enter your question"
+            <h2>Convert Natural Language to JSON</h2>
+            <textarea
+                value={naturalLanguage}
+                onChange={(e) => setNaturalLanguage(e.target.value)}
+                placeholder="Enter your schedule or appointment details"
+                rows="5"
+                style={{ width: '100%' }}
             />
-            <button onClick={askOpenAI}>Ask</button>
-            <p>Answer: {answer}</p>
+            <button onClick={convertToJSON}>Convert</button>
+            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+            <h3>Converted JSON:</h3>
+            <pre style={{ backgroundColor: '#f4f4f4', padding: '10px', borderRadius: '5px' }}>
+                {jsonResponse ? JSON.stringify(jsonResponse, null, 2) : 'No response yet.'}
+            </pre>
         </div>
     );
 }
