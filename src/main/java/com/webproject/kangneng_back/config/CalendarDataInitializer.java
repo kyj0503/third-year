@@ -24,7 +24,7 @@ public class CalendarDataInitializer {
 
             // 더미 데이터 생성
             Event event1 = new Event();
-            event1.setSummary("팀 회의");
+            event1.setTitle("팀 회의");
             event1.setDescription("주간 진행 상황 논의");
             event1.setLocation("서울특별시 강남구");
             event1.setStartTime(LocalDateTime.of(2025, 1, 10, 10, 0));
@@ -43,7 +43,7 @@ public class CalendarDataInitializer {
             event1.setAttendees(Arrays.asList(attendee1, attendee2));
 
             Event event2 = new Event();
-            event2.setSummary("프로젝트 발표 준비");
+            event2.setTitle("프로젝트 발표 준비");
             event2.setDescription("최종 발표 자료 준비");
             event2.setLocation("서울특별시 중구");
             event2.setStartTime(LocalDateTime.of(2025, 1, 15, 14, 0));

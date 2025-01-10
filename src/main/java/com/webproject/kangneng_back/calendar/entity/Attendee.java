@@ -16,11 +16,12 @@ public class Attendee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String email;
+    private String name; // 참석자 이름 추가
+
+    private String email; // 이메일 필드 유지 (필요 시 제거 가능)
 
     @ManyToOne
     @JoinColumn(name = "event_id")
     @JsonBackReference // 순환 참조 방지
     private Event event;
-
 }

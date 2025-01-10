@@ -18,8 +18,12 @@ public class OpenAIController {
     @PostMapping("/convert")
     public ResponseEntity<String> convertToJSON(@RequestBody String naturalLanguage) {
         try {
-            // 서비스 호출
-            String jsonResponse = openAIService.getOpenAIResponse(naturalLanguage);
+            // ChatGPTRequest 객체 생성
+            ChatGPTRequest request = new ChatGPTRequest(naturalLanguage);
+
+            // OpenAIService 호출
+            String jsonResponse = openAIService.getOpenAIResponse(request);
+
             return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
             e.printStackTrace();
