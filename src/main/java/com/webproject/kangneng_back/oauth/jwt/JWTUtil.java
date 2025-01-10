@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.oauth.oauth2.jwt;
+package com.webproject.kangneng_back.oauth.jwt;
 
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
@@ -98,4 +98,5 @@ public class JWTUtil {
             return true;
         }
     }
+
 }

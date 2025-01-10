@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.oauth.oauth2.jwt;
+package com.webproject.kangneng_back.oauth.jwt;
 
 import com.webproject.kangneng_back.oauth.dto.CustomOAuth2User;
 import com.webproject.kangneng_back.oauth.dto.UserDTO;
@@ -13,7 +13,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.Arrays;
-
 public class JWTFilter extends OncePerRequestFilter {
 
     private final JWTUtil jwtUtil;
@@ -63,17 +62,7 @@ public class JWTFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        // 인증이 필요없는 경로들 추가
-        String[] skipPaths = {
-                "/api/auth/refresh-token",
-                "/api/message",
-                "/",
-                "/auth",
-                "/api/oauth2"
-        };
-
-        String path = request.getRequestURI();
-        return Arrays.stream(skipPaths)
-                .anyMatch(path::startsWith);
+        // Refresh Token 요청은 필터링하지 않음
+        return request.getRequestURI().equals("/api/auth/refresh-token");
     }
 }
