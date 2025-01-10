@@ -8,8 +8,8 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
+import java.util.Optional;
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
@@ -28,49 +28,43 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String registrationId = userRequest.getClientRegistration().getRegistrationId();
         OAuth2Response oAuth2Response = null;
+
         if (registrationId.equals("naver")) {
-
             oAuth2Response = new NaverResponse(oAuth2User.getAttributes());
+        } else if (registrationId.equals("google")) {
+            oAuth2Response = new GoogleResponse(oAuth2User.getAttributes());
+        } else {
+            return null; // 지원하지 않는 provider
         }
 
-        else {
+        String username = oAuth2Response.getProvider() + " " + oAuth2Response.getProviderId();
+        Optional<UserEntity> optionalUser = userRepository.findByUsername(username);
 
-            return null;
-        }
-        String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
-        Optional<UserEntity> existData = userRepository.findByUsername(username);
-
-        if (existData.isEmpty()) {
-            UserEntity userEntity = new UserEntity();
+        UserEntity userEntity;
+        if (optionalUser.isEmpty()) {
+            // 새로운 사용자 생성
+            userEntity = new UserEntity();
             userEntity.setUsername(username);
             userEntity.setEmail(oAuth2Response.getEmail());
             userEntity.setName(oAuth2Response.getName());
             userEntity.setRole("ROLE_USER");
-            userEntity.setNewUser(true);  // 신규 사용자 표시
 
             userRepository.save(userEntity);
-
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(username);
-            userDTO.setName(oAuth2Response.getName());
-            userDTO.setRole("ROLE_USER");
-            userDTO.setNewUser(true);  // DTO에도 신규 사용자 표시
-
-            return new CustomOAuth2User(userDTO);
         } else {
-            UserEntity user = existData.get();
-            user.setEmail(oAuth2Response.getEmail());
-            user.setName(oAuth2Response.getName());
+            // 기존 사용자 업데이트
+            userEntity = optionalUser.get();
+            userEntity.setEmail(oAuth2Response.getEmail());
+            userEntity.setName(oAuth2Response.getName());
 
-            userRepository.save(user);
-
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(user.getUsername());
-            userDTO.setName(oAuth2Response.getName());
-            userDTO.setRole(user.getRole());
-            userDTO.setNewUser(user.isNewUser());  // 기존 사용자 상태 유지
-
-            return new CustomOAuth2User(userDTO);
+            userRepository.save(userEntity);
         }
+
+        // UserDTO 생성
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUsername(userEntity.getUsername());
+        userDTO.setName(userEntity.getName());
+        userDTO.setRole(userEntity.getRole());
+
+        return new CustomOAuth2User(userDTO);
     }
 }
