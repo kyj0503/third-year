@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.entity;
+package com.webproject.kangneng_back.openai.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

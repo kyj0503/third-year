@@ -1,7 +1,7 @@
-package com.webproject.kangneng_back.service;
+package com.webproject.kangneng_back.openai.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.webproject.kangneng_back.dto.ChatGPTRequest;
+import com.webproject.kangneng_back.openai.dto.ChatGPTRequest;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
