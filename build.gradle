@@ -34,9 +34,6 @@ dependencies {
     // H2 Database (Development/Test Environment)
     runtimeOnly 'com.h2database:h2'
 
-    // MySQL (Production Database Example)
-    runtimeOnly 'mysql:mysql-connector-java'
-
     // Spring Boot Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
