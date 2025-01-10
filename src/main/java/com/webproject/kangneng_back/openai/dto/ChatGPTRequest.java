@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.dto;
+package com.webproject.kangneng_back.openai.dto;
 
 import lombok.Data;
 import java.util.ArrayList;

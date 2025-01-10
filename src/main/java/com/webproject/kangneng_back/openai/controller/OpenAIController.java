@@ -1,7 +1,7 @@
-package com.webproject.kangneng_back.controller;
+package com.webproject.kangneng_back.openai.controller;
 
-import com.webproject.kangneng_back.dto.ChatGPTRequest;
-import com.webproject.kangneng_back.service.OpenAIService;
+import com.webproject.kangneng_back.openai.dto.ChatGPTRequest;
+import com.webproject.kangneng_back.openai.service.OpenAIService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
