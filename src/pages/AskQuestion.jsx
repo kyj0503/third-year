@@ -12,16 +12,22 @@ function AskQuestion() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ prompt: naturalLanguage }), // JSON 형식으로 데이터 전송
             });
-
+    
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
-
+    
             const data = await res.json(); // OpenAI 응답 데이터를 JSON으로 파싱
             const content = data?.choices?.[0]?.message?.content;
-
+    
             // content가 JSON 문자열일 경우 추가 파싱
-            const parsedContent = JSON.parse(content); // JSON 문자열 파싱
+            let parsedContent;
+            try {
+                parsedContent = JSON.parse(content); // JSON 문자열 파싱
+            } catch (parseError) {
+                throw new Error(`Error parsing content: ${content}`);
+            }
+    
             setJsonResponse(parsedContent);
             setError(null); // 에러 초기화
         } catch (err) {
@@ -30,6 +36,7 @@ function AskQuestion() {
             setJsonResponse(''); // 응답 초기화
         }
     };
+    
 
     return (
         <div>
