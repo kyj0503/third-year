@@ -19,7 +19,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String summary;
+    private String title;
 
     @Column(columnDefinition = "TEXT")
     private String description;
