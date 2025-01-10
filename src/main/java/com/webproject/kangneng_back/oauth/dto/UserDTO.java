@@ -1,4 +1,4 @@
-package com.webproject.kangneng_back.dto;
+package com.webproject.kangneng_back.oauth.dto;
 
 import lombok.Getter;
 import lombok.Setter;

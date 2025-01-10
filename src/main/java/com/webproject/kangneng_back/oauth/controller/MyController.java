@@ -1,16 +1,16 @@
-package com.webproject.kangneng_back.controller;
+package com.webproject.kangneng_back.oauth.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class MainController {
+public class MyController {
 
-    @GetMapping("/")
+    @GetMapping("/my")
     @ResponseBody
-    public String mainAPI() {
+    public String myAPI() {
 
-        return "main route";
+        return "my route";
     }
 }

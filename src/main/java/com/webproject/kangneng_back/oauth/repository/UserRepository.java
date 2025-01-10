@@ -1,6 +1,6 @@
-package com.webproject.kangneng_back.repository;
+package com.webproject.kangneng_back.oauth.repository;
 
-import com.webproject.kangneng_back.entity.UserEntity;
+import com.webproject.kangneng_back.oauth.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package com.webproject.kangneng_back.controller;
+package com.webproject.kangneng_back.oauth.controller;
 
-import com.webproject.kangneng_back.jwt.JWTUtil;
-import com.webproject.kangneng_back.service.RefreshTokenService;
+import com.webproject.kangneng_back.oauth.oauth2.jwt.JWTUtil;
+import com.webproject.kangneng_back.oauth.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

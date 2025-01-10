@@ -1,7 +1,7 @@
-package com.webproject.kangneng_back.service;
+package com.webproject.kangneng_back.oauth.service;
 
-import com.webproject.kangneng_back.entity.UserEntity;
-import com.webproject.kangneng_back.repository.UserRepository;
+import com.webproject.kangneng_back.oauth.entity.UserEntity;
+import com.webproject.kangneng_back.oauth.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

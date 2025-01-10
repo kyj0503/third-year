@@ -1,8 +1,8 @@
-package com.webproject.kangneng_back.dto;
+package com.webproject.kangneng_back.oauth.dto;
 
 import java.util.Map;
 
-public class NaverResponse implements OAuth2Response{
+public class NaverResponse implements OAuth2Response {
 
     private final Map<String, Object> attribute;
 
