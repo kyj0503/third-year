@@ -5,7 +5,7 @@ function FetchMessage() {
 
     const fetchMessage = async () => {
         try {
-            const res = await fetch('http://localhost:8080/api/message'); // Spring Boot API URL
+            const res = await fetch('http://43.201.217.228:8080/api/message'); // Spring Boot API URL
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }

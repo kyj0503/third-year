@@ -7,7 +7,7 @@ function SendMessage() {
     const sendMessage = async () => {
         try {
             console.log("Sending message:", message); // 요청 데이터 확인
-            const res = await fetch('http://localhost:8080/api/message', { // Spring Boot 서버 URL
+            const res = await fetch('http://43.201.217.228:8080/api/message', { // Spring Boot 서버 URL
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json', 
