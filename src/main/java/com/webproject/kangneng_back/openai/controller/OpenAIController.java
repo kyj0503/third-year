@@ -15,15 +15,15 @@ public class OpenAIController {
         this.openAIService = openAIService;
     }
 
-    @PostMapping("/ask")
-    public ResponseEntity<String> askQuestion(@RequestBody String prompt) {
+    @PostMapping("/convert")
+    public ResponseEntity<String> convertToJSON(@RequestBody String naturalLanguage) {
         try {
-            ChatGPTRequest request = new ChatGPTRequest(prompt);
-            String answer = openAIService.getOpenAIResponse(request);
-            return ResponseEntity.ok(answer);
+            // 서비스 호출
+            String jsonResponse = openAIService.getOpenAIResponse(naturalLanguage);
+            return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(500).body("Error while connecting to OpenAI: " + e.getMessage());
+            return ResponseEntity.status(500).body("Error processing request: " + e.getMessage());
         }
     }
 }
