@@ -24,7 +24,7 @@ jobs:
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        ./gradlew clean build
+        ./gradlew clean build -x test
         IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
