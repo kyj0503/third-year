@@ -1,29 +1,23 @@
-package com.webproject.chonstay_backend.test;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
-import com.webproject.chonstay_backend.attraction.Attraction;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.http.*;
+package com.webproject.chonstay_backend.AI_API;
 
-import org.json.JSONObject;
+import com.webproject.chonstay_backend.attraction.Attraction;
 import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/AI")
-public class OpenAiController {
-
+// OpenAiService 클래스 정의
+public class OpenAiService {
     @Value("${openai.api.key}")
     private String openAiApiKey;
 
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/chat/completions";
 
-    @PostMapping("/recommend/")
-    public ResponseEntity<String> getRecommendation(@RequestBody String prompt) {
+    public List<Attraction> parseAttractions(String prompt) {
         try {
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getInterceptors().add((request, body, execution) -> {
@@ -41,14 +35,11 @@ public class OpenAiController {
 
             // OpenAI API 호출
             ResponseEntity<String> response = restTemplate.postForEntity(OPENAI_API_URL, entity, String.class);
-            List<Attraction> atts = ParsingLocation(response.getBody());
-
-            // OpenAI 응답 반환
-            return ResponseEntity.ok(response.getBody());
+            return ParsingLocation(response.getBody());
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+            return List.of();
         }
     }
 
