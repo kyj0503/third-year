@@ -28,7 +28,6 @@ dependencies {
     implementation 'com.google.cloud:google-cloud-storage:2.25.0'
 
     // 개발 및 테스트
-    runtimeOnly 'com.h2database:h2'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -37,7 +36,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
 
     // mysql
-    // runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'com.mysql:mysql-connector-j'
 
     // security
     // implementation 'org.springframework.boot:spring-boot-starter-security'
