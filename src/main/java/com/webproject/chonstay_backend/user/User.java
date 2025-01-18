@@ -34,7 +34,7 @@ public class User {
     private String userEmail;
 
     @NotBlank(message = "비밀번호는 필수입니다.")
-    @Column(length = 40, nullable = false)
+    @Column(length = 64, nullable = false)
     private String userPassword;
 
     @Column(nullable = false)
