@@ -25,7 +25,7 @@ public class UserService {
 
     // 로그인
     public Optional<User> login(String userEmail, String rawPassword) {
-        return userRepository.findByUserEmail(userEmail)
+        return userRepository.findByEmail(userEmail)
                 .filter(user -> user.getUserPassword().equals(hashPassword(rawPassword)));
     }
 
