@@ -1,4 +1,4 @@
-package com.webproject.chonstay_backend.login;
+package com.webproject.chonstay_backend.User;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
