@@ -1,4 +1,4 @@
-package com.webproject.chonstay_backend.User;
+package com.webproject.chonstay_backend.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
