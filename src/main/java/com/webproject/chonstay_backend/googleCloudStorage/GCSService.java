@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @Service
@@ -20,8 +21,14 @@ public class GCSService {
     private String bucketName;
 
     public GCSService(@Value("${google.cloud.storage.key-file}") String keyFilePath) throws IOException {
+        // Load the key file as an InputStream
+        InputStream keyFileStream = getClass().getClassLoader().getResourceAsStream(keyFilePath);
+        if (keyFileStream == null) {
+            throw new IllegalArgumentException("Key file not found: " + keyFilePath);
+        }
+
         this.storage = StorageOptions.newBuilder()
-                .setCredentials(GoogleCredentials.fromStream(getClass().getClassLoader().getResourceAsStream(keyFilePath)))
+                .setCredentials(GoogleCredentials.fromStream(keyFileStream))
                 .build()
                 .getService();
     }
