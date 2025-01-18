@@ -1,0 +1,6 @@
+spring:
+  sql:
+    init:
+      mode: always
+gcs:
+  bucket-name: gdgoc_storage
