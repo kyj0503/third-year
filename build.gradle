@@ -52,8 +52,3 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-test {
-    environment 'GCS_KEY_FILE', System.getenv('GCS_KEY_FILE') ?: ''
-    environment 'GCS_BUCKET_NAME', System.getenv('GCS_BUCKET_NAME') ?: ''
-}
