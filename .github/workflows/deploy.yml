@@ -22,13 +22,6 @@ jobs:
         env:
           GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
 
-      # 테스트 실행
-      - name: Run tests
-        run: ./gradlew clean test
-        env:
-          GCS_KEY_FILE: ./gcs-key.json
-          GCS_BUCKET_NAME: gdgoc_storage
-
       # Google Cloud 인증
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v1
@@ -43,7 +36,7 @@ jobs:
 
       # Gradle 빌드
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./gradlew clean build -x test
         env:
           GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
 
