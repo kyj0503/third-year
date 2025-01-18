@@ -1,7 +1,7 @@
 ## Related Issue
 <!-- feat/#issue -> dev와 같이 반영 브랜치를 표시 -->
 <!-- closed #issue로 merge되면 issue가 자동으로 close되게 -->
-- feat/# -> dev
+- feat/# -> main
 - close #
 
 ## Key Changes
