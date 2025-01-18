@@ -14,29 +14,18 @@ import java.util.UUID;
 public class GCSService {
 
     private final Storage storage;
-    private final String bucketName;
+    private final String bucketName = "gdgoc_storage"; // 하드코딩된 bucket name
 
     public GCSService() throws IOException {
-        // 환경 변수에서 값 가져오기
+        // GCS_KEY_FILE 환경 변수에서 JSON 형식의 데이터 가져오기
         String keyFileContent = System.getenv("GCS_KEY_FILE");
-        this.bucketName = System.getenv("GCS_BUCKET_NAME");
 
-        if (keyFileContent == null || this.bucketName == null) {
-            throw new IllegalArgumentException("GCS_KEY_FILE 또는 GCS_BUCKET_NAME 환경 변수가 설정되지 않았습니다.");
+        if (keyFileContent == null || keyFileContent.isBlank()) {
+            throw new IllegalArgumentException("GCS_KEY_FILE 환경 변수가 설정되지 않았습니다.");
         }
 
-        // GCS_KEY_FILE 처리: JSON 내용인지 파일 경로인지 확인
-        File keyFile;
-        if (keyFileContent.trim().startsWith("{")) {
-            // JSON 내용인 경우 임시 파일 생성
-            keyFile = createTempFile(keyFileContent);
-        } else {
-            // 로컬 경로로 사용
-            keyFile = new File(keyFileContent);
-            if (!keyFile.exists()) {
-                throw new IllegalArgumentException("GCS_KEY_FILE 경로에 해당하는 파일이 존재하지 않습니다: " + keyFileContent);
-            }
-        }
+        // JSON 내용을 임시 파일로 저장
+        File keyFile = createTempFile(keyFileContent);
 
         // GoogleCredentials를 사용하여 인증
         try (InputStream keyFileStream = new FileInputStream(keyFile)) {
@@ -45,9 +34,7 @@ public class GCSService {
                     .build()
                     .getService();
         } finally {
-            if (keyFileContent.trim().startsWith("{")) {
-                keyFile.delete(); // JSON 내용에서 생성된 임시 파일 삭제
-            }
+            keyFile.delete(); // 임시 파일 삭제
         }
     }
 

@@ -5,5 +5,4 @@ spring:
 google:
   cloud:
     storage:
-      key-file: ${GCS_KEY_FILE:gdgoc-448202-68d93825405d.json}
-      bucket-name: ${GCS_BUCKET_NAME:gdgoc_storage}
+      bucket-name: gdgoc_storage # bucket-name 하드코딩
