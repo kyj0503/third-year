@@ -1,4 +1,4 @@
-package com.webproject.chonstay_backend.login;
+package com.webproject.chonstay_backend.User;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
