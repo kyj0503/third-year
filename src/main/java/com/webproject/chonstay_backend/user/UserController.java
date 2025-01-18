@@ -1,4 +1,4 @@
-package com.webproject.chonstay_backend.User;
+package com.webproject.chonstay_backend.user;
 
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
