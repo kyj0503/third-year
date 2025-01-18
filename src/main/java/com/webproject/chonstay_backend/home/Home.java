@@ -2,11 +2,20 @@ package com.webproject.chonstay_backend.home;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import com.webproject.chonstay_backend.homeProviding.HomeProviding;
+import com.webproject.chonstay_backend.homeTodo.HomeTodo;
+import com.webproject.chonstay_backend.liked.Liked;
+import com.webproject.chonstay_backend.reservation.Reservation;
+import com.webproject.chonstay_backend.review.Review;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,9 +53,18 @@ public class Home {
     @Column(columnDefinition = "Boolean default false", nullable = false)
     private Boolean homeStatus;
 
-//    @OneToMany(mappedBy = "novel", fetch = FetchType.LAZY)
-//    private List<UserNovel> userNovels = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "novel", fetch = FetchType.LAZY)
-//    private List<NovelGenre> novelGenres = new ArrayList<>();
+    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY)
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY)
+    private List<HomeProviding> homeProvidings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY)
+    private List<HomeTodo> homeTodos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY)
+    private List<Liked> likeds = new ArrayList<>();
+
+    @OneToMany(mappedBy = "home", fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
 }

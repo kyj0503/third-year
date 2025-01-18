@@ -1,14 +1,21 @@
 package com.webproject.chonstay_backend.user;
 
+import com.webproject.chonstay_backend.liked.Liked;
+import com.webproject.chonstay_backend.reservation.Reservation;
+import com.webproject.chonstay_backend.review.Review;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -50,4 +57,13 @@ public class User {
 
     @Column(columnDefinition = "text", nullable = true)
     private String photo;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Liked> likeds = new ArrayList<>();
 }
