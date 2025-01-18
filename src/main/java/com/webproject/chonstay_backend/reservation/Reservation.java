@@ -30,7 +30,7 @@ public class Reservation {
 
     //enum
     @Column(nullable = false)
-    private Enum status;
+    private Status status;
 
     @Column(nullable = false)
     private short guestNumber;

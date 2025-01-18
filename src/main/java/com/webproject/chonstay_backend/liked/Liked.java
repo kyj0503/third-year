@@ -16,7 +16,7 @@ public class Liked {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long likedHomeId;
+    private Long likedId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "home_id", nullable = false)
