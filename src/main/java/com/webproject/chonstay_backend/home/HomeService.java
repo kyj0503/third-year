@@ -42,6 +42,7 @@ public class HomeService {
 
         // 엔티티 저장
         homeRepository.save(home);
+    }
 
     public Home getHomeOrException(Long homeId) {
         return homeRepository.findById(homeId).orElseThrow(() ->
