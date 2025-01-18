@@ -2,5 +2,7 @@ spring:
   sql:
     init:
       mode: always
+  config:
+    import: application-secret.yaml
 gcs:
   bucket-name: gdgoc_storage

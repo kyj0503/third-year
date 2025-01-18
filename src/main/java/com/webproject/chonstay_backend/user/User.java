@@ -3,24 +3,17 @@ package com.webproject.chonstay_backend.user;
 import com.webproject.chonstay_backend.liked.Liked;
 import com.webproject.chonstay_backend.reservation.Reservation;
 import com.webproject.chonstay_backend.review.Review;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -46,14 +39,13 @@ public class User {
     @Column(length = 64, nullable = false)
     private String userPassword;
 
-    @NotBlank(message = "비밀번호는 필수입니다.")
+    @NotBlank(message = "전화번호는 필수입니다.")
     @Column(length = 13, nullable = false)
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    @ColumnDefault("'GUEST'")
-    private Role role;
+    private Role role = Role.GUEST; // 기본값 GUEST 설정
 
     @Column(columnDefinition = "text", nullable = true)
     private String photo;
