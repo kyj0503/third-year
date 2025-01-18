@@ -1,5 +1,9 @@
+spring:
+  sql:
+    init:
+      mode: always
 google:
   cloud:
     storage:
-      key-file: ${GCS_KEY_FILE}
-      bucket-name: ${GCS_BUCKET_NAME}
+      key-file: ${GCS_KEY_FILE:gdgoc-448202-68d93825405d.json}
+      bucket-name: ${GCS_BUCKET_NAME:gdgoc_storage}
