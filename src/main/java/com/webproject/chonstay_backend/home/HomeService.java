@@ -2,7 +2,6 @@ package com.webproject.chonstay_backend.home;
 
 import com.webproject.chonstay_backend.common.Location;
 import com.webproject.chonstay_backend.home.dto.HomeGetResponse;
-import com.webproject.chonstay_backend.home.dto.HomePreview;
 import com.webproject.chonstay_backend.home.dto.HomesGetResponse;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -87,9 +86,9 @@ public class HomeService {
             homes = homeRepository.findAllByHomeStatusTrue();
         }
 
-        List<HomePreview> homePreviews = homes.stream()
-                .map(HomePreview::of)
+        List<HomeGetResponse> homeGetResponses = homes.stream()
+                .map(HomeGetResponse::of)
                 .collect(Collectors.toList());
-        return HomesGetResponse.of(homePreviews);
+        return HomesGetResponse.of(homeGetResponses);
     }
 }
