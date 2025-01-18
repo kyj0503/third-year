@@ -24,7 +24,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Build with Gradle
-        run: ./gradlew clean build -x test
+        run: ./gradlew clean build
         env:
           GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
 
@@ -43,9 +43,10 @@ jobs:
       - name: Deploy to Cloud Run
         run: |
           IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
+          echo "${{ secrets.GCS_KEY_FILE }}" > gcs-key.json
           gcloud run deploy my-app \
             --image $IMAGE_NAME \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
             --allow-unauthenticated \
-            --update-env-vars GCS_KEY_FILE=${{ secrets.GCS_KEY_FILE }}
+            --update-env-vars GCS_KEY_FILE=gcs-key.json
