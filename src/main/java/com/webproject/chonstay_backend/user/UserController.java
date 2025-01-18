@@ -1,11 +1,17 @@
 package com.webproject.chonstay_backend.user;
 
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import static org.springframework.http.HttpStatus.CREATED;
 
+import com.webproject.chonstay_backend.user.dto.SignUpRequest;
 import java.util.Map;
 import java.util.Optional;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
@@ -19,13 +25,11 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody User user) {
-        try {
-            userService.registerUser(user);
-            return ResponseEntity.ok("회원가입이 완료되었습니다!");
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("회원가입에 실패했습니다: " + e.getMessage());
-        }
+    public ResponseEntity<String> register(@RequestBody SignUpRequest request) {
+        userService.registerUser(request);
+        return ResponseEntity
+                .status(CREATED)
+                .body("User successfully registered.");
     }
 
     // 로그인

@@ -1,5 +1,6 @@
 package com.webproject.chonstay_backend.user;
 
+import com.webproject.chonstay_backend.user.dto.SignUpRequest;
 import jakarta.persistence.EntityNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -22,8 +23,16 @@ public class UserService {
     }
 
     // 회원가입
-    public void registerUser(User user) {
+    public void registerUser(SignUpRequest request) {
         try {
+            User user = User.builder()
+                    .name(request.getName())
+                    .email(request.getEmail())
+                    .userPassword(request.getUserPassword())
+                    .phoneNumber(request.getPhoneNumber())
+                    .role(Role.GUEST)
+                    .photo(null)
+                    .build();
             user.setUserPassword(hashPassword(user.getUserPassword()));
             userRepository.save(user);
         } catch (Exception e) {
@@ -53,7 +62,9 @@ public class UserService {
             StringBuilder hexString = new StringBuilder();
             for (byte b : encodedHash) {
                 String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
                 hexString.append(hex);
             }
             return hexString.toString();
