@@ -2,5 +2,17 @@ spring:
   sql:
     init:
       mode: always
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://34.22.70.86:3306/chonstay_db?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: kyj0503
 gcs:
   bucket-name: gdgoc_storage
+openai:
+  api:
+    key: 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
+    url: https://api.openai.com/v1/chat/completions
+google:
+  api:
+    key: AIzaSyB2p2N6T8wpmy-kBolESVSxBRxlKIqUuqg
