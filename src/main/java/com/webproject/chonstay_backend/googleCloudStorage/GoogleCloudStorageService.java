@@ -34,4 +34,22 @@ public class GoogleCloudStorageService {
 
         return blob.getMediaLink(); // 업로드된 파일의 URL 반환
     }
+
+    /**
+     * 업로드된 파일의 URL 반환
+     */
+    public String getFileUrl(String fileName) {
+        return String.format("https://storage.googleapis.com/%s/%s", bucketName, fileName);
+    }
+
+    /**
+     * 업로드된 파일을 다운로드 (바이너리 데이터)
+     */
+    public byte[] downloadFile(String fileName) {
+        Blob blob = storage.get(bucketName, fileName);
+        if (blob == null || !blob.exists()) {
+            throw new IllegalArgumentException("File not found in the bucket: " + fileName);
+        }
+        return blob.getContent();
+    }
 }
