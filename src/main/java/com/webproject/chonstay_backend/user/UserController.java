@@ -32,7 +32,7 @@ public class UserController {
     public ResponseEntity<String> login(@RequestParam String userEmail, @RequestParam String password) {
         Optional<User> user = userService.login(userEmail, password);
         if (user.isPresent()) {
-            return ResponseEntity.ok("로그인 성공. 환영합니다, " + user.get().getNickname() + "!");
+            return ResponseEntity.ok("로그인 성공. 환영합니다, !");
         } else {
             return ResponseEntity.status(401).body("로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.");
         }
