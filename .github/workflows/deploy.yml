@@ -45,7 +45,5 @@ jobs:
             --image $IMAGE_NAME \
             --region ${{ secrets.GCP_REGION }} \
             --platform managed \
-            --allow-unauthenticated
-        env:
-          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
-          GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
+            --allow-unauthenticated \
+            --update-env-vars GCS_BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }},GCS_KEY_FILE=${{ secrets.GCS_KEY_FILE }}
