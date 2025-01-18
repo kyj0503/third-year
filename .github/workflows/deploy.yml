@@ -10,39 +10,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Authenticate to Google Cloud
-      uses: google-github-actions/auth@v1
-      with:
-        credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
-    - name: Set up Google Cloud SDK
-      uses: google-github-actions/setup-gcloud@v1
-      with:
-        project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-    - name: Build with Gradle
-      run: ./gradlew clean build
+      - name: Build with Gradle
+        run: ./gradlew clean build
 
-    - name: Prepare build context
-      run: cp build/libs/chonstay_backend-0.0.1-SNAPSHOT.jar ./app.jar
+      - name: Prepare build context
+        run: cp build/libs/chonstay_backend-0.0.1-SNAPSHOT.jar ./app.jar
 
-    - name: Authenticate Docker to Artifact Registry
-      run: gcloud auth configure-docker asia.gcr.io
+      - name: Authenticate Docker to Artifact Registry
+        run: gcloud auth configure-docker asia.gcr.io
 
-    - name: Build and Push Docker Image
-      run: |
-        IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
-        docker build -t $IMAGE_NAME .
-        docker push $IMAGE_NAME
+      - name: Build and Push Docker Image
+        run: |
+          IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
 
-    - name: Deploy to Cloud Run
-      run: |
-        IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
-        gcloud run deploy my-app \
-          --image $IMAGE_NAME \
-          --region ${{ secrets.GCP_REGION }} \
-          --platform managed \
-          --allow-unauthenticated
+      - name: Deploy to Cloud Run
+        run: |
+          IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
+          gcloud run deploy my-app \
+            --image $IMAGE_NAME \
+            --region ${{ secrets.GCP_REGION }} \
+            --platform managed \
+            --allow-unauthenticated
+        env:
+          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
+          GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
+
+      - name: Configure environment variables for app
+        run: |
+          echo "Setting GCS_BUCKET_NAME and GCS_KEY_FILE in Cloud Run"
+          gcloud run services update my-app \
+            --update-env-vars GCS_BUCKET_NAME=${{ secrets.GCS_BUCKET_NAME }},GCS_KEY_FILE=${{ secrets.GCS_KEY_FILE }} \
+            --region ${{ secrets.GCP_REGION }} \
+            --platform managed
