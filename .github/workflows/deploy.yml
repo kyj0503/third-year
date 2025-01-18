@@ -24,7 +24,7 @@ jobs:
       run: ./gradlew clean build
 
     - name: Prepare build context
-      run: cp build/libs/*.jar ./app.jar
+      run: cp build/libs/chonstay_backend-0.0.1-SNAPSHOT.jar ./app.jar
 
     - name: Build and Push Docker Image
       run: |
