@@ -1,11 +1,11 @@
 package com.webproject.chonstay_backend.user;
 
-import org.springframework.stereotype.Service;
-
+import jakarta.persistence.EntityNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -14,6 +14,11 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public User getUserOrException(Long userId) {
+        return userRepository.findById(userId).orElseThrow(() ->
+                new EntityNotFoundException("User with ID " + userId + " not found"));
     }
 
     // 회원가입
