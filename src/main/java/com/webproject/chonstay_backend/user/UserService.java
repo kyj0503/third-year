@@ -37,6 +37,14 @@ public class UserService {
                 .filter(user -> user.getUserPassword().equals(hashPassword(rawPassword)));
     }
 
+    // Id로 유저 이름 가져오기
+    public String getUserNameById(Long userId) {
+        // 유저 데이터를 데이터베이스에서 조회
+        return userRepository.findById(userId)
+                .map(User::getName)
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
+    }
+
     // SHA-256 비밀번호 암호화
     private String hashPassword(String password) {
         try {
