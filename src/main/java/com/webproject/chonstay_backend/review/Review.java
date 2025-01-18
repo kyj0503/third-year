@@ -25,7 +25,7 @@ public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private String reviewId;
+    private Long reviewId;
 
     @Column(nullable = false)
     private String reviewTitle;
