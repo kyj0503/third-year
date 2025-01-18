@@ -14,22 +14,39 @@ import java.util.UUID;
 public class GCSService {
 
     private final Storage storage;
-    private final String bucketName = "gdgoc_storage"; // 하드코딩된 bucket name
+    private final String bucketName;
 
     public GCSService() throws IOException {
-        // 환경 변수에서 JSON 키 파일 경로 가져오기
-        String keyFilePath = System.getenv("GCS_KEY_FILE");
+        String keyFileContent = System.getenv("GCS_KEY_FILE");
+        this.bucketName = System.getenv("GCS_BUCKET_NAME");
 
-        if (keyFilePath == null || keyFilePath.isBlank()) {
-            throw new IllegalArgumentException("GCS_KEY_FILE 환경 변수가 설정되지 않았습니다.");
+        if (keyFileContent == null || this.bucketName == null) {
+            throw new IllegalArgumentException("GCS_KEY_FILE 또는 GCS_BUCKET_NAME 환경 변수가 설정되지 않았습니다.");
+        }
+
+        // GCS_KEY_FILE 처리: JSON 내용인지 파일 경로인지 확인
+        File keyFile;
+        if (keyFileContent.trim().startsWith("{")) {
+            // JSON 내용인 경우 임시 파일 생성
+            keyFile = createTempFile(keyFileContent);
+        } else {
+            // 파일 경로인 경우
+            keyFile = new File(keyFileContent);
+            if (!keyFile.exists()) {
+                throw new IllegalArgumentException("GCS_KEY_FILE 경로에 해당하는 파일이 존재하지 않습니다: " + keyFileContent);
+            }
         }
 
         // GoogleCredentials를 사용하여 인증
-        try (InputStream keyFileStream = new FileInputStream(keyFilePath)) {
+        try (InputStream keyFileStream = new FileInputStream(keyFile)) {
             this.storage = StorageOptions.newBuilder()
                     .setCredentials(GoogleCredentials.fromStream(keyFileStream))
                     .build()
                     .getService();
+        } finally {
+            if (keyFileContent.trim().startsWith("{")) {
+                keyFile.delete(); // JSON 내용에서 생성된 임시 파일 삭제
+            }
         }
     }
 
@@ -44,4 +61,13 @@ public class GCSService {
 
         return String.format("https://storage.googleapis.com/%s/%s", bucketName, fileName);
     }
+
+    private File createTempFile(String content) throws IOException {
+        File tempFile = File.createTempFile("gcs-key", ".json");
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(content.getBytes());
+        }
+        return tempFile;
+    }
 }
+
