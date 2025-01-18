@@ -20,18 +20,19 @@ jobs:
         service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
         export_default_credentials: true
 
+    - name: Build with Gradle
+      run: ./gradlew clean build -x test
+
+    - name: Prepare build context
+      run: cp build/libs/*.jar ./app.jar
+
     - name: Build and Push Docker Image
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
-        ./gradlew clean build -x test
         IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
         docker build -t $IMAGE_NAME .
         docker push $IMAGE_NAME
 
     - name: Deploy to Cloud Run
-      env:
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       run: |
         IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
         gcloud run deploy my-app \
