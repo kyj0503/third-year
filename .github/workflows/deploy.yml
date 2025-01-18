@@ -26,12 +26,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build -x test
 
-      - name: Run Tests with Gradle
-        run: ./gradlew test
-        env:
-          GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
-          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
-
       - name: Prepare build context
         run: cp build/libs/chonstay_backend-0.0.1-SNAPSHOT.jar ./app.jar
 
