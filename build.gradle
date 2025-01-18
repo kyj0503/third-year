@@ -1,3 +1,7 @@
+bootJar {
+    archiveFileName = 'app.jar'
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.1'
