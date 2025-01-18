@@ -26,6 +26,9 @@ jobs:
     - name: Prepare build context
       run: cp build/libs/chonstay_backend-0.0.1-SNAPSHOT.jar ./app.jar
 
+    - name: Authenticate Docker to Artifact Registry
+      run: gcloud auth configure-docker asia.gcr.io
+
     - name: Build and Push Docker Image
       run: |
         IMAGE_NAME=asia.gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-app
