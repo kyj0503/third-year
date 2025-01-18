@@ -14,13 +14,11 @@ import java.util.UUID;
 public class GCSService {
 
     private final Storage storage;
-    private final String bucketName;
 
     public GCSService() throws IOException {
         String keyFileContent = System.getenv("GCS_KEY_FILE");
-        this.bucketName = System.getenv("GCS_BUCKET_NAME");
 
-        if (keyFileContent == null || this.bucketName == null) {
+        if (keyFileContent == null) {
             throw new IllegalArgumentException("GCS_KEY_FILE 또는 GCS_BUCKET_NAME 환경 변수가 설정되지 않았습니다.");
         }
 
@@ -53,6 +51,7 @@ public class GCSService {
     public String uploadImage(MultipartFile file) throws IOException {
         String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
+        String bucketName = "gdgoc_storage";
         BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, fileName)
                 .setContentType(file.getContentType())
                 .build();
