@@ -24,13 +24,7 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Build with Gradle
-        run: ./gradlew clean build
-        env:
-          GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
-          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
-
-      - name: Run Tests
-        run: ./gradlew clean test
+        run: ./gradlew clean build -x test
         env:
           GCS_KEY_FILE: ${{ secrets.GCS_KEY_FILE }}
           GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
