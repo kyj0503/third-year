@@ -44,4 +44,10 @@ public class UserController {
             ));
         }
     }
+
+    // 마이페이지
+    @GetMapping("/mypage")
+    public String getUserNameById(Long userId) {
+        return userService.getUserNameById(userId);
+    }
 }
