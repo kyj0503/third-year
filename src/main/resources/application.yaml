@@ -2,7 +2,3 @@ spring:
   sql:
     init:
       mode: always
-google:
-  cloud:
-    storage:
-      bucket-name: gdgoc_storage # bucket-name 하드코딩

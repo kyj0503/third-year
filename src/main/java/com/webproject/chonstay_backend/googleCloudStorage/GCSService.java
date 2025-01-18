@@ -17,24 +17,19 @@ public class GCSService {
     private final String bucketName = "gdgoc_storage"; // 하드코딩된 bucket name
 
     public GCSService() throws IOException {
-        // GCS_KEY_FILE 환경 변수에서 JSON 형식의 데이터 가져오기
-        String keyFileContent = System.getenv("GCS_KEY_FILE");
+        // 환경 변수에서 JSON 키 파일 경로 가져오기
+        String keyFilePath = System.getenv("GCS_KEY_FILE");
 
-        if (keyFileContent == null || keyFileContent.isBlank()) {
+        if (keyFilePath == null || keyFilePath.isBlank()) {
             throw new IllegalArgumentException("GCS_KEY_FILE 환경 변수가 설정되지 않았습니다.");
         }
 
-        // JSON 내용을 임시 파일로 저장
-        File keyFile = createTempFile(keyFileContent);
-
         // GoogleCredentials를 사용하여 인증
-        try (InputStream keyFileStream = new FileInputStream(keyFile)) {
+        try (InputStream keyFileStream = new FileInputStream(keyFilePath)) {
             this.storage = StorageOptions.newBuilder()
                     .setCredentials(GoogleCredentials.fromStream(keyFileStream))
                     .build()
                     .getService();
-        } finally {
-            keyFile.delete(); // 임시 파일 삭제
         }
     }
 
@@ -48,14 +43,5 @@ public class GCSService {
         storage.create(blobInfo, file.getBytes());
 
         return String.format("https://storage.googleapis.com/%s/%s", bucketName, fileName);
-    }
-
-    // JSON 내용을 임시 파일로 저장하는 메서드
-    private File createTempFile(String content) throws IOException {
-        File tempFile = File.createTempFile("gcs-key", ".json");
-        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
-            fos.write(content.getBytes());
-        }
-        return tempFile;
     }
 }
