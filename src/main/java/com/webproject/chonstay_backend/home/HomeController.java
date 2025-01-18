@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
     private final HomeService homeService;
+
+    @PostMapping("/home")
+    public ResponseEntity<String> registerHome(@RequestBody HomeRegisterRequestDto requestDto) {
+        homeService.registerHome(requestDto); // 서비스 계층에서 등록 처리
+        return ResponseEntity.ok("Home successfully registered!");
+    }
 
     @GetMapping("/{homeId}")
     public ResponseEntity<HomeGetResponse> getHome(@PathVariable Long homeId) {

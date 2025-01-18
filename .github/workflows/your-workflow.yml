@@ -1,6 +1,0 @@
-env:
-  GOOGLE_APPLICATION_CREDENTIALS: gcs-key-file.json
-
-steps:
-  - name: Set up Google Cloud credentials
-    run: echo "${{ secrets.GCS_KEY_FILE }}" > gcs-key-file.json
