@@ -19,9 +19,10 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Getter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Home {
 
@@ -35,10 +36,12 @@ public class Home {
     @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false)
+    //null = true
+    @Column(nullable = true)
     private BigDecimal latitude;
 
-    @Column(nullable = false)
+    //null = true
+    @Column(nullable = true)
     private BigDecimal longitude;
 
     @Column(nullable = false)
@@ -67,4 +70,10 @@ public class Home {
 
     @OneToMany(mappedBy = "home", fetch = FetchType.LAZY)
     private List<Review> reviews = new ArrayList<>();
+
+    // latitude와 longitude를 설정하는 메서드
+    public void setCoordinates(BigDecimal latitude, BigDecimal longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 }
