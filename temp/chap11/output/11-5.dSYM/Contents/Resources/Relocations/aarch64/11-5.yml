@@ -1,0 +1,14 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/serial/source/Cpp/chap11/output/11-5'
+relocations:
+  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003BA4, symSize: 0x164 }
+  - { offset: 0x3A3C, size: 0x8, addend: 0x0, symName: __ZNSt3__14endlB8ne180100IcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_, symObjAddr: 0x190, symBinAddr: 0x100003D34, symSize: 0x58 }
+  - { offset: 0x3A7C, size: 0x8, addend: 0x0, symName: __ZNSt3__19use_facetB8ne180100INS_5ctypeIcEEEERKT_RKNS_6localeE, symObjAddr: 0x2D0, symBinAddr: 0x100003E74, symSize: 0x2C }
+  - { offset: 0x4D43, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003BA4, symSize: 0x164 }
+  - { offset: 0x4E3A, size: 0x8, addend: 0x0, symName: __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEElsB8ne180100EPFRS3_S4_E, symObjAddr: 0x164, symBinAddr: 0x100003D08, symSize: 0x2C }
+  - { offset: 0x4E6C, size: 0x8, addend: 0x0, symName: __ZNSt3__18ios_base6unsetfB8ne180100Ej, symObjAddr: 0x1E8, symBinAddr: 0x100003D8C, symSize: 0x28 }
+  - { offset: 0x4EA1, size: 0x8, addend: 0x0, symName: __ZNSt3__18ios_base4setfB8ne180100Ej, symObjAddr: 0x210, symBinAddr: 0x100003DB4, symSize: 0x34 }
+  - { offset: 0x4EE5, size: 0x8, addend: 0x0, symName: __ZNKSt3__19basic_iosIcNS_11char_traitsIcEEE5widenB8ne180100Ec, symObjAddr: 0x244, symBinAddr: 0x100003DE8, symSize: 0x8C }
+  - { offset: 0x4F5C, size: 0x8, addend: 0x0, symName: __ZNKSt3__15ctypeIcE5widenB8ne180100Ec, symObjAddr: 0x2FC, symBinAddr: 0x100003EA0, symSize: 0x38 }
+...
