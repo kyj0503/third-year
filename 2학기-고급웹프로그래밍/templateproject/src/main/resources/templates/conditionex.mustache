@@ -1,0 +1,20 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h1>Welcome</h1>
+<!-- 조건 -->
+<!-- #의 변수가 true일 때 안에 값을 실행하고 아닐 경우 ^의 안에 있는 값을 실행한다.-->
+    {{#logedIn}}
+        <p>Hello, {{username}}! You're logged in.</p>
+    {{/logedIn}}
+    {{^logedIn}}
+        <p>You are not logged in. Please log in.</p>
+    {{/logedIn}}
+</body>
+</html>
