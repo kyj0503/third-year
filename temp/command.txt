@@ -1,0 +1,39 @@
+
+//가상환경
+venv\Scripts\activate.bat
+
+/django 프로젝트 생성
+django-admin startproject my_project .
+
+//서버 구동
+python manage.py runserver
+
+//하나의 프로젝트에 여러 개의 앱을 개발 할 수 있다.
+//앱 추가
+python manage.py startapp mysite
+python manage.py startapp pages``
+
+//장고는 SQL 없이 데이터를 처리한다.
+https://docs.djangoproject.com/en/4.0/intro/tutorial02/
+
+//장고 모델에서 사용하는 Field타입
+https://docs.djangoproject.com/en/3.0/ref/models/fields/#field-types
+
+python manage.py makemigrations
+//실제 데이터베이스 모델에 적용
+python manage.py migrate
+
+//관리자 페이지에서 MainContent 작성하기
+https://docs.djangoproject.com/en/4.0/intro/tutorial02/
+python manage.py createsuperuser
+http://localhost:8000/admin/
+
+템플릿을 보면 {% %}로 둘러 쌓인 문장이 있는데 이를 템플릿 태그라고 한다.
+{% if content_list %}로 콘텐츠 목록이 있는지 검증하고 없다면
+{% else %}로 content가 없다는 내용을 출력한다.
+{% for content in content_list %}는 반복문으로 이해하면 된다
+https://docs.djangoproject.com/en/4.0/intro/tutorial03/
+
+//계정 관련 코드를 관리할 app
+django-admin startapp accounts
+
