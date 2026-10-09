@@ -30,9 +30,9 @@ export default function Temp({ userNx, userNy }) {
           `${yesterday.getFullYear()}${('0' + (yesterday.getMonth() + 1)).slice(-2)}${('0' + yesterday.getDate()).slice(-2)}` : 
           `${today.getFullYear()}${('0' + (today.getMonth() + 1)).slice(-2)}${('0' + today.getDate()).slice(-2)}`;
 
-        const { data } = await axios.get('http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst', {
+        const { data } = await axios.get('https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst', {
           params: {
-            serviceKey: 'V7RZpsZ3goxaM6p+ssykmuOrRrMqJhojqMa6GbYCOaXRdFV1vKburVUVbFUdARFRk+T9TfQpIyigFlRblBFwDA==',
+            serviceKey: process.env.EXPO_PUBLIC_DATA_GO_KR_SERVICE_KEY,
             numOfRows: 2000,
             pageNo: 1,
             dataType: 'JSON',
@@ -75,7 +75,7 @@ export default function Temp({ userNx, userNy }) {
         setLoading(false);
 
       } catch (error) {
-        console.error('Error fetching weather data:', error);
+        console.error('Error fetching weather data:', error.response?.status ?? 'network or response error');
         setLoading(false);
       }
     };

@@ -19,10 +19,10 @@ export default function Dust() {
       try {
         // 한국환경공단 에어코리아 API 사용
         const { data } = await axios.get(
-          'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty', {
+          'https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty', {
             params: {
               // 서비스키 (김연재)
-              serviceKey: 'V7RZpsZ3goxaM6p+ssykmuOrRrMqJhojqMa6GbYCOaXRdFV1vKburVUVbFUdARFRk+T9TfQpIyigFlRblBFwDA==',
+              serviceKey: process.env.EXPO_PUBLIC_DATA_GO_KR_SERVICE_KEY,
               returnType: 'json',
               numOfRows: 100,
               pageNo: 1,
@@ -53,7 +53,7 @@ export default function Dust() {
           console.error('Error fetching air quality data:', responseHeader?.resultMsg || 'No data available');
         }
       } catch (error) {
-        console.error('Error fetching air quality data:', error);
+        console.error('Error fetching air quality data:', error.response?.status ?? 'network or response error');
       }
     };
     // 컴포넌트가 마운트될 때 한 번만 미세먼지 정보를 가져옴

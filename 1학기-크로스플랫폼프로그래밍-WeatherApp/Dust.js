@@ -17,9 +17,9 @@ const Dust = ({ onDustLevelFetched }) => {
     const fetchAirQuality = async () => {
       try {
         const { data } = await axios.get(
-          'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty', {
+          'https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty', {
             params: {
-              serviceKey: 'V7RZpsZ3goxaM6p+ssykmuOrRrMqJhojqMa6GbYCOaXRdFV1vKburVUVbFUdARFRk+T9TfQpIyigFlRblBFwDA==',
+              serviceKey: process.env.EXPO_PUBLIC_DATA_GO_KR_SERVICE_KEY,
               returnType: 'json',
               numOfRows: 100,
               pageNo: 1,
@@ -50,7 +50,7 @@ const Dust = ({ onDustLevelFetched }) => {
           console.error('Error fetching air quality data:', responseHeader?.resultMsg || 'No data available');
         }
       } catch (error) {
-        console.error('Error fetching air quality data:', error);
+        console.error('Error fetching air quality data:', error.response?.status ?? 'network or response error');
       }
     };
 
