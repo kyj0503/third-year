@@ -28,9 +28,9 @@ export default function Weather({ userNx, userNy }) {
     const fetchWeather = async () => {
       try {
         const { data } = await axios.get(
-          'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst', {
+          'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst', {
             params: {
-              serviceKey: 'V7RZpsZ3goxaM6p+ssykmuOrRrMqJhojqMa6GbYCOaXRdFV1vKburVUVbFUdARFRk+T9TfQpIyigFlRblBFwDA==',
+              serviceKey: process.env.EXPO_PUBLIC_DATA_GO_KR_SERVICE_KEY,
               numOfRows: 1000,
               pageNo: 1,
               dataType: 'JSON',
@@ -108,7 +108,7 @@ export default function Weather({ userNx, userNy }) {
           skyType,
         });
       } catch (error) {
-        console.error('Error fetching weather data:', error);
+        console.error('Error fetching weather data:', error.response?.status ?? 'network or response error');
       }
     };
 
